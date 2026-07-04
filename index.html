@@ -1,0 +1,1083 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Show Me the Receipts | How Donor Trust Actually Gets Built</title>
+<meta name="description" content="A reference on how donor trust actually gets built — through verifiable promises kept, visible and invisible.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --afp-blue: #3D00A4;
+    --nav-blue: #28006C;
+    --gold: #C9A24A;
+    --cream: #FAF7F0;
+    --charcoal: #2A1F3D;
+    --soft-gray: #6B6378;
+    --light-gold: #F0E4C2;
+    --serif: "Newsreader", Georgia, "Times New Roman", serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background: var(--cream);
+    color: var(--charcoal);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* NAV BAND */
+  nav.topnav {
+    background: var(--nav-blue);
+    padding: 1rem 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  }
+  nav.topnav .brand {
+    color: white;
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    text-decoration: none;
+  }
+  nav.topnav .navlinks {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  nav.topnav .navlinks a {
+    color: white;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 0.25rem 0;
+    border-bottom: 2px solid transparent;
+    transition: border-color 0.2s;
+  }
+  nav.topnav .navlinks a:hover { border-bottom-color: var(--gold); }
+  nav.topnav .navlinks a.active { border-bottom-color: var(--gold); }
+
+  /* RESOURCES DROPDOWN — added for cross-page nav access */
+  nav.topnav .navdropdown {
+    position: relative;
+    display: inline-block;
+    outline: none;
+  }
+  nav.topnav .navdropdown-toggle {
+    color: white;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.25rem 0;
+    border-bottom: 2px solid transparent;
+    transition: border-color 0.2s;
+    cursor: pointer;
+    user-select: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+  nav.topnav .navdropdown:hover .navdropdown-toggle,
+  nav.topnav .navdropdown:focus-within .navdropdown-toggle {
+    border-bottom-color: var(--gold);
+  }
+  nav.topnav .navdropdown .caret {
+    font-size: 0.7em;
+    display: inline-block;
+    transition: transform 0.2s;
+  }
+  nav.topnav .navdropdown:hover .caret,
+  nav.topnav .navdropdown:focus-within .caret {
+    transform: translateY(2px);
+  }
+  nav.topnav .navdropdown-menu {
+    position: absolute;
+    top: calc(100% + 0.75rem);
+    right: 0;
+    background: white;
+    border: 1px solid rgba(0,0,0,0.08);
+    border-radius: 6px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+    min-width: 290px;
+    padding: 0.5rem 0;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-4px);
+    transition: opacity 0.15s, visibility 0.15s, transform 0.15s;
+    z-index: 200;
+  }
+  nav.topnav .navdropdown:hover .navdropdown-menu,
+  nav.topnav .navdropdown:focus-within .navdropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+  nav.topnav .navlinks .navdropdown-menu a {
+    display: block;
+    padding: 0.75rem 1.125rem;
+    color: var(--charcoal);
+    text-decoration: none;
+    border: none;
+    border-bottom: none;
+    letter-spacing: 0;
+    text-transform: none;
+    font-weight: 500;
+    font-size: 0.9375rem;
+    transition: background-color 0.15s;
+  }
+  nav.topnav .navlinks .navdropdown-menu a:hover {
+    background-color: var(--cream);
+    border-bottom: none;
+  }
+  nav.topnav .navdropdown-menu .dropdown-label {
+    display: block;
+    font-weight: 700;
+    color: var(--afp-blue);
+    margin-bottom: 0.1875rem;
+    font-size: 0.9375rem;
+    letter-spacing: 0;
+  }
+  nav.topnav .navdropdown-menu .dropdown-desc {
+    display: block;
+    font-size: 0.75rem;
+    color: var(--soft-gray);
+    font-weight: 400;
+    letter-spacing: 0;
+    line-height: 1.4;
+  }
+  /* MOBILE NAV — pure-CSS hamburger (checkbox toggle, no JS required) */
+  .nav-toggle { display: none; }
+  .nav-toggle-label {
+    display: none;
+    cursor: pointer;
+    width: 28px;
+    height: 22px;
+    position: relative;
+    flex-shrink: 0;
+  }
+  .nav-toggle-label span,
+  .nav-toggle-label span::before,
+  .nav-toggle-label span::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: white;
+    border-radius: 2px;
+    transition: transform 0.25s ease, opacity 0.2s ease, top 0.25s ease;
+  }
+  .nav-toggle-label span { top: 10px; }
+  .nav-toggle-label span::before { top: -8px; }
+  .nav-toggle-label span::after { top: 8px; }
+  .nav-toggle:checked ~ .nav-toggle-label span { background: transparent; }
+  .nav-toggle:checked ~ .nav-toggle-label span::before { top: 0; transform: rotate(45deg); }
+  .nav-toggle:checked ~ .nav-toggle-label span::after { top: 0; transform: rotate(-45deg); }
+
+  @media (max-width: 860px) {
+    nav.topnav {
+      flex-wrap: wrap;
+      padding: 0.875rem 1.25rem;
+    }
+    nav.topnav .brand { white-space: nowrap; }
+    .nav-toggle-label { display: block; }
+
+    /* Collapse the link row into a slide-down panel */
+    nav.topnav .navlinks {
+      display: block;
+      flex-basis: 100%;
+      width: 100%;
+      order: 3;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+    }
+    .nav-toggle:checked ~ .navlinks {
+      max-height: 100vh;
+      overflow-y: auto;
+    }
+    nav.topnav .navlinks > a {
+      display: block;
+      padding: 0.875rem 0;
+      font-size: 0.8125rem;
+      border-bottom: 1px solid rgba(255,255,255,0.12);
+    }
+    nav.topnav .navlinks > a:first-child { margin-top: 0.75rem; }
+    nav.topnav .navlinks > a:hover,
+    nav.topnav .navlinks > a.active { border-bottom-color: var(--gold); }
+
+    /* Flatten the Resources dropdown: always-visible group inside the panel */
+    nav.topnav .navdropdown { display: block; width: 100%; }
+    nav.topnav .navdropdown-toggle {
+      display: block;
+      padding: 0.875rem 0 0.5rem;
+      border-bottom: none;
+      cursor: default;
+      color: var(--gold);
+    }
+    nav.topnav .navdropdown .caret { display: none; }
+    nav.topnav .navdropdown-menu {
+      position: static;
+      opacity: 1;
+      visibility: visible;
+      transform: none;
+      min-width: 0;
+      width: 100%;
+      background: rgba(255,255,255,0.06);
+      border: none;
+      border-radius: 4px;
+      box-shadow: none;
+      margin-bottom: 0.75rem;
+      padding: 0.25rem 0;
+    }
+    nav.topnav .navlinks .navdropdown-menu a {
+      color: white;
+      padding: 0.75rem 1rem;
+    }
+    nav.topnav .navlinks .navdropdown-menu a:hover { background: rgba(255,255,255,0.08); }
+    nav.topnav .navdropdown-menu .dropdown-label { color: white; }
+    nav.topnav .navdropdown-menu .dropdown-desc { color: rgba(255,255,255,0.65); }
+  }
+
+  /* PAGE HERO */
+  .page-hero {
+    background: var(--afp-blue);
+    color: white;
+    padding: 5rem 1.5rem 5.5rem;
+    text-align: center;
+  }
+  .page-hero .eyebrow {
+    font-size: 0.75rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    opacity: 0.85;
+    margin-bottom: 1.25rem;
+    font-weight: 600;
+  }
+  .page-hero h1 {
+    font-family: var(--serif);
+    font-size: clamp(2.75rem, 7.5vw, 4.75rem);
+    font-weight: 600;
+    letter-spacing: -0.028em;
+    margin-bottom: 0.5rem;
+    line-height: 0.98;
+    font-variation-settings: "opsz" 72;
+  }
+  .page-hero .subtitle {
+    font-family: var(--serif);
+    font-size: clamp(1.25rem, 2.85vw, 1.65rem);
+    font-style: italic;
+    opacity: 0.92;
+    font-weight: 400;
+    margin-bottom: 1.5rem;
+    font-variation-settings: "opsz" 24;
+    letter-spacing: 0.005em;
+  }
+  .page-hero .attribution {
+    font-size: 0.75rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    opacity: 0.75;
+    font-weight: 600;
+  }
+
+  /* ESSAY */
+  .essay {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 5rem 1.5rem 2rem;
+  }
+  .essay .essay-eyebrow {
+    text-align: center;
+    font-size: 0.75rem;
+    color: var(--afp-blue);
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    font-weight: 700;
+    margin-bottom: 2rem;
+  }
+  .essay p {
+    font-size: 1.0625rem;
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+    color: var(--charcoal);
+  }
+  .essay p:last-child { margin-bottom: 0; }
+  .essay p.lede {
+    font-family: var(--serif);
+    font-size: 1.45rem;
+    line-height: 1.5;
+    font-weight: 400;
+    color: var(--afp-blue);
+    font-variation-settings: "opsz" 24;
+    letter-spacing: -0.005em;
+  }
+
+  /* FIELD STANDARDS */
+  .field-standards {
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 0 1.5rem 3rem;
+  }
+  .field-standards-divider {
+    border: 0;
+    border-top: 1px solid rgba(61, 0, 164, 0.2);
+    margin: 0 0 2.5rem 0;
+  }
+  .field-standards h3 {
+    font-size: 0.75rem;
+    color: var(--afp-blue);
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+    font-weight: 700;
+    text-align: center;
+  }
+  .field-standards .standards-intro {
+    text-align: center;
+    color: var(--soft-gray);
+    font-style: italic;
+    font-size: 0.9375rem;
+    margin-bottom: 2rem;
+    max-width: 640px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.6;
+  }
+  .standards-links {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 1.25rem;
+  }
+  .standards-link {
+    display: block;
+    padding: 1.5rem 1.5rem;
+    text-decoration: none;
+    color: inherit;
+    background: rgba(61, 0, 164, 0.04);
+    border-left: 3px solid var(--afp-blue);
+    border-radius: 0 4px 4px 0;
+    transition: background 0.2s ease, border-color 0.2s ease;
+  }
+  .standards-link:hover {
+    background: rgba(61, 0, 164, 0.08);
+  }
+  .standards-link .standard-title {
+    color: var(--afp-blue);
+    font-size: 1.0625rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    line-height: 1.3;
+  }
+  .standards-link .standard-meta {
+    color: var(--soft-gray);
+    font-size: 0.8125rem;
+    font-style: italic;
+    margin-bottom: 0.75rem;
+    line-height: 1.5;
+  }
+  .standards-link .standard-action {
+    color: var(--afp-blue);
+    font-weight: 700;
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  /* MANTRA BAND */
+  .mantra-band {
+    background: var(--gold);
+    padding: 5.5rem 1.5rem 5rem;
+    text-align: center;
+    margin-top: 4rem;
+  }
+  .mantra-line {
+    font-family: var(--serif);
+    color: var(--afp-blue);
+    font-size: clamp(1.875rem, 4.75vw, 2.875rem);
+    font-weight: 500;
+    line-height: 1.15;
+    letter-spacing: -0.022em;
+    margin-bottom: 0.1rem;
+    font-variation-settings: "opsz" 60;
+  }
+  .mantra-divider {
+    width: 48px;
+    height: 1px;
+    background: var(--afp-blue);
+    opacity: 0.4;
+    margin: 2.25rem auto 1.75rem;
+    border: none;
+  }
+  .mantra-tagline {
+    font-family: var(--serif);
+    color: var(--afp-blue);
+    font-size: clamp(1rem, 2.1vw, 1.25rem);
+    font-style: italic;
+    font-weight: 400;
+    opacity: 0.78;
+    letter-spacing: 0.005em;
+    line-height: 1.5;
+    max-width: 480px;
+    margin: 0 auto;
+    font-variation-settings: "opsz" 18;
+  }
+
+  /* DOWNLOADS */
+  .downloads {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 5rem 1.5rem 3rem;
+  }
+  .downloads h2 {
+    font-size: 0.875rem;
+    color: var(--afp-blue);
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+    font-weight: 700;
+    text-align: center;
+  }
+  .downloads .downloads-intro {
+    text-align: center;
+    color: var(--soft-gray);
+    font-style: italic;
+    font-size: 0.9375rem;
+    margin-bottom: 2.5rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .download-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+  .download-card {
+    display: flex;
+    flex-direction: column;
+    background: white;
+    border: 2px solid var(--gold);
+    border-radius: 4px;
+    padding: 2.25rem 1.875rem;
+    text-decoration: none;
+    color: inherit;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  }
+  .download-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 28px rgba(61, 0, 164, 0.12);
+    border-color: var(--afp-blue);
+  }
+  .download-card.disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+    background: rgba(255,255,255,0.6);
+  }
+  .download-card.disabled:hover {
+    transform: none;
+    box-shadow: none;
+    border-color: var(--gold);
+  }
+  .download-card .card-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+  .download-card.disabled .card-label { color: var(--soft-gray); }
+  .download-card h3 {
+    color: var(--afp-blue);
+    font-size: 1.5rem;
+    margin-bottom: 0.75rem;
+    line-height: 1.2;
+    font-weight: 700;
+  }
+  .download-card p {
+    font-size: 0.9375rem;
+    line-height: 1.65;
+    margin-bottom: 1.5rem;
+    color: var(--charcoal);
+    flex-grow: 1;
+  }
+  .download-card .card-action {
+    color: var(--afp-blue);
+    font-weight: 700;
+    font-size: 0.8125rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-top: auto;
+  }
+  .download-card.disabled .card-action {
+    color: var(--soft-gray);
+    font-style: italic;
+    text-transform: none;
+    letter-spacing: normal;
+    font-size: 0.875rem;
+  }
+
+  /* FURTHER READING — author's own papers, AFP Blue accent */
+  .further-reading {
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 0 1.5rem 3rem;
+  }
+  .further-reading-divider {
+    border: 0;
+    border-top: 1px solid rgba(61, 0, 164, 0.2);
+    margin: 0 0 2.5rem 0;
+  }
+  .further-reading h3 {
+    font-size: 0.75rem;
+    color: var(--afp-blue);
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+    font-weight: 700;
+    text-align: center;
+  }
+  .further-reading .reading-intro {
+    text-align: center;
+    color: var(--soft-gray);
+    font-style: italic;
+    font-size: 0.9375rem;
+    margin-bottom: 2rem;
+    max-width: 640px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.6;
+  }
+  .reading-link {
+    display: block;
+    padding: 1.5rem 1.5rem;
+    text-decoration: none;
+    color: inherit;
+    background: rgba(61, 0, 164, 0.04);
+    border-left: 3px solid var(--afp-blue);
+    border-radius: 0 4px 4px 0;
+    transition: background 0.2s ease, border-color 0.2s ease;
+  }
+  .reading-link:hover {
+    background: rgba(61, 0, 164, 0.08);
+  }
+  .reading-link .reading-title {
+    color: var(--afp-blue);
+    font-size: 1.0625rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    line-height: 1.3;
+  }
+  .reading-link .reading-meta {
+    color: var(--soft-gray);
+    font-size: 0.8125rem;
+    font-style: italic;
+    line-height: 1.5;
+  }
+
+  /* MAKE MY PROMISE — form section */
+  .promise {
+    background: var(--afp-blue);
+    padding: 5rem 1.5rem 5.5rem;
+  }
+  .promise-inner {
+    max-width: 620px;
+    margin: 0 auto;
+  }
+  .promise .promise-eyebrow {
+    text-align: center;
+    font-size: 0.75rem;
+    color: var(--light-gold);
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+  .promise h2 {
+    font-family: var(--serif);
+    color: white;
+    font-size: clamp(2rem, 5vw, 2.875rem);
+    font-weight: 600;
+    line-height: 1.05;
+    letter-spacing: -0.022em;
+    text-align: center;
+    margin-bottom: 1rem;
+    font-variation-settings: "opsz" 48;
+  }
+  .promise .promise-intro {
+    text-align: center;
+    color: rgba(255,255,255,0.9);
+    font-size: 1.0625rem;
+    line-height: 1.7;
+    max-width: 520px;
+    margin: 0 auto 2.5rem;
+  }
+  .promise-card {
+    background: var(--cream);
+    border: 2px solid var(--gold);
+    border-radius: 4px;
+    padding: 2.5rem 2.25rem;
+  }
+  .promise-field { margin-bottom: 1.5rem; }
+  .promise-field:last-of-type { margin-bottom: 2rem; }
+  .promise-field label {
+    display: block;
+    font-size: 0.75rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: var(--afp-blue);
+    margin-bottom: 0.5rem;
+  }
+  .promise-field .field-hint {
+    font-size: 0.8125rem;
+    color: var(--soft-gray);
+    font-style: italic;
+    margin-bottom: 0.625rem;
+    line-height: 1.5;
+  }
+  .promise-field input,
+  .promise-field textarea {
+    width: 100%;
+    box-sizing: border-box;
+    background: white;
+    border: 1px solid rgba(61, 0, 164, 0.25);
+    border-radius: 4px;
+    padding: 0.875rem 1rem;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--charcoal);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+  .promise-field textarea {
+    resize: none;
+    overflow: hidden;
+    min-height: 5.25rem;
+  }
+  .promise-field input:focus,
+  .promise-field textarea:focus {
+    outline: none;
+    border-color: var(--afp-blue);
+    box-shadow: 0 0 0 3px rgba(61, 0, 164, 0.12);
+  }
+  .promise-field input::placeholder,
+  .promise-field textarea::placeholder { color: #9a93a8; }
+  .promise-submit {
+    width: 100%;
+    background: var(--afp-blue);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 1rem 1.5rem;
+    font-family: inherit;
+    font-size: 0.8125rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.2s ease;
+  }
+  .promise-submit:hover { background: var(--nav-blue); }
+  .promise-privacy {
+    text-align: center;
+    color: rgba(255,255,255,0.7);
+    font-size: 0.8125rem;
+    font-style: italic;
+    line-height: 1.6;
+    margin-top: 1.75rem;
+    max-width: 480px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  /* Success state */
+  .promise-success {
+    display: none;
+    background: var(--cream);
+    border: 2px solid var(--gold);
+    border-radius: 4px;
+    padding: 3rem 2.25rem;
+    text-align: center;
+  }
+  .promise-success h3 {
+    font-family: var(--serif);
+    color: var(--afp-blue);
+    font-size: clamp(1.75rem, 4vw, 2.25rem);
+    font-weight: 600;
+    margin-bottom: 0.875rem;
+    font-variation-settings: "opsz" 36;
+  }
+  .promise-success p {
+    color: var(--charcoal);
+    font-size: 1.0625rem;
+    line-height: 1.7;
+    max-width: 420px;
+    margin: 0 auto;
+  }
+  /* Hero "Make My Promise" button */
+  .hero-cta {
+    display: inline-block;
+    margin-top: 2rem;
+    background: var(--gold);
+    color: var(--afp-blue);
+    text-decoration: none;
+    padding: 0.875rem 2rem;
+    border-radius: 4px;
+    font-size: 0.8125rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .hero-cta:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.18);
+  }
+  @media (max-width: 600px) {
+    .promise { padding: 3.5rem 1.25rem 4rem; }
+    .promise-card { padding: 2rem 1.5rem; }
+    .promise-success { padding: 2.5rem 1.5rem; }
+  }
+
+  /* FOOTER */
+  footer {
+    background: var(--cream);
+    padding: 2.5rem 1.5rem;
+    text-align: center;
+    color: var(--soft-gray);
+    font-size: 0.8125rem;
+    border-top: 1px solid rgba(0,0,0,0.05);
+  }
+  footer p { margin-bottom: 0.25rem; }
+  footer .footer-url {
+    color: var(--afp-blue);
+    font-weight: 700;
+    letter-spacing: 0.05em;
+  }
+  footer .attribution {
+    margin-top: 0.5rem;
+    font-style: italic;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 600px) {
+    nav.topnav { padding: 0.875rem 1rem; }
+    nav.topnav .brand { font-size: 0.8125rem; letter-spacing: 0.15em; }
+    .page-hero { padding: 3.5rem 1.25rem 3.5rem; }
+    .essay { padding: 3rem 1.25rem 1rem; }
+    .essay p.lede { font-size: 1.2rem; }
+    .essay p { font-size: 1rem; }
+    .mantra-band { padding: 3.5rem 1.25rem; margin-top: 3rem; }
+    .downloads { padding: 3rem 1.25rem 3rem; }
+    .download-card { padding: 1.75rem 1.5rem; }
+  }
+
+  /* MOBILE REFINEMENTS — applied last so they override earlier rules */
+  @media (max-width: 480px) {
+    nav.topnav { padding: 0.75rem 1rem; }
+    nav.topnav .brand {
+      font-size: 0.75rem;
+      letter-spacing: 0.12em;
+    }
+    .page-hero { padding: 2.5rem 1.25rem 2.75rem; }
+    .essay { padding: 2.5rem 1.25rem 0.5rem; }
+    .downloads { padding: 2.5rem 1rem 2.5rem; }
+    .download-card { padding: 1.5rem 1.25rem; }
+    .mantra-band { padding: 2.75rem 1rem; }
+    .standards-links { grid-template-columns: 1fr; }
+  }
+
+  @media (hover: none) and (pointer: coarse) {
+    nav.topnav .navlinks a,
+    nav.topnav .navlinks .navdropdown-menu a {
+      -webkit-tap-highlight-color: rgba(201, 162, 74, 0.25);
+    }
+  }
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <a href="index.html" class="brand">Show Me the Receipts</a>
+  <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-hidden="true">
+  <label for="nav-toggle" class="nav-toggle-label" aria-label="Open menu"><span></span></label>
+  <div class="navlinks">
+    <a href="index.html" class="active">Home</a>
+    <a href="field-notes.html">Field Notes</a>
+    <a href="#make-my-promise">Make My Promise</a>
+    <a href="ai-witness.html">AI as Witness</a>
+    <a href="relationship-report.html">The Relationship Report</a>
+    <a href="glossary.html">Glossary</a>
+    <div class="navdropdown" tabindex="0">
+      <span class="navdropdown-toggle">Resources <span class="caret">&#9662;</span></span>
+      <div class="navdropdown-menu">
+        <a href="trace-one-failure.html">
+          <span class="dropdown-label">Trace One Failure</span>
+          <span class="dropdown-desc">Interactive tracing instrument</span>
+        </a>
+        <a href="downloads/show-me-the-receipts-reference-card.pdf" download>
+          <span class="dropdown-label">Reference Card</span>
+          <span class="dropdown-desc">190 receipts &middot; PDF download</span>
+        </a>
+        <a href="downloads/show-me-the-receipts-trust-audit.pdf" download>
+          <span class="dropdown-label">Trust Audit Worksheet</span>
+          <span class="dropdown-desc">19-page audit &middot; PDF download</span>
+        </a>
+        <a href="relationship-report.html">
+          <span class="dropdown-label">The Relationship Report</span>
+          <span class="dropdown-desc">5 metrics &middot; build it yourself</span>
+        </a>
+        <a href="glossary.html">
+          <span class="dropdown-label">Glossary</span>
+          <span class="dropdown-desc">40 working terms</span>
+        </a>
+        <a href="downloads/relationships-in-fundraising.pdf" download>
+          <span class="dropdown-label">Further Reading</span>
+          <span class="dropdown-desc">Relationships in Fundraising &middot; PDF download</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<header class="page-hero">
+  <p class="eyebrow">A Working Reference</p>
+  <h1>Show Me the Receipts</h1>
+  <p class="subtitle">How Donor Trust Actually Gets Built</p>
+  <p class="attribution">By Glen E. Quiring, CFRE</p>
+  <a href="#make-my-promise" class="hero-cta">Make My Promise</a>
+</header>
+
+<main>
+
+  <section class="essay">
+    <p class="essay-eyebrow">About this work</p>
+
+    <p class="lede">Trust is not a feeling. Durable trust &mdash; the kind that survives staff transitions, the years between gifts, the eventual departure of any particular fundraiser &mdash; is the verifiable record of promises made and kept. Every promise, by every party, across time.</p>
+
+    <p>What did you say you would do? Did you do it? That is the receipt. Trust is what those receipts add up to.</p>
+
+    <p>In fundraising, those receipts take two forms. The visible ones &mdash; the acknowledgment letter, the named plaque, the recognition at the gala, the proposal delivered on the day you said you would deliver it. They form the surface of the relationship.</p>
+
+    <p>The second form is the receipts your donor cannot see. The data record that carries their name correctly. The internal handoff that gets their gift to the right account. The compliance protocol that protects their tax deduction. The moves management entry that ensures someone follows up after the meeting. These run underneath every donor experience, invisible to the donor but determining whether the visible receipt lands at all. They outnumber the visible ones substantially. They are not optional. And they are mostly broken by inattention, not by malice.</p>
+
+    <p>In any relationship that matters, the invisible promises outnumber the visible ones. The breakdowns happen upstream of where the failure shows. The repair happens one kept promise at a time.</p>
+
+    <p>The work is not to do more. The work is to keep the promises you have already made. The visible ones, on time, complete, and accurate. The invisible ones, even when no one is watching &mdash; especially when no one is watching.</p>
+
+    <p>The receipts you issue to your donor, to your team, to the people who depend on you. Each one is small. None of them is optional. And together, they are what your relationships are actually made of.</p>
+  </section>
+
+  <section class="field-standards">
+    <hr class="field-standards-divider" />
+    <h3>Field Standards</h3>
+    <p class="standards-intro">The formal commitments the fundraising profession has made &mdash; the visible receipts every donor expects. Hosted by the Association of Fundraising Professionals at the authoritative source.</p>
+
+    <div class="standards-links">
+
+      <a href="https://afpglobal.org/donor-bill-rights" class="standards-link" target="_blank" rel="noopener noreferrer">
+        <div class="standard-title">The Donor Bill of Rights</div>
+        <div class="standard-meta">Developed in 1993 by a consortium of AFP, AHP, CASE, and the Giving Institute. Outlines what donors have a right to expect from the charitable organizations they support.</div>
+        <div class="standard-action">Read at AFP &rarr;</div>
+      </a>
+
+      <a href="https://afpglobal.org/ethics/code-ethical-standards" class="standards-link" target="_blank" rel="noopener noreferrer">
+        <div class="standard-title">The AFP Code of Ethical Standards</div>
+        <div class="standard-meta">First drafted in 1991, revised December 2023. Twenty-five standards governing the ethical conduct of fundraising professionals worldwide.</div>
+        <div class="standard-action">Read at AFP &rarr;</div>
+      </a>
+
+    </div>
+  </section>
+
+  <section class="mantra-band">
+    <p class="mantra-line">Make a promise. Keep it.</p>
+    <p class="mantra-line">Make another. Keep it.</p>
+    <hr class="mantra-divider">
+    <p class="mantra-tagline">Trust is what the receipts add up to.</p>
+  </section>
+
+  <section class="downloads">
+    <h2>Resources</h2>
+    <p class="downloads-intro">Six working tools. Download, link out, or read through.</p>
+
+    <div class="download-cards">
+
+      <a href="trace-one-failure.html" class="download-card">
+        <span class="card-label">Interactive Tool</span>
+        <h3>Trace One Failure</h3>
+        <p>An instrument for moving past the first answer. Name one failed receipt &mdash; one promise made to a donor that wasn&rsquo;t kept &mdash; and follow it back through every layer until you reach the system that produced it. Five passes, in your browser, nothing stored. Save or print your trace when you finish.</p>
+        <span class="card-action">Open the tool &rarr;</span>
+      </a>
+
+      <a href="downloads/show-me-the-receipts-reference-card.pdf" class="download-card" download>
+        <span class="card-label">PDF Download</span>
+        <h3>The Reference Card</h3>
+        <p>An 8.5 &times; 11 inventory of every receipt your organization issues to a donor &mdash; visible on one side, invisible on the other. Designed for the wall above your desk, or to anchor a team conversation about where promises are being kept and where they are slipping.</p>
+        <span class="card-action">Download PDF &rarr;</span>
+      </a>
+
+      <a href="downloads/show-me-the-receipts-trust-audit.pdf" class="download-card" download>
+        <span class="card-label">Worksheet</span>
+        <h3>The Trust Audit</h3>
+        <p>A working tool that takes the receipts argument back to your own organization. Audit the visible and invisible receipts against the seven categories. Trace one failure upstream. Identify one specific receipt to upgrade. Name a witness. Schedule the check-in. Designed to be completed in one or two focused sittings.</p>
+        <span class="card-action">Download PDF &rarr;</span>
+      </a>
+
+      <a href="relationship-report.html" class="download-card">
+        <span class="card-label">Working Tool</span>
+        <h3>The Relationship Report</h3>
+        <p>What the receipts add up to. Five plain-language numbers that show whether your donors are staying, deepening, and trusting &mdash; built from data your donor database already holds. A sample report, an honest read of it, and a guide for building it from your own resources.</p>
+        <span class="card-action">View the report &rarr;</span>
+      </a>
+
+      <a href="glossary.html" class="download-card">
+        <span class="card-label">Reference</span>
+        <h3>The Glossary</h3>
+        <p>Plain-language definitions of the technical fundraising terms used on the reference card &mdash; soft credits, NCOA, ASC 958, Form 8283, propensity scores, and more. Forty entries, alphabetically organized, each with why it matters for donor trust.</p>
+        <span class="card-action">View glossary &rarr;</span>
+      </a>
+
+      <a href="ai-witness.html" class="download-card">
+        <span class="card-label">Method</span>
+        <h3>AI as Witness</h3>
+        <p>How to use AI with the receipts framework &mdash; Socratically, not generatively. Six copy-paste prompts for auditing your own organization, three principles for using the tool well, and honest cautions about what it cannot do. The AI helps you see. The work is still yours.</p>
+        <span class="card-action">Read the method &rarr;</span>
+      </a>
+
+    </div>
+  </section>
+
+  <section class="further-reading">
+    <hr class="further-reading-divider" />
+    <h3>Further Reading</h3>
+    <p class="reading-intro">Foundational writing that informs the receipts argument.</p>
+
+    <a href="downloads/relationships-in-fundraising.pdf" class="reading-link" download>
+      <div class="reading-title">Relationships in Fundraising</div>
+      <div class="reading-meta">Glen E. Quiring, CFRE &middot; April 2026. A foundational paper on the relational structure of fundraising.</div>
+    </a>
+
+  </section>
+
+  <section class="promise" id="make-my-promise">
+    <div class="promise-inner">
+      <p class="promise-eyebrow">Thirty Days</p>
+      <h2>Make Your Promise</h2>
+      <p class="promise-intro">Say what you will do, and the day you will do it by. You will hear from us twice along the way, and once on day thirty &mdash; the receipt.</p>
+
+      <!-- The form posts to MailerLite via a hidden iframe so the participant stays here. -->
+      <iframe name="ml_promise_target" id="ml_promise_target" style="display:none;width:0;height:0;border:0;" title="MailerLite submission target"></iframe>
+
+      <div class="promise-card" id="promise-form-card">
+        <form id="promise-form"
+              action="https://assets.mailerlite.com/jsonp/2364457/forms/187979614547608768/subscribe"
+              method="post"
+              target="ml_promise_target">
+
+          <div class="promise-field">
+            <label for="promise-email">Your email</label>
+            <input type="email" id="promise-email" name="fields[email]"
+                   placeholder="you@organization.org" autocomplete="email" required>
+          </div>
+
+          <div class="promise-field">
+            <label for="promise-text">Your promise</label>
+            <p class="field-hint">What will you do, and by when? Write it the way you would say it out loud.</p>
+            <textarea id="promise-text" name="fields[promise]" rows="3"
+                      maxlength="1024" placeholder="In the next thirty days, I will&hellip;" required></textarea>
+          </div>
+
+          <div class="promise-field">
+            <label for="promise-witness">Your witness <span style="font-weight:400;text-transform:none;letter-spacing:0;color:var(--soft-gray);">(optional)</span></label>
+            <p class="field-hint">The first name of someone who will know you made this promise.</p>
+            <input type="text" id="promise-witness" name="fields[witness]"
+                   placeholder="First name" autocomplete="off">
+          </div>
+
+          <input type="hidden" name="ml-submit" value="1">
+          <input type="hidden" name="anticsrf" value="true">
+
+          <button type="submit" class="promise-submit">Submit My Promise</button>
+        </form>
+      </div>
+
+      <div class="promise-success" id="promise-success">
+        <h3>Congratulations!</h3>
+        <p>You're on the path to durable trust with your donors!</p>
+      </div>
+
+      <p class="promise-privacy">Your email is used only for these three messages and the cohort record. The record is deleted within sixty days of day thirty.</p>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <p class="footer-url">ShowMeReceipts.org</p>
+  <p class="attribution">&copy; 2026 Glen E. Quiring, CFRE. All rights reserved.</p>
+</footer>
+
+<script>
+  (function () {
+    // Close the mobile menu when any nav link is tapped.
+    var navToggle = document.getElementById('nav-toggle');
+    if (navToggle) {
+      document.querySelectorAll('nav.topnav .navlinks a').forEach(function (link) {
+        link.addEventListener('click', function () { navToggle.checked = false; });
+      });
+    }
+
+    // Auto-grow the promise textarea so the whole promise stays visible.
+    var ta = document.getElementById('promise-text');
+    if (ta) {
+      var grow = function () {
+        ta.style.height = 'auto';
+        ta.style.height = ta.scrollHeight + 'px';
+      };
+      ta.addEventListener('input', grow);
+      grow();
+    }
+
+    // On submit, the hidden iframe carries the POST to MailerLite.
+    // We swap the form for the success message without leaving the page.
+    var form = document.getElementById('promise-form');
+    var card = document.getElementById('promise-form-card');
+    var success = document.getElementById('promise-success');
+    if (form && card && success) {
+      form.addEventListener('submit', function () {
+        // Let the browser submit into the iframe, then reveal success.
+        // Basic validity is handled by the required attributes.
+        if (!form.checkValidity()) { return; }
+        setTimeout(function () {
+          card.style.display = 'none';
+          success.style.display = 'block';
+          success.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }, 400);
+      });
+    }
+  })();
+</script>
+
+</body>
+</html>
