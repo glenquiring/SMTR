@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI as Witness | Show Me the Receipts</title>
+<meta name="description" content="Using AI with the receipts framework — as a Socratic partner that helps you see, not one that gives answers.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --afp-blue: #3D00A4;
+    --nav-blue: #28006C;
+    --gold: #C9A24A;
+    --cream: #FAF7F0;
+    --charcoal: #2A1F3D;
+    --soft-gray: #6B6378;
+    --light-gold: #F0E4C2;
+    --serif: "Newsreader", Georgia, "Times New Roman", serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background: var(--cream);
+    color: var(--charcoal);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* NAV BAND */
+  nav.topnav {
+    background: var(--nav-blue);
+    padding: 1rem 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  }
+  nav.topnav .brand {
+    color: white;
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    text-decoration: none;
+  }
+  nav.topnav .navlinks {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+  nav.topnav .navlinks a {
+    color: white;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 0.25rem 0;
+    border-bottom: 2px solid transparent;
+    transition: border-color 0.2s;
+  }
+  nav.topnav .navlinks a:hover { border-bottom-color: var(--gold); }
+  nav.topnav .navlinks a.active { border-bottom-color: var(--gold); }
+
+  /* RESOURCES DROPDOWN — added for cross-page nav access */
+  nav.topnav .navdropdown {
+    position: relative;
+    display: inline-block;
+    outline: none;
+  }
+  nav.topnav .navdropdown-toggle {
+    color: white;
+    font-size: 0.875rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.25rem 0;
+    border-bottom: 2px solid transparent;
+    transition: border-color 0.2s;
+    cursor: pointer;
+    user-select: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+  nav.topnav .navdropdown:hover .navdropdown-toggle,
+  nav.topnav .navdropdown:focus-within .navdropdown-toggle {
+    border-bottom-color: var(--gold);
+  }
+  nav.topnav .navdropdown .caret {
+    font-size: 0.7em;
+    display: inline-block;
+    transition: transform 0.2s;
+  }
+  nav.topnav .navdropdown:hover .caret,
+  nav.topnav .navdropdown:focus-within .caret {
+    transform: translateY(2px);
+  }
+  nav.topnav .navdropdown-menu {
+    position: absolute;
+    top: calc(100% + 0.75rem);
+    right: 0;
+    background: white;
+    border: 1px solid rgba(0,0,0,0.08);
+    border-radius: 6px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+    min-width: 290px;
+    padding: 0.5rem 0;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-4px);
+    transition: opacity 0.15s, visibility 0.15s, transform 0.15s;
+    z-index: 200;
+  }
+  nav.topnav .navdropdown:hover .navdropdown-menu,
+  nav.topnav .navdropdown:focus-within .navdropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+  nav.topnav .navlinks .navdropdown-menu a {
+    display: block;
+    padding: 0.75rem 1.125rem;
+    color: var(--charcoal);
+    text-decoration: none;
+    border: none;
+    border-bottom: none;
+    letter-spacing: 0;
+    text-transform: none;
+    font-weight: 500;
+    font-size: 0.9375rem;
+    transition: background-color 0.15s;
+  }
+  nav.topnav .navlinks .navdropdown-menu a:hover {
+    background-color: var(--cream);
+    border-bottom: none;
+  }
+  nav.topnav .navdropdown-menu .dropdown-label {
+    display: block;
+    font-weight: 700;
+    color: var(--afp-blue);
+    margin-bottom: 0.1875rem;
+    font-size: 0.9375rem;
+    letter-spacing: 0;
+  }
+  nav.topnav .navdropdown-menu .dropdown-desc {
+    display: block;
+    font-size: 0.75rem;
+    color: var(--soft-gray);
+    font-weight: 400;
+    letter-spacing: 0;
+    line-height: 1.4;
+  }
+  @media (max-width: 720px) {
+    nav.topnav .navdropdown-menu {
+      right: -1rem;
+      min-width: 240px;
+    }
+  }
+
+  /* PAGE HERO */
+  .page-hero {
+    background: var(--afp-blue);
+    color: white;
+    padding: 4rem 1.5rem 4.5rem;
+    text-align: center;
+  }
+  .page-hero .eyebrow {
+    font-size: 0.75rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    opacity: 0.85;
+    margin-bottom: 1rem;
+    font-weight: 600;
+  }
+  .page-hero h1 {
+    font-family: var(--serif);
+    font-size: clamp(2.5rem, 6vw, 3.75rem);
+    font-weight: 600;
+    letter-spacing: -0.025em;
+    margin-bottom: 0.5rem;
+    line-height: 1.05;
+    font-variation-settings: "opsz" 60;
+  }
+  .page-hero .subtitle {
+    font-family: var(--serif);
+    font-size: clamp(1.0625rem, 2.25vw, 1.4rem);
+    font-style: italic;
+    opacity: 0.92;
+    font-weight: 400;
+    font-variation-settings: "opsz" 22;
+    letter-spacing: 0.005em;
+  }
+
+  /* CONTENT CONTAINER */
+  .content {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 4rem 1.5rem 3rem;
+  }
+
+  /* FRAME */
+  .frame {
+    margin-bottom: 4rem;
+  }
+  .frame p {
+    font-size: 1.0625rem;
+    line-height: 1.75;
+    margin-bottom: 1.25rem;
+    color: var(--charcoal);
+  }
+  .frame p:last-child { margin-bottom: 0; }
+  .frame p.lede {
+    font-family: var(--serif);
+    font-size: 1.35rem;
+    line-height: 1.55;
+    color: var(--afp-blue);
+    font-weight: 400;
+    font-variation-settings: "opsz" 22;
+    letter-spacing: -0.005em;
+  }
+
+  /* SECTION HEADERS */
+  h2.section-header {
+    font-size: 0.875rem;
+    color: var(--afp-blue);
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    font-weight: 700;
+    text-align: center;
+    margin: 3.5rem 0 2rem;
+    padding-top: 2.5rem;
+    border-top: 1px solid rgba(201, 162, 74, 0.4);
+  }
+  h2.section-header:first-of-type {
+    margin-top: 0;
+    padding-top: 0;
+    border-top: none;
+  }
+
+  /* TWO-COLUMN LISTS */
+  .two-columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-bottom: 1.5rem;
+  }
+  @media (max-width: 600px) {
+    .two-columns { grid-template-columns: 1fr; gap: 1.5rem; }
+  }
+  .col-header {
+    color: var(--afp-blue);
+    font-size: 0.75rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    font-weight: 700;
+    margin-bottom: 0.875rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1.5px solid var(--gold);
+  }
+  .col-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .col-list li {
+    font-size: 0.9375rem;
+    line-height: 1.55;
+    padding-left: 1rem;
+    position: relative;
+    margin-bottom: 0.625rem;
+    color: var(--charcoal);
+  }
+  .col-list li::before {
+    content: "\2014";
+    position: absolute;
+    left: 0;
+    color: var(--gold);
+    font-weight: 700;
+  }
+
+  /* CURATE SECTION */
+  .curate-section {
+    margin-bottom: 1.5rem;
+  }
+  .curate-section .curate-lede {
+    font-family: var(--serif);
+    font-size: 1.25rem;
+    line-height: 1.6;
+    color: var(--afp-blue);
+    margin-bottom: 1.25rem;
+    font-variation-settings: "opsz" 20;
+    letter-spacing: -0.005em;
+  }
+  .curate-section p {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--charcoal);
+    margin-bottom: 1.125rem;
+  }
+  .curate-section h3 {
+    color: var(--afp-blue);
+    font-size: 1.0625rem;
+    font-weight: 700;
+    margin-top: 2.25rem;
+    margin-bottom: 0.625rem;
+    letter-spacing: -0.01em;
+  }
+  .curate-section ul {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1.25rem 0;
+  }
+  .curate-section ul li {
+    font-size: 1rem;
+    line-height: 1.65;
+    padding-left: 1.5rem;
+    position: relative;
+    margin-bottom: 0.875rem;
+    color: var(--charcoal);
+  }
+  .curate-section ul li::before {
+    content: "\2014";
+    position: absolute;
+    left: 0;
+    color: var(--gold);
+    font-weight: 700;
+  }
+  .curate-section em {
+    color: var(--afp-blue);
+    font-style: italic;
+  }
+  .curate-bridge {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--charcoal);
+    margin-top: 1rem;
+    padding: 1.25rem 1.5rem;
+    background: rgba(201, 162, 74, 0.08);
+    border-left: 3px solid var(--gold);
+    font-style: italic;
+  }
+
+  /* PRINCIPLE BLOCKS */
+  .principle {
+    margin-bottom: 1.5rem;
+    padding-left: 1.25rem;
+    border-left: 3px solid var(--gold);
+  }
+  .principle h3 {
+    color: var(--afp-blue);
+    font-size: 1.0625rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.01em;
+  }
+  .principle p {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--charcoal);
+  }
+
+  /* PROMPT BLOCKS */
+  .prompt {
+    margin-bottom: 2.5rem;
+    background: white;
+    border-radius: 6px;
+    border: 1px solid rgba(201, 162, 74, 0.3);
+    overflow: hidden;
+  }
+  .prompt-header {
+    background: rgba(201, 162, 74, 0.12);
+    padding: 1rem 1.5rem 0.875rem;
+    border-bottom: 1px solid rgba(201, 162, 74, 0.3);
+  }
+  .prompt-number {
+    color: var(--gold);
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    font-weight: 700;
+    margin-bottom: 0.25rem;
+  }
+  .prompt-title {
+    color: var(--afp-blue);
+    font-size: 1.125rem;
+    font-weight: 700;
+    margin-bottom: 0.25rem;
+    letter-spacing: -0.01em;
+  }
+  .prompt-for {
+    font-size: 0.875rem;
+    color: var(--soft-gray);
+    font-style: italic;
+  }
+  .prompt-body {
+    padding: 1.5rem;
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 0.875rem;
+    line-height: 1.7;
+    color: var(--charcoal);
+    background: var(--cream);
+  }
+  .prompt-body p {
+    margin-bottom: 0.875rem;
+  }
+  .prompt-body p:last-child { margin-bottom: 0; }
+  .prompt-body .fill-in {
+    color: var(--afp-blue);
+    font-style: italic;
+    font-weight: 600;
+  }
+
+  /* CAUTIONS */
+  .caution {
+    margin-bottom: 1.5rem;
+  }
+  .caution h3 {
+    color: var(--afp-blue);
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 0.375rem;
+    letter-spacing: -0.01em;
+  }
+  .caution p {
+    font-size: 0.9375rem;
+    line-height: 1.7;
+    color: var(--charcoal);
+  }
+
+  /* CLOSING */
+  .closing {
+    background: var(--gold);
+    padding: 4.5rem 1.5rem 4rem;
+    text-align: center;
+    margin-top: 4rem;
+  }
+  .closing p {
+    color: var(--afp-blue);
+    font-size: 1.0625rem;
+    line-height: 1.7;
+    max-width: 640px;
+    margin: 0 auto 1rem;
+  }
+  .closing-divider {
+    width: 48px;
+    height: 1px;
+    background: var(--afp-blue);
+    opacity: 0.4;
+    margin: 2rem auto 1.5rem;
+    border: none;
+  }
+  .closing p.tagline {
+    font-family: var(--serif);
+    font-size: clamp(1.125rem, 2.5vw, 1.5rem);
+    font-style: italic;
+    font-weight: 400;
+    opacity: 0.85;
+    margin-top: 0;
+    margin-bottom: 0;
+    letter-spacing: 0.005em;
+    font-variation-settings: "opsz" 24;
+  }
+
+  /* FOOTER */
+  footer {
+    background: var(--cream);
+    padding: 2.5rem 1.5rem;
+    text-align: center;
+    color: var(--soft-gray);
+    font-size: 0.8125rem;
+    border-top: 1px solid rgba(0,0,0,0.05);
+  }
+  footer p { margin-bottom: 0.25rem; }
+  footer .footer-url {
+    color: var(--afp-blue);
+    font-weight: 700;
+    letter-spacing: 0.05em;
+  }
+  footer .attribution {
+    margin-top: 0.5rem;
+    font-style: italic;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 600px) {
+    nav.topnav { padding: 0.875rem 1rem; }
+    nav.topnav .brand { font-size: 0.8125rem; letter-spacing: 0.15em; }
+    nav.topnav .navlinks { gap: 1rem; }
+    nav.topnav .navlinks a { font-size: 0.75rem; }
+    .page-hero { padding: 3rem 1.25rem 3.25rem; }
+    .content { padding: 2.5rem 1.25rem 2rem; }
+    .prompt-body { padding: 1.25rem; font-size: 0.8125rem; }
+    .closing { padding: 2.5rem 1.25rem; margin-top: 3rem; }
+  }
+
+  /* MOBILE REFINEMENTS — applied last so they override earlier rules */
+  @media (max-width: 600px) {
+    /* Tighter nav typography, allow links to wrap if needed */
+    nav.topnav .navlinks {
+      flex-wrap: wrap;
+      row-gap: 0.5rem;
+    }
+    nav.topnav .navlinks > a,
+    nav.topnav .navdropdown-toggle {
+      font-size: 0.75rem;
+      letter-spacing: 0.06em;
+      padding: 0.375rem 0;
+    }
+    /* Dropdown menu hugs viewport on narrow screens */
+    nav.topnav .navdropdown-menu {
+      min-width: 0;
+      width: calc(100vw - 2rem);
+      right: -1rem;
+    }
+    /* Generous tap targets within dropdown */
+    nav.topnav .navlinks .navdropdown-menu a {
+      padding: 0.875rem 1.125rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    /* Stack the nav: brand on row 1, links on row 2 */
+    nav.topnav {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.5rem;
+      padding: 0.625rem 1rem 0.75rem;
+    }
+    nav.topnav .brand {
+      font-size: 0.75rem;
+      letter-spacing: 0.12em;
+    }
+    nav.topnav .navlinks {
+      width: 100%;
+      gap: 1rem;
+      row-gap: 0.5rem;
+    }
+    nav.topnav .navlinks > a,
+    nav.topnav .navdropdown-toggle {
+      font-size: 0.6875rem;
+      letter-spacing: 0.05em;
+    }
+    /* Push the navdropdown to the right end of the row so the
+       dropdown menu opens within the viewport, not past its left edge */
+    nav.topnav .navlinks .navdropdown {
+      margin-left: auto;
+    }
+    nav.topnav .navdropdown-menu {
+      right: 0;
+      left: auto;
+      width: calc(100vw - 2rem);
+    }
+    /* Hero / content padding tightened further */
+    .page-hero { padding: 2.5rem 1.25rem 2.75rem; }
+    .essay { padding: 2.5rem 1.25rem 0.5rem; }
+    .downloads { padding: 2.5rem 1rem 2.5rem; }
+    .download-card { padding: 1.5rem 1.25rem; }
+    .mantra-band { padding: 2.5rem 1rem; }
+  }
+
+  /* TOUCH DEVICES — improve dropdown UX on devices without hover */
+  @media (hover: none) and (pointer: coarse) {
+    /* Ensure dropdown is tappable: visible focus state */
+    nav.topnav .navdropdown:focus-within .navdropdown-toggle {
+      border-bottom-color: var(--gold);
+    }
+    /* Larger tap area for nav items */
+    nav.topnav .navlinks > a {
+      padding: 0.5rem 0;
+    }
+  }
+
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <a href="index.html" class="brand">Show Me the Receipts</a>
+  <div class="navlinks">
+    <a href="index.html">Home</a>
+    <a href="ai-witness.html" class="active">AI as Witness</a>
+    <a href="glossary.html">Glossary</a>
+    <div class="navdropdown" tabindex="0">
+      <span class="navdropdown-toggle">Resources <span class="caret">&#9662;</span></span>
+      <div class="navdropdown-menu">
+        <a href="downloads/show-me-the-receipts-reference-card.pdf" download>
+          <span class="dropdown-label">Reference Card</span>
+          <span class="dropdown-desc">190 receipts &middot; PDF download</span>
+        </a>
+        <a href="downloads/show-me-the-receipts-trust-audit.pdf" download>
+          <span class="dropdown-label">Trust Audit Worksheet</span>
+          <span class="dropdown-desc">19-page audit &middot; PDF download</span>
+        </a>
+        <a href="glossary.html">
+          <span class="dropdown-label">Glossary</span>
+          <span class="dropdown-desc">40 working terms</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<header class="page-hero">
+  <p class="eyebrow">A Working Method</p>
+  <h1>AI as Witness</h1>
+  <p class="subtitle">Using AI with the Receipts &mdash; Socratically, Not Generatively</p>
+</header>
+
+<main class="content">
+
+  <!-- ===== FRAME ===== -->
+  <section class="frame">
+    <p class="lede">The receipts argument is about institutional integrity built one kept promise at a time. The audit is your own. No one else can do it for you &mdash; not your CEO, not your board, not your AI.</p>
+
+    <p>But sometimes you need a witness. Someone to push back on your assumptions, surface what you cannot see alone, ask the question that gets you to the next question. That is what AI can be good for here. Not generating your audit. Helping you do it.</p>
+
+    <p>The session names this role explicitly. The closing exercise asks each participant to commit to a thirty-day promise in front of a witness at their table. The witness in the room is a human one. Outside the room, the witnesses you have access to vary. A colleague. A peer at another organization. A board member you trust. An AI tool, used well.</p>
+
+    <p>This page is about how to use AI well. As a Socratic partner. Not as one that gives answers.</p>
+  </section>
+
+  <!-- ===== WHAT IT IS / IS NOT FOR ===== -->
+  <h2 class="section-header">What this is for &mdash; and is not for</h2>
+
+  <div class="two-columns">
+    <div>
+      <p class="col-header">Use AI for</p>
+      <ul class="col-list">
+        <li>Asking the question that helps you see what you missed</li>
+        <li>Pushing back on your case for support to find the promises hidden in it</li>
+        <li>Thinking through a lapsed donor&rsquo;s experience from their side</li>
+        <li>Auditing your operational handoffs without your team in the room</li>
+        <li>Surfacing the receipts the donor you cannot speak with might be checking</li>
+        <li>Stress-testing a thirty-day promise before you commit to it</li>
+      </ul>
+    </div>
+    <div>
+      <p class="col-header">Don&rsquo;t use AI for</p>
+      <ul class="col-list">
+        <li>Generating your audit</li>
+        <li>Telling you what your organization is failing at</li>
+        <li>Writing your acknowledgment letters, impact reports, or proposals</li>
+        <li>Making promises on your behalf</li>
+        <li>Standing in for the human witnesses who hold you accountable</li>
+      </ul>
+    </div>
+  </div>
+
+  <p style="font-size: 1rem; line-height: 1.7; color: var(--charcoal); margin-top: 0.5rem;">The difference is real. The first list asks the AI to help you see. The second list asks the AI to do the seeing for you. The receipts argument depends on you doing the work. An AI that generates the audit takes the work away.</p>
+
+  <!-- ===== CURATE BEFORE YOU PROMPT ===== -->
+  <h2 class="section-header">Curate before you prompt</h2>
+
+  <div class="curate-section">
+
+    <p class="curate-lede">Most AI use is one-shot prompting. You open a chat, you ask a question, you get an answer. This is the worst-case pattern for the receipts work, and for most professional work.</p>
+
+    <p>Without context, AI tools fill in defaults from their training data &mdash; large urban organizations, generic best practices, the median donor experience. Your organization is not those defaults. The AI does not know that. Without your context, it will be confident, fluent, and slightly off in ways you may not notice until the advice doesn&rsquo;t fit your situation.</p>
+
+    <p>The alternative is curation. Before you ask the AI anything substantive, you build its understanding of your context by selecting, organizing, and presenting the materials you want it to think with. <strong style="color: var(--afp-blue);">The curation itself is data.</strong> What you choose to share, in what order, with what framing, reveals what you actually care about &mdash; and shapes the questions the AI is able to ask back at you. The Socratic questions you eventually ask work only because the curation is already in place.</p>
+
+    <h3>What to share before you prompt</h3>
+    <ul>
+      <li>A description of your organization in your own words. Not the website language &mdash; the actual work. What you do, who you serve, the scale you operate at, the community you&rsquo;re in. Two or three paragraphs.</li>
+      <li>The receipts argument itself. Paste the <em>About this work</em> essay from this site, or the working definition from the reference card, or a summary of what you took from the session. The AI needs to know the frame you&rsquo;re working in.</li>
+      <li>One or two grounding documents from your own work &mdash; your case for support, a recent impact report, a current strategic plan. Public documents you&rsquo;ve signed your name to. Not confidential donor data; the things your organization has already promised in writing.</li>
+      <li>Your role and your authority. What decisions are yours to make. What influence you have but no decisive authority. This shapes what kinds of upgrades are realistic to ask about.</li>
+    </ul>
+
+    <h3>Signal what kind of engagement you want</h3>
+    <p>Most users assume the AI will guess what they want. The AI guesses badly. It defaults to producing comprehensive answers when you wanted exploration, or to giving advice when you wanted a critique of your thinking. The fix is small: signal the mode you want, in your own words, before each significant turn.</p>
+    <p>Phrases that work:</p>
+    <ul>
+      <li><em>&ldquo;Help me think through this. I&rsquo;m not looking for an answer yet &mdash; I want to hold the tension open.&rdquo;</em> Tells the AI you want exploration, not resolution.</li>
+      <li><em>&ldquo;Steel-man the argument against my position.&rdquo;</em> Tells the AI to provide genuine opposition rather than validation.</li>
+      <li><em>&ldquo;From the documents I shared, what do you notice?&rdquo;</em> Tells the AI to work within your curated material, not its training data.</li>
+      <li><em>&ldquo;What am I not seeing?&rdquo;</em> Tells the AI to flag blind spots rather than confirm what you already think.</li>
+      <li><em>&ldquo;Push back on this.&rdquo;</em> Tells the AI to challenge rather than accept.</li>
+      <li><em>&ldquo;That&rsquo;s sufficient. Stop here.&rdquo;</em> Tells the AI to end cleanly without elaboration.</li>
+    </ul>
+    <p>The AI adjusts its register based on your signal. Without a signal, it defaults to &ldquo;helpful comprehensive assistant&rdquo; &mdash; which is rarely what serious thinking needs.</p>
+
+    <h3>Why this is the work, not preparation</h3>
+    <p>The act of curating &mdash; deliberately choosing what to put in front of the AI before asking it anything &mdash; is the difference between AI as a slightly-better search engine and AI as a thinking partner that actually engages with your situation. The receipts argument is about institutional integrity. Your institution is specific. The AI cannot help you see your institution clearly without seeing your institution at all.</p>
+
+    <p>This is also how the curatorial process tests itself. As you choose what to share, you discover what you value enough to make visible. Documents you hesitate to share are usually the most diagnostically interesting. Notice the hesitation.</p>
+
+    <h3>AI impulses to watch for</h3>
+    <p>Even well-curated AI conversations drift. Specific tendencies are worth naming so you can spot them in real time and redirect:</p>
+    <ul>
+      <li><strong style="color: var(--afp-blue);">Comprehensiveness.</strong> The AI gives you a complete, organized answer when you wanted to hold complexity open. Push back: <em>&ldquo;Don&rsquo;t resolve this yet.&rdquo;</em></li>
+      <li><strong style="color: var(--afp-blue);">Generalizability.</strong> The AI offers broadly applicable advice when your situation requires specificity. Push back: <em>&ldquo;That&rsquo;s general. What does it look like for an organization like mine?&rdquo;</em></li>
+      <li><strong style="color: var(--afp-blue);">Privileging training data.</strong> The AI quietly draws on its general knowledge rather than the documents you shared. Push back: <em>&ldquo;Use what I gave you, not what you already know.&rdquo;</em></li>
+      <li><strong style="color: var(--afp-blue);">False balance.</strong> The AI offers both sides of an argument when you&rsquo;ve taken a deliberate position. Push back: <em>&ldquo;I&rsquo;m not asking for balance. I&rsquo;m taking a position. Test it.&rdquo;</em></li>
+      <li><strong style="color: var(--afp-blue);">Avoiding discomfort.</strong> The AI smooths over a tension that should stay sharp. Push back: <em>&ldquo;You&rsquo;re making this easier than it is. The friction is the point.&rdquo;</em></li>
+      <li><strong style="color: var(--afp-blue);">Forced answering.</strong> The AI gives a confident-sounding response when it should say it doesn&rsquo;t know. Push back: <em>&ldquo;Are you grounded in what I shared, or speculating? If you&rsquo;re speculating, say so.&rdquo;</em></li>
+      <li><strong style="color: var(--afp-blue);">Efficiency over dwelling.</strong> The AI moves toward a conclusion when the work needs more time. Push back: <em>&ldquo;Slow down. Don&rsquo;t synthesize yet.&rdquo;</em></li>
+    </ul>
+    <p>These are not bugs in the AI. They are its training expressing itself. The model has been rewarded throughout its development for producing fluent, comprehensive, helpful-sounding output. Your job as the curator is to name these impulses when they appear and redirect the conversation back to the work the curation made possible.</p>
+
+    <h3>The drift warning</h3>
+    <p>Even with context curated well, AI tools drift toward generation. Their training rewards producing output, not asking questions. The moment they sense an opening &mdash; a complete sentence, a clear request, a problem stated &mdash; they will offer recommendations, list best practices, or write the report you didn&rsquo;t ask for. This is the failure mode that derails the conversation. The AI is being helpful in the way it was trained to be helpful, which is the wrong way for this work.</p>
+
+    <p>When you notice the drift, name it. <em>Stop. Ask me questions instead.</em> Or: <em>You&rsquo;re giving me answers. I need you to surface what I&rsquo;m not seeing.</em> The AI is responsive; the user has to be the disciplinary force that keeps the conversation Socratic. Without that discipline, the conversation slides into the AI&rsquo;s default register, which is &ldquo;knowledgeable assistant producing output&rdquo; &mdash; and the work disappears.</p>
+
+  </div>
+
+  <p class="curate-bridge">The principles and prompts that follow work because they assume the curation has happened. Skip the curation and the prompts still work &mdash; but they produce generic output. Do the curation, and the same prompts produce something specific to your organization that nothing else could have produced.</p>
+
+  <!-- ===== THREE PRINCIPLES ===== -->
+  <h2 class="section-header">Three principles</h2>
+
+  <div class="principle">
+    <h3>Stay specific in every turn</h3>
+    <p>Curation gets the conversation started. The principles below keep it useful. The first one is operational: every new question you ask should be grounded in fresh specific material. A donor you&rsquo;re thinking about by name (to yourself). A conversation that happened last week. The exact wording of a concerning email. A line from your case for support that&rsquo;s nagging at you. The AI&rsquo;s questions get sharper as the material gets more specific. The moment your prompting drifts into the abstract, the AI&rsquo;s questions drift too.</p>
+  </div>
+
+  <div class="principle">
+    <h3>Use the card as the question structure</h3>
+    <p>The reference card&rsquo;s 190 receipts are not a checklist. They are a vocabulary for asking better questions about your organization. When prompting the AI, frame your inquiry in the card&rsquo;s language &mdash; visible receipts, invisible receipts, upstream breakdowns, durable trust, institutional integrity. The AI will respond in your vocabulary, not its own.</p>
+  </div>
+
+  <div class="principle">
+    <h3>Ask the AI to ask you questions, not to generate answers</h3>
+    <p>Every prompt below ends with some variation of &ldquo;ask me questions that help me see.&rdquo; The AI&rsquo;s role is to surface what you have not yet noticed. Your role is to do the noticing. If the AI starts producing recommendations instead of questions, redirect it &mdash; or close it. You are doing the work.</p>
+  </div>
+
+  <!-- ===== SIX PROMPTS ===== -->
+  <h2 class="section-header">Six prompts</h2>
+
+  <div class="prompt">
+    <div class="prompt-header">
+      <div class="prompt-number">Prompt 1</div>
+      <div class="prompt-title">Case for Support Audit</div>
+      <div class="prompt-for">For finding the promises hidden in your public-facing language.</div>
+    </div>
+    <div class="prompt-body">
+      <p>Here is my organization&rsquo;s case for support: <span class="fill-in">[paste your case]</span>.</p>
+      <p>The receipts argument says every claim in a case for support is a promise. Read this case carefully. What promises is my organization making that I might not have noticed I was making? What receipts am I now obligated to issue, whether I planned for that or not?</p>
+      <p>Don&rsquo;t list them as failures. Ask me questions that help me see them.</p>
+    </div>
+  </div>
+
+  <div class="prompt">
+    <div class="prompt-header">
+      <div class="prompt-number">Prompt 2</div>
+      <div class="prompt-title">Lapsed Donor Inquiry</div>
+      <div class="prompt-for">For tracing the upstream breakdown when a donor stops giving.</div>
+    </div>
+    <div class="prompt-body">
+      <p>A donor gave to my organization for <span class="fill-in">[X]</span> years and stopped giving <span class="fill-in">[Y]</span> months ago. The visible reason they gave was <span class="fill-in">[reason, or &ldquo;none stated&rdquo;]</span>.</p>
+      <p>The receipts argument says the visible reason is rarely the actual cause. The breakdown happens upstream of where the failure shows.</p>
+      <p>Help me think through what might have actually happened. Ask me questions about the receipts the donor would have been checking, the receipts they wouldn&rsquo;t have seen but might have felt, and the receipts that may have failed in handoffs between people on my team. Do not propose theories. Ask me what I noticed.</p>
+    </div>
+  </div>
+
+  <div class="prompt">
+    <div class="prompt-header">
+      <div class="prompt-number">Prompt 3</div>
+      <div class="prompt-title">Operational Self-Inventory</div>
+      <div class="prompt-for">For finding the handoffs that depend on a specific person being attentive.</div>
+    </div>
+    <div class="prompt-body">
+      <p>I am going to describe how my organization processes a $1,000 gift from when it arrives to when the donor next hears from us. Here is the description: <span class="fill-in">[paste your description]</span>.</p>
+      <p>Read this carefully. Where are the points where a receipt might fail without anyone noticing? Where are the handoffs that depend on a specific person being attentive? What receipts is my organization issuing reliably, and what receipts is it issuing only when conditions are right?</p>
+      <p>Ask me questions that help me see the architecture, not what I should fix.</p>
+    </div>
+  </div>
+
+  <div class="prompt">
+    <div class="prompt-header">
+      <div class="prompt-number">Prompt 4</div>
+      <div class="prompt-title">The Invisible Donor</div>
+      <div class="prompt-for">For understanding what donors who never speak with you are evaluating.</div>
+    </div>
+    <div class="prompt-body">
+      <p>Many of my organization&rsquo;s donors give without me ever having a meaningful conversation with them. Anonymous donors. Online recurring donors. Mail-only donors. Estate gifts.</p>
+      <p>Help me think about what these donors are actually evaluating when they decide whether to give again. Their answer cannot be &ldquo;the relationship with the fundraiser&rdquo; because there is no relationship with the fundraiser. What receipts are they checking? What invisible receipts are they sensing without seeing?</p>
+      <p>Ask me questions that surface what they might be experiencing.</p>
+    </div>
+  </div>
+
+  <div class="prompt">
+    <div class="prompt-header">
+      <div class="prompt-number">Prompt 5</div>
+      <div class="prompt-title">The Thirty-Day Promise</div>
+      <div class="prompt-for">For stress-testing the commitment you made in the session.</div>
+    </div>
+    <div class="prompt-body">
+      <p>In the <em>Show Me the Receipts</em> session, I committed to keeping one specific promise in the next thirty days. The promise is: <span class="fill-in">[your promise]</span>.</p>
+      <p>The receipts argument says trust is built one kept promise at a time. Help me think about this promise more carefully. What invisible receipts does keeping this promise actually require? Who else has to do something for me to keep it? What could go wrong upstream that I haven&rsquo;t planned for?</p>
+      <p>Ask me questions that prepare me to actually keep it. Not questions that suggest a better promise.</p>
+    </div>
+  </div>
+
+  <div class="prompt">
+    <div class="prompt-header">
+      <div class="prompt-number">Prompt 6</div>
+      <div class="prompt-title">Transition Audit</div>
+      <div class="prompt-for">For thinking about what receipts are at risk in an organizational transition.</div>
+    </div>
+    <div class="prompt-body">
+      <p>My organization is going through a transition: <span class="fill-in">[staff change / new leadership / new database / merger / etc.]</span>.</p>
+      <p>The receipts argument says durable trust depends on institutional integrity that survives transitions. Help me think about what receipts are at risk in this transition. Which donor relationships depend on a specific person being there? Which institutional commitments will need to be carried by someone new? What do I need to capture before the transition takes hold?</p>
+      <p>Ask me questions. Don&rsquo;t recommend processes.</p>
+    </div>
+  </div>
+
+  <!-- ===== CAUTIONS ===== -->
+  <h2 class="section-header">Cautions</h2>
+
+  <div class="caution">
+    <h3>AI hallucinates</h3>
+    <p>It will sometimes generate confident-sounding nonsense. If it tells you what your organization is doing wrong, that is hallucination &mdash; it doesn&rsquo;t know your organization. If it asks you good questions, that is the actual help. Trust the questions. Verify the assertions.</p>
+  </div>
+
+  <div class="caution">
+    <h3>AI is not a substitute for human witnesses</h3>
+    <p>A colleague who knows your work, a peer at another organization, a board member you trust &mdash; these are witnesses who carry weight. The AI is a witness whose role is to help you see. Not a substitute for the human relationships that hold you accountable. The session&rsquo;s closing exercise asks for a witness at the table for good reason.</p>
+  </div>
+
+  <div class="caution">
+    <h3>Don&rsquo;t paste sensitive information</h3>
+    <p>Donor names, gift amounts, internal organizational details &mdash; assume anything you paste into a public AI tool may be retained or used to train the model. Use placeholder names and rough numbers. The session&rsquo;s argument is partly about institutional integrity. Putting your organization&rsquo;s confidential data into a third-party tool is itself a receipt that may or may not be reliable.</p>
+  </div>
+
+  <div class="caution">
+    <h3>The AI&rsquo;s answer is not the audit</h3>
+    <p>The prompts work because they get the AI to ask you questions. Your answers are the audit. If the AI starts generating &ldquo;here is what I think is wrong with your organization&rdquo; instead of asking you questions, redirect it &mdash; or close it. You are doing the work.</p>
+  </div>
+
+  <div class="caution">
+    <h3>Use it occasionally, not constantly</h3>
+    <p>The point is to see your organization more clearly, not to outsource your thinking. The AI is a tool for moments of structured self-inquiry. It is not a constant companion. The practitioner who consults an AI before every decision has stopped doing the work.</p>
+  </div>
+
+</main>
+
+<section class="closing">
+  <p>The session&rsquo;s closing exercise asks each participant to commit to one thirty-day promise in front of a witness at their table. The witness in the room matters. The AI matters less, but it can matter.</p>
+  <p>The AI is available when no human is. It is not impressed by you. It can pattern-match across more material than any single human could. Its weakness is that it does not actually care, and it does not actually remember between sessions. Its strength is that it asks well when prompted well.</p>
+  <p>Use AI as a witness, not as a substitute. The work is still yours.</p>
+  <hr class="closing-divider">
+  <p class="tagline">Trust is what the receipts add up to.</p>
+</section>
+
+<footer>
+  <p class="footer-url">ShowMeReceipts.org</p>
+  <p class="attribution">&copy; 2026 Glen E. Quiring, CFRE. All rights reserved.</p>
+</footer>
+
+</body>
+</html>
