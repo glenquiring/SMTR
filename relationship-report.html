@@ -1,0 +1,1006 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Relationship Report | Show Me the Receipts</title>
+<meta name="description" content="What the receipts add up to — measuring donor relationships in plain numbers, built from the data you already have.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --afp-blue: #3D00A4;
+    --nav-blue: #28006C;
+    --gold: #C9A24A;
+    --cream: #FAF7F0;
+    --charcoal: #2A1F3D;
+    --soft-gray: #6B6378;
+    --light-gold: #F0E4C2;
+    --serif: "Newsreader", Georgia, "Times New Roman", serif;
+    --status-good: #2E7D4F;
+    --status-caution: #B8862D;
+    --status-needs-attention: #B23A2E;
+    --report-bg: #FFFFFF;
+    --report-rule: #E8E1D1;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background: var(--cream);
+    color: var(--charcoal);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* NAV BAND */
+  nav.topnav {
+    background: var(--nav-blue);
+    padding: 1rem 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  }
+  nav.topnav .brand {
+    color: white;
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    text-decoration: none;
+  }
+  nav.topnav .navlinks {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  nav.topnav .navlinks a {
+    color: white;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 0.25rem 0;
+    border-bottom: 2px solid transparent;
+    transition: border-color 0.2s;
+  }
+  nav.topnav .navlinks a:hover { border-bottom-color: var(--gold); }
+  nav.topnav .navlinks a.active { border-bottom-color: var(--gold); }
+
+  /* RESOURCES DROPDOWN */
+  nav.topnav .navdropdown {
+    position: relative;
+    display: inline-block;
+    outline: none;
+  }
+  nav.topnav .navdropdown-toggle {
+    color: white;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.25rem 0;
+    border-bottom: 2px solid transparent;
+    transition: border-color 0.2s;
+    cursor: pointer;
+    user-select: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+  nav.topnav .navdropdown:hover .navdropdown-toggle,
+  nav.topnav .navdropdown:focus-within .navdropdown-toggle {
+    border-bottom-color: var(--gold);
+  }
+  nav.topnav .navdropdown .caret {
+    font-size: 0.7em;
+    display: inline-block;
+    transition: transform 0.2s;
+  }
+  nav.topnav .navdropdown:hover .caret,
+  nav.topnav .navdropdown:focus-within .caret {
+    transform: translateY(2px);
+  }
+  nav.topnav .navdropdown-menu {
+    position: absolute;
+    top: calc(100% + 0.75rem);
+    right: 0;
+    background: white;
+    border: 1px solid rgba(0,0,0,0.08);
+    border-radius: 6px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+    min-width: 290px;
+    padding: 0.5rem 0;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-4px);
+    transition: opacity 0.15s, visibility 0.15s, transform 0.15s;
+    z-index: 200;
+  }
+  nav.topnav .navdropdown:hover .navdropdown-menu,
+  nav.topnav .navdropdown:focus-within .navdropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+  nav.topnav .navlinks .navdropdown-menu a {
+    display: block;
+    padding: 0.75rem 1.125rem;
+    color: var(--charcoal);
+    text-decoration: none;
+    border: none;
+    border-bottom: none;
+    letter-spacing: 0;
+    text-transform: none;
+    font-weight: 500;
+    font-size: 0.9375rem;
+    transition: background-color 0.15s;
+  }
+  nav.topnav .navlinks .navdropdown-menu a:hover {
+    background-color: var(--cream);
+    border-bottom: none;
+  }
+  nav.topnav .navdropdown-menu .dropdown-label {
+    display: block;
+    font-weight: 700;
+    color: var(--afp-blue);
+    margin-bottom: 0.1875rem;
+    font-size: 0.9375rem;
+    letter-spacing: 0;
+  }
+  nav.topnav .navdropdown-menu .dropdown-desc {
+    display: block;
+    font-size: 0.75rem;
+    color: var(--soft-gray);
+    font-weight: 400;
+    letter-spacing: 0;
+    line-height: 1.4;
+  }
+  @media (max-width: 720px) {
+    nav.topnav .navdropdown-menu {
+      right: -1rem;
+      min-width: 240px;
+    }
+  }
+
+  /* PAGE HERO — serif typography matching index */
+  .page-hero {
+    background: var(--afp-blue);
+    color: white;
+    padding: 5rem 1.5rem 5.5rem;
+    text-align: center;
+  }
+  .page-hero .eyebrow {
+    font-size: 0.75rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    opacity: 0.85;
+    margin-bottom: 1.25rem;
+    font-weight: 600;
+  }
+  .page-hero h1 {
+    font-family: var(--serif);
+    font-size: clamp(2.75rem, 7.5vw, 4.75rem);
+    font-weight: 600;
+    letter-spacing: -0.028em;
+    margin-bottom: 0.5rem;
+    line-height: 0.98;
+    font-variation-settings: "opsz" 72;
+  }
+  .page-hero .subtitle {
+    font-family: var(--serif);
+    font-size: clamp(1.25rem, 2.85vw, 1.65rem);
+    font-style: italic;
+    opacity: 0.92;
+    font-weight: 400;
+    font-variation-settings: "opsz" 24;
+    letter-spacing: 0.005em;
+  }
+
+  /* CONTENT FRAME */
+  main {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 5rem 1.5rem 2rem;
+  }
+
+  .frame {
+    max-width: 720px;
+    margin: 0 auto 5rem;
+  }
+  .frame .eyebrow-tag {
+    text-align: center;
+    font-size: 0.75rem;
+    color: var(--afp-blue);
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    font-weight: 700;
+    margin-bottom: 2rem;
+  }
+  .frame .lede {
+    font-family: var(--serif);
+    font-size: 1.45rem;
+    line-height: 1.5;
+    font-weight: 400;
+    color: var(--afp-blue);
+    font-variation-settings: "opsz" 24;
+    letter-spacing: -0.005em;
+    margin-bottom: 1.75rem;
+  }
+  .frame p {
+    font-size: 1.0625rem;
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+    color: var(--charcoal);
+  }
+  .frame p:last-child { margin-bottom: 0; }
+
+  /* SECTION HEADERS */
+  .section-header {
+    color: var(--afp-blue);
+    font-size: 0.875rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 0.75rem;
+  }
+  .section-subhead {
+    text-align: center;
+    color: var(--soft-gray);
+    font-style: italic;
+    font-size: 1rem;
+    margin-bottom: 3rem;
+    max-width: 640px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* THE FIVE QUESTIONS */
+  .five-questions {
+    margin-bottom: 5rem;
+  }
+  .questions-list {
+    max-width: 720px;
+    margin: 0 auto;
+    list-style: none;
+    counter-reset: q;
+  }
+  .questions-list li {
+    counter-increment: q;
+    position: relative;
+    padding: 1.5rem 0 1.5rem 4rem;
+    border-bottom: 1px solid var(--report-rule);
+    font-size: 1.125rem;
+    line-height: 1.5;
+    color: var(--charcoal);
+  }
+  .questions-list li:last-child { border-bottom: none; }
+  .questions-list li::before {
+    content: counter(q, decimal-leading-zero);
+    position: absolute;
+    left: 0;
+    top: 1.5rem;
+    font-family: var(--serif);
+    font-size: 2rem;
+    font-weight: 500;
+    color: var(--gold);
+    letter-spacing: -0.02em;
+    line-height: 1;
+    font-variation-settings: "opsz" 32;
+  }
+
+  /* SAMPLE REPORT */
+  .sample-report-wrap {
+    margin-bottom: 5rem;
+  }
+  .report-context {
+    text-align: center;
+    color: var(--soft-gray);
+    font-size: 0.9375rem;
+    font-style: italic;
+    margin-bottom: 2rem;
+  }
+  .sample-report {
+    background: var(--report-bg);
+    border: 1px solid var(--report-rule);
+    border-top: 6px solid var(--afp-blue);
+    padding: 2.5rem 2rem 2rem;
+    border-radius: 4px;
+    box-shadow: 0 8px 24px rgba(61, 0, 164, 0.06);
+  }
+  .report-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    border-bottom: 2px solid var(--report-rule);
+    padding-bottom: 1.5rem;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  .report-head h3 {
+    font-family: var(--serif);
+    color: var(--afp-blue);
+    font-size: 1.65rem;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    margin-bottom: 0.25rem;
+    font-variation-settings: "opsz" 24;
+  }
+  .report-head .report-meta {
+    color: var(--soft-gray);
+    font-size: 0.8125rem;
+    text-align: right;
+  }
+  .report-head .report-meta strong {
+    color: var(--charcoal);
+    font-weight: 700;
+  }
+
+  .metric-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+  .metric-card {
+    border: 1px solid var(--report-rule);
+    border-radius: 4px;
+    padding: 1.5rem 1.375rem;
+    background: var(--cream);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
+  .metric-card .metric-label {
+    font-size: 0.6875rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--soft-gray);
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+  .metric-card .metric-question {
+    color: var(--afp-blue);
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 1.3;
+    margin-bottom: 1rem;
+  }
+  .metric-card .metric-value {
+    font-family: var(--serif);
+    font-size: 2.875rem;
+    font-weight: 500;
+    color: var(--charcoal);
+    letter-spacing: -0.025em;
+    line-height: 1;
+    margin-bottom: 0.5rem;
+    font-variation-settings: "opsz" 48;
+  }
+  .metric-card .metric-trend {
+    font-size: 0.8125rem;
+    color: var(--soft-gray);
+    margin-bottom: 1rem;
+  }
+  .metric-card .metric-trend .arrow-up { color: var(--status-good); font-weight: 700; }
+  .metric-card .metric-trend .arrow-down { color: var(--status-needs-attention); font-weight: 700; }
+
+  .status-band {
+    display: inline-block;
+    font-size: 0.6875rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    font-weight: 700;
+    padding: 0.25rem 0.625rem;
+    border-radius: 3px;
+    margin-bottom: 1rem;
+    align-self: flex-start;
+  }
+  .status-good {
+    background: rgba(46, 125, 79, 0.12);
+    color: var(--status-good);
+  }
+  .status-caution {
+    background: rgba(184, 134, 45, 0.12);
+    color: var(--status-caution);
+  }
+  .status-needs-attention {
+    background: rgba(178, 58, 46, 0.12);
+    color: var(--status-needs-attention);
+  }
+
+  .metric-card .metric-meaning {
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    color: var(--charcoal);
+    margin-top: auto;
+  }
+
+  .report-footnote {
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--report-rule);
+    font-size: 0.8125rem;
+    color: var(--soft-gray);
+    font-style: italic;
+    text-align: center;
+  }
+
+  /* HOW TO READ */
+  .how-to-read {
+    max-width: 720px;
+    margin: 4rem auto 5rem;
+    background: var(--light-gold);
+    border-left: 4px solid var(--gold);
+    padding: 2rem 2rem 2rem 2.25rem;
+    border-radius: 0 4px 4px 0;
+  }
+  .how-to-read h3 {
+    font-family: var(--serif);
+    color: var(--afp-blue);
+    font-size: 1.375rem;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    margin-bottom: 1rem;
+    font-variation-settings: "opsz" 24;
+  }
+  .how-to-read p {
+    font-size: 0.9375rem;
+    line-height: 1.7;
+    color: var(--charcoal);
+    margin-bottom: 1rem;
+  }
+  .how-to-read p:last-child { margin-bottom: 0; }
+  .how-to-read strong { color: var(--afp-blue); font-weight: 700; }
+
+  /* BUILD IT YOURSELF */
+  .build-it {
+    margin-bottom: 5rem;
+  }
+  .build-card {
+    background: white;
+    border: 1px solid var(--report-rule);
+    border-left: 4px solid var(--gold);
+    border-radius: 0 4px 4px 0;
+    padding: 1.75rem 1.875rem;
+    margin-bottom: 1.25rem;
+    max-width: 880px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .build-card .build-num {
+    display: inline-block;
+    font-size: 0.6875rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+  .build-card h3 {
+    font-family: var(--serif);
+    color: var(--afp-blue);
+    font-size: 1.375rem;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    margin-bottom: 1rem;
+    font-variation-settings: "opsz" 24;
+  }
+  .build-card .build-row {
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    gap: 1rem;
+    padding: 0.625rem 0;
+    border-top: 1px solid var(--report-rule);
+    align-items: start;
+  }
+  .build-card .build-row:first-of-type { border-top: none; }
+  .build-card .build-row .row-label {
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--soft-gray);
+    font-weight: 700;
+    padding-top: 0.125rem;
+  }
+  .build-card .build-row .row-content {
+    font-size: 0.9375rem;
+    line-height: 1.65;
+    color: var(--charcoal);
+  }
+  .build-card .build-row .row-content code {
+    background: var(--cream);
+    padding: 0.1rem 0.375rem;
+    border-radius: 3px;
+    font-size: 0.875rem;
+    color: var(--afp-blue);
+    font-family: "SF Mono", Menlo, Consolas, monospace;
+  }
+
+  /* WHAT TO DO WITH IT */
+  .what-to-do {
+    max-width: 720px;
+    margin: 0 auto 4rem;
+  }
+  .what-to-do p {
+    font-size: 1.0625rem;
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+    color: var(--charcoal);
+  }
+  .what-to-do ol {
+    counter-reset: action;
+    list-style: none;
+    margin-bottom: 1.5rem;
+  }
+  .what-to-do ol li {
+    counter-increment: action;
+    position: relative;
+    padding: 1rem 0 1rem 3rem;
+    border-bottom: 1px solid var(--report-rule);
+    font-size: 1rem;
+    line-height: 1.65;
+    color: var(--charcoal);
+  }
+  .what-to-do ol li:last-child { border-bottom: none; }
+  .what-to-do ol li::before {
+    content: counter(action) ".";
+    position: absolute;
+    left: 0;
+    top: 1rem;
+    font-family: var(--serif);
+    font-size: 1.375rem;
+    font-weight: 500;
+    color: var(--gold);
+    font-variation-settings: "opsz" 24;
+  }
+  .what-to-do ol li strong {
+    color: var(--afp-blue);
+    font-weight: 700;
+  }
+
+  /* CLOSING — mantra band typography from index */
+  .closing {
+    background: var(--gold);
+    padding: 5.5rem 1.5rem 5rem;
+    text-align: center;
+    margin-top: 4rem;
+  }
+  .closing p {
+    font-family: var(--serif);
+    color: var(--afp-blue);
+    font-size: clamp(1.125rem, 2.25vw, 1.375rem);
+    line-height: 1.55;
+    font-weight: 400;
+    max-width: 680px;
+    margin: 0 auto 1.25rem;
+    letter-spacing: -0.005em;
+    font-variation-settings: "opsz" 24;
+  }
+  .closing p:last-of-type { margin-bottom: 0; }
+  .closing-divider {
+    width: 48px;
+    height: 1px;
+    background: var(--afp-blue);
+    opacity: 0.4;
+    margin: 2.25rem auto 1.75rem;
+    border: none;
+  }
+  .closing p.tagline {
+    font-family: var(--serif);
+    color: var(--afp-blue);
+    font-size: clamp(1rem, 2.1vw, 1.25rem);
+    font-style: italic;
+    font-weight: 400;
+    opacity: 0.78;
+    letter-spacing: 0.005em;
+    line-height: 1.5;
+    max-width: 480px;
+    margin: 0 auto;
+    font-variation-settings: "opsz" 18;
+  }
+
+  /* FOOTER */
+  footer {
+    background: var(--cream);
+    padding: 2.5rem 1.5rem;
+    text-align: center;
+    color: var(--soft-gray);
+    font-size: 0.8125rem;
+    border-top: 1px solid rgba(0,0,0,0.05);
+  }
+  footer p { margin-bottom: 0.25rem; }
+  footer .footer-url {
+    color: var(--afp-blue);
+    font-weight: 700;
+    letter-spacing: 0.05em;
+  }
+  footer .attribution {
+    margin-top: 0.5rem;
+    font-style: italic;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    main { padding: 3rem 1.25rem 1rem; }
+    .frame { margin-bottom: 3.5rem; }
+    .frame .lede { font-size: 1.2rem; }
+    .frame p { font-size: 1rem; }
+    .questions-list li { padding-left: 3rem; font-size: 1rem; }
+    .questions-list li::before { font-size: 1.625rem; }
+    .sample-report { padding: 1.75rem 1.25rem 1.25rem; }
+    .report-head h3 { font-size: 1.375rem; }
+    .metric-card { padding: 1.25rem 1.125rem; }
+    .metric-card .metric-value { font-size: 2.375rem; }
+    .build-card { padding: 1.5rem 1.5rem; }
+    .build-card h3 { font-size: 1.25rem; }
+    .build-card .build-row { grid-template-columns: 1fr; gap: 0.25rem; padding: 0.5rem 0; }
+    .build-card .build-row .row-label { padding-top: 0; }
+    .how-to-read { padding: 1.5rem 1.375rem 1.5rem 1.625rem; }
+    .how-to-read h3 { font-size: 1.25rem; }
+    .closing { padding: 3.5rem 1.25rem 3rem; }
+  }
+
+  @media (max-width: 600px) {
+    nav.topnav { padding: 0.875rem 1rem; }
+    nav.topnav .brand { font-size: 0.8125rem; letter-spacing: 0.15em; }
+    nav.topnav .navlinks { gap: 1rem; }
+    nav.topnav .navlinks a { font-size: 0.75rem; }
+    .page-hero { padding: 3rem 1.25rem 3.25rem; }
+    nav.topnav .navlinks {
+      flex-wrap: wrap;
+      row-gap: 0.5rem;
+    }
+    nav.topnav .navlinks > a,
+    nav.topnav .navdropdown-toggle {
+      font-size: 0.75rem;
+      letter-spacing: 0.06em;
+      padding: 0.375rem 0;
+    }
+    nav.topnav .navdropdown-menu {
+      min-width: 0;
+      width: calc(100vw - 2rem);
+      right: -1rem;
+    }
+    nav.topnav .navlinks .navdropdown-menu a {
+      padding: 0.875rem 1.125rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    nav.topnav {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.5rem;
+      padding: 0.625rem 1rem 0.75rem;
+    }
+    nav.topnav .brand { font-size: 0.75rem; letter-spacing: 0.12em; }
+    nav.topnav .navlinks { width: 100%; gap: 1rem; row-gap: 0.5rem; }
+    nav.topnav .navlinks > a,
+    nav.topnav .navdropdown-toggle { font-size: 0.6875rem; letter-spacing: 0.05em; }
+    nav.topnav .navlinks .navdropdown { margin-left: auto; }
+    nav.topnav .navdropdown-menu { right: 0; left: auto; width: calc(100vw - 2rem); }
+  }
+
+  @media (hover: none) and (pointer: coarse) {
+    nav.topnav .navdropdown:focus-within .navdropdown-toggle {
+      border-bottom-color: var(--gold);
+    }
+    nav.topnav .navlinks > a {
+      padding: 0.5rem 0;
+    }
+  }
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <a href="index.html" class="brand">Show Me the Receipts</a>
+  <div class="navlinks">
+    <a href="index.html">Home</a>
+    <a href="ai-witness.html">AI as Witness</a>
+    <a href="relationship-report.html" class="active">The Relationship Report</a>
+    <a href="glossary.html">Glossary</a>
+    <div class="navdropdown" tabindex="0">
+      <span class="navdropdown-toggle">Resources <span class="caret">&#9662;</span></span>
+      <div class="navdropdown-menu">
+        <a href="downloads/show-me-the-receipts-reference-card.pdf" download>
+          <span class="dropdown-label">Reference Card</span>
+          <span class="dropdown-desc">190 receipts &middot; PDF download</span>
+        </a>
+        <a href="downloads/show-me-the-receipts-trust-audit.pdf" download>
+          <span class="dropdown-label">Trust Audit Worksheet</span>
+          <span class="dropdown-desc">19-page audit &middot; PDF download</span>
+        </a>
+        <a href="relationship-report.html">
+          <span class="dropdown-label">The Relationship Report</span>
+          <span class="dropdown-desc">5 metrics &middot; build it yourself</span>
+        </a>
+        <a href="glossary.html">
+          <span class="dropdown-label">Glossary</span>
+          <span class="dropdown-desc">40 working terms</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<header class="page-hero">
+  <p class="eyebrow">A Working Tool</p>
+  <h1>The Relationship Report</h1>
+  <p class="subtitle">What the Receipts Add Up To</p>
+</header>
+
+<main>
+
+  <!-- ===== ABOUT / WHY ===== -->
+  <section class="frame">
+    <p class="eyebrow-tag">About this report</p>
+
+    <p class="lede">You came into this work because you wanted to help an organization sustain its mission. The thank-you call, the follow-up you remembered to make, the donor whose name you finally got right on the wall plaque &mdash; that is the work. And almost none of it shows up in the report your CEO reads on Monday morning.</p>
+
+    <p>The financial report tells you what you raised last quarter. It does not tell you whether you will raise it next quarter. It tells you the boat is floating today. It does not tell you whether the hull is sound. By the time the financial report shows the leak, the water is already in the engine room.</p>
+
+    <p>The relationship report is the other side of the dashboard. It tells you whether the receipts are landing. Whether your donors are staying. Whether the trust you are building is being built. It is made of the same data your organization is already collecting &mdash; gifts, donor records, communications &mdash; just looked at from the angle that matters for keeping promises.</p>
+
+    <p>If you are a first-year DOD reading this: the most honest measure of whether your work is succeeding is not what you raised. It is whether your donors came back. The relationship report puts that number in front of you, alongside four others that round out the picture. None of them require new software. All of them can be built from what you have.</p>
+
+    <p>This is what the receipts add up to.</p>
+  </section>
+
+  <!-- ===== FIVE QUESTIONS ===== -->
+  <section class="five-questions">
+    <h2 class="section-header">What the report answers</h2>
+    <p class="section-subhead">Five questions. Asked in plain language. Answered with numbers from your own database.</p>
+
+    <ol class="questions-list">
+      <li>Did your new donors come back this year?</li>
+      <li>Are your donors choosing to deepen the relationship?</li>
+      <li>How long do your donors stay with you?</li>
+      <li>Are you keeping the receipts that matter?</li>
+      <li>Are you stewarding your donors &mdash; or only asking?</li>
+    </ol>
+  </section>
+
+  <!-- ===== SAMPLE REPORT ===== -->
+  <section class="sample-report-wrap">
+    <h2 class="section-header">A sample report</h2>
+    <p class="section-subhead">What it could look like for a single-staff or small-shop development office. The numbers below are illustrative &mdash; mixed signals on purpose, the way a real first read usually goes.</p>
+
+    <div class="sample-report">
+
+      <div class="report-head">
+        <div>
+          <h3>Hope Valley Community Services</h3>
+          <p class="report-meta">Donor file: 1,847 active records</p>
+        </div>
+        <div class="report-meta">
+          Reporting period<br>
+          <strong>Q1 2026 (Jan&ndash;Mar)</strong>
+        </div>
+      </div>
+
+      <div class="metric-grid">
+
+        <!-- METRIC 1: RETENTION -->
+        <div class="metric-card">
+          <p class="metric-label">Metric 01</p>
+          <p class="metric-question">Did your new donors come back?</p>
+          <p class="metric-value">28%</p>
+          <p class="metric-trend"><span class="arrow-up">&uarr;</span> 3 points from last year (was 25%)</p>
+          <span class="status-band status-caution">Industry typical</span>
+          <p class="metric-meaning">Of donors who gave their first gift last year, about one in four gave again this year. Aligned with the field average &mdash; but the field average is the floor of what is possible, not the goal. Sustained gains here roughly double cohort lifetime value over five years.</p>
+        </div>
+
+        <!-- METRIC 2: SUSTAINERS -->
+        <div class="metric-card">
+          <p class="metric-label">Metric 02</p>
+          <p class="metric-question">Are donors deepening the relationship?</p>
+          <p class="metric-value">247</p>
+          <p class="metric-trend"><span class="arrow-up">&uarr;</span> 18 net new this quarter (29 added, 11 cancelled)</p>
+          <span class="status-band status-good">Healthy growth</span>
+          <p class="metric-meaning">Donors who chose to give monthly. They have moved from &ldquo;I gave&rdquo; to &ldquo;I&rsquo;m with you.&rdquo; Net positive growth means more new commitments than cancellations &mdash; the most reliable signal in the report.</p>
+        </div>
+
+        <!-- METRIC 3: TENURE -->
+        <div class="metric-card">
+          <p class="metric-label">Metric 03</p>
+          <p class="metric-question">How long do donors stay?</p>
+          <p class="metric-value">4.2 yrs</p>
+          <p class="metric-trend">Median tenure of active donors</p>
+          <span class="status-band status-good">Solid depth</span>
+          <p class="metric-meaning">The middle of your active donor file has been with you four years. A healthy file shows depth &mdash; donors who have stayed, not just been acquired. Watch the distribution: a healthy file has a thick middle band, not a thin year-one bulge.</p>
+        </div>
+
+        <!-- METRIC 4: ACKNOWLEDGMENT LAG -->
+        <div class="metric-card">
+          <p class="metric-label">Metric 04</p>
+          <p class="metric-question">Are you keeping the receipts that matter?</p>
+          <p class="metric-value">4.5 days</p>
+          <p class="metric-trend">Median time from gift to thank-you</p>
+          <span class="status-band status-needs-attention">Needs attention</span>
+          <p class="metric-meaning">Field standard is under 48 hours. Yours is more than twice that. Acknowledgment lag is a leading indicator of attrition &mdash; the donor who waits five days for a thank-you is the donor who is harder to retain next year. Fixable this week.</p>
+        </div>
+
+        <!-- METRIC 5: CONTACT-GAP -->
+        <div class="metric-card">
+          <p class="metric-label">Metric 05</p>
+          <p class="metric-question">Stewarding or only asking?</p>
+          <p class="metric-value">+47 days</p>
+          <p class="metric-trend">Median gap, last contact vs. last gift</p>
+          <span class="status-band status-needs-attention">Needs attention</span>
+          <p class="metric-meaning">A positive number means the donor heard from you 47 days <em>before</em> they gave &mdash; and has not heard from you since. You are showing up to ask, but not between asks. The receipt for the gift is being issued; the receipts that come before the next gift are not.</p>
+        </div>
+
+      </div>
+
+      <p class="report-footnote">All metrics pulled from the donor database. No surveys, no self-report, no new software. The numbers are not flattering. They are honest. That is the point of the report.</p>
+
+    </div>
+  </section>
+
+  <!-- ===== HOW TO READ ===== -->
+  <div class="how-to-read">
+    <h3>How to read this report</h3>
+    <p>The metrics that look healthy &mdash; the sustainer growth, the tenure depth &mdash; are the work of years. They tell you the file has been built well over time. The metrics that need attention &mdash; the acknowledgment lag, the contact gap &mdash; are this month&rsquo;s work. They are the receipts that are slipping right now.</p>
+    <p><strong>The good news in a mixed report is that the visible failures are usually the most fixable.</strong> Acknowledgment lag is solved by a process change. Contact gap is solved by a stewardship calendar. Neither requires a campaign, a consultant, or a new line in the budget. They require a director who decides they matter.</p>
+    <p>The next quarter&rsquo;s report will tell you whether the decision held.</p>
+  </div>
+
+  <!-- ===== BUILD IT YOURSELF ===== -->
+  <section class="build-it">
+    <h2 class="section-header">Build it from what you have</h2>
+    <p class="section-subhead">Every metric in the sample report can be calculated from data your donor database already holds. Here is what to pull, where to pull it from, and how to know what good looks like.</p>
+
+    <div class="build-card">
+      <span class="build-num">Build 01 &middot; Retention</span>
+      <h3>Did your new donors come back?</h3>
+      <div class="build-row">
+        <span class="row-label">What to pull</span>
+        <span class="row-content">For donors whose first gift was in calendar year N, the count of those donors. Then the count of <em>that same group</em> who gave any gift in calendar year N+1.</span>
+      </div>
+      <div class="build-row">
+        <span class="row-label">How to calculate</span>
+        <span class="row-content">(Donors in year-N cohort who gave in year N+1) &divide; (Total donors in year-N cohort) = first-year retention rate.</span>
+      </div>
+      <div class="build-row">
+        <span class="row-label">Database fields</span>
+        <span class="row-content">Constituent <code>first_gift_date</code>; gift history with <code>gift_date</code> by constituent.</span>
+      </div>
+      <div class="build-row">
+        <span class="row-label">What good looks like</span>
+        <span class="row-content">Field benchmark: ~25&ndash;30% for new cash donors; ~60%+ for monthly donors. A 10-point gain on first-year retention roughly doubles cohort lifetime value with no change in acquisition spending.</span>
+      </div>
+    </div>
+
+    <div class="build-card">
+      <span class="build-num">Build 02 &middot; Sustainers</span>
+      <h3>Are donors deepening the relationship?</h3>
+      <div class="build-row">
+        <span class="row-label">What to pull</span>
+        <span class="row-content">Active recurring-gift commitments as of report date. New recurring commitments started in the period. Cancelled commitments in the period.</span>
+      </div>
+      <div class="build-row">
+        <span class="row-label">How to calculate</span>
+        <span class="row-content">Count of active recurring gifts (the headline number). Net new = new commitments &minus; cancellations (the trend).</span>
+      </div>
+      <div class="build-row">
+        <span class="row-label">Database fields</span>
+        <span class="row-content">Recurring gift records with <code>status</code> (active / cancelled), <code>start_date</code>, <code>cancellation_date</code>.</span>
+      </div>
+      <div class="build-row">
+        <span class="row-label">What good looks like</span>
+        <span class="row-content">Net positive growth quarter over quarter. Cancellation rate above 5% per quarter warrants a look at why donors are leaving the program.</span>
+      </div>
+    </div>
+
+    <div class="build-card">
+      <span class="build-num">Build 03 &middot; Tenure</span>
+      <h3>How long do donors stay?</h3>
+      <div class="build-row">
+        <span class="row-label">What to pull</span>
+        <span class="row-content">For each active donor (gave in last 18 months), the years between their first gift and their most recent gift.</span>
+      </div>
+      <div class="build-row">
+        <span class="row-label">How to calculate</span>
+        <span class="row-content">Median of (most recent gift date &minus; first gift date) across active donors. Also useful: count of donors in tenure bands &mdash; 1 yr, 2 yrs, 3&ndash;5 yrs, 6&ndash;10 yrs, 10+ yrs.</span>
+      </div>
+      <div class="build-row">
+        <span class="row-label">Database fields</span>
+        <span class="row-content">Constituent <code>first_gift_date</code>; gift history with <code>gift_date</code>.</span>
+      </div>
+      <div class="build-row">
+        <span class="row-label">What good looks like</span>
+        <span class="row-content">No single threshold &mdash; track the distribution shape year over year. A healthy file thickens in the middle bands over time. A churning file stays heavy at year 1 and thin everywhere else.</span>
+      </div>
+    </div>
+
+    <div class="build-card">
+      <span class="build-num">Build 04 &middot; Acknowledgment Lag</span>
+      <h3>Are you keeping the receipts that matter?</h3>
+      <div class="build-row">
+        <span class="row-label">What to pull</span>
+        <span class="row-content">For each gift in the period, the date the gift was recorded and the date the acknowledgment communication was sent.</span>
+      </div>
+      <div class="build-row">
+        <span class="row-label">How to calculate</span>
+        <span class="row-content">For each gift: hours (or days) between gift date and acknowledgment date. Report the median, by gift size band if you have the data.</span>
+      </div>
+      <div class="build-row">
+        <span class="row-label">Database fields</span>
+        <span class="row-content">Gift <code>gift_date</code>; communication record where <code>type = acknowledgment</code> and <code>send_date</code>. Tip: if acknowledgments are not consistently logged as communication records, this metric exposes the inconsistency &mdash; which is itself diagnostic.</span>
+      </div>
+      <div class="build-row">
+        <span class="row-label">What good looks like</span>
+        <span class="row-content">Under 48 hours for general gifts. Under 24 hours for gifts of $250 and up, with a personal call or note to follow on $1,000+. Over 72 hours is a leading indicator of attrition.</span>
+      </div>
+    </div>
+
+    <div class="build-card">
+      <span class="build-num">Build 05 &middot; Contact Gap</span>
+      <h3>Stewarding or only asking?</h3>
+      <div class="build-row">
+        <span class="row-label">What to pull</span>
+        <span class="row-content">For each active donor, the date of their most recent non-ask contact (thank-you, impact update, personal note, call, visit) and the date of their most recent gift.</span>
+      </div>
+      <div class="build-row">
+        <span class="row-label">How to calculate</span>
+        <span class="row-content">For each donor: (most recent gift date) &minus; (most recent non-ask contact date). Report the median across active donors. A <em>negative</em> number means the contact was more recent than the gift &mdash; the donor heard from you since they gave. A <em>positive</em> number means the gift was more recent &mdash; you have not been back since they helped you.</span>
+      </div>
+      <div class="build-row">
+        <span class="row-label">Database fields</span>
+        <span class="row-content">Contact / interaction records with <code>contact_type</code> distinguishing ask from non-ask; gift history with <code>gift_date</code>.</span>
+      </div>
+      <div class="build-row">
+        <span class="row-label">What good looks like</span>
+        <span class="row-content">A negative median is the goal. A positive median over 90 days for major donors is a red flag. Tip: this metric depends on staff logging non-ask contacts; if it is not being logged, the metric is reading the logging problem, not the relationship.</span>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ===== WHAT TO DO WITH IT ===== -->
+  <section class="what-to-do">
+    <h2 class="section-header">What to do with it</h2>
+    <p class="section-subhead">A relationship report is only useful if it changes what you do. Five steps for the first time you build it.</p>
+
+    <ol>
+      <li><strong>Build the five numbers once.</strong> Do not try to perfect them. Get them on a page. The first report will surface as much about your data hygiene as about your donor relationships, which is also useful.</li>
+      <li><strong>Note which look healthy and which look like the worst news you have read this month.</strong> Both are real. The healthy ones tell you what the file has built over time. The bad ones tell you this quarter&rsquo;s work.</li>
+      <li><strong>Pick one number to move.</strong> Not all five. One. The one you can affect this quarter with no new budget. Usually that is acknowledgment lag or contact gap &mdash; the operational receipts.</li>
+      <li><strong>Make a thirty-day promise.</strong> Specific, measurable, and small enough to keep. &ldquo;Every gift over $100 gets a personal call within 48 hours&rdquo; is a promise. &ldquo;We will steward better&rdquo; is not.</li>
+      <li><strong>Rerun the report next quarter.</strong> The same five numbers. The same calculations. The discipline is in the repetition. A report run once is a snapshot. A report run quarterly is a practice.</li>
+    </ol>
+
+    <p>The relationship report is not a scoreboard. It is a mirror. It shows you what your donors are experiencing in numbers you can act on, and it shows you what you decided to be accountable to when you committed to look at it.</p>
+  </section>
+
+</main>
+
+<section class="closing">
+  <p>The financial report is what your organization raised. The relationship report is whether the trust got built. Both are real. Both matter. Only one of them tells you what is coming.</p>
+  <p>Five numbers. Built from data you already have. Read honestly. Acted on consistently. That is how the receipts add up to something.</p>
+  <hr class="closing-divider">
+  <p class="tagline">Trust is what the receipts add up to.</p>
+</section>
+
+<footer>
+  <p class="footer-url">ShowMeReceipts.org</p>
+  <p class="attribution">&copy; 2026 Glen E. Quiring, CFRE. All rights reserved.</p>
+</footer>
+
+</body>
+</html>

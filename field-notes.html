@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Field Notes | Show Me the Receipts</title>
+<meta name="description" content="Dispatches from the work — field observations, research, and the stories that inform Show Me the Receipts.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --afp-blue: #3D00A4;
+    --nav-blue: #28006C;
+    --gold: #C9A24A;
+    --cream: #FAF7F0;
+    --charcoal: #2A1F3D;
+    --soft-gray: #6B6378;
+    --light-gold: #F0E4C2;
+    --serif: "Newsreader", Georgia, "Times New Roman", serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background: var(--cream);
+    color: var(--charcoal);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* ── NAV ── */
+  nav.topnav {
+    background: var(--nav-blue);
+    padding: 1rem 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  }
+  nav.topnav .brand {
+    color: white;
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    text-decoration: none;
+  }
+  nav.topnav .navlinks {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  nav.topnav .navlinks a {
+    color: white;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 0.25rem 0;
+    border-bottom: 2px solid transparent;
+    transition: border-color 0.2s;
+  }
+  nav.topnav .navlinks a:hover { border-bottom-color: var(--gold); }
+  nav.topnav .navlinks a.active { border-bottom-color: var(--gold); }
+
+  nav.topnav .navdropdown {
+    position: relative;
+    display: inline-block;
+    outline: none;
+  }
+  nav.topnav .navdropdown-toggle {
+    color: white;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.25rem 0;
+    border-bottom: 2px solid transparent;
+    transition: border-color 0.2s;
+    cursor: pointer;
+    user-select: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+  nav.topnav .navdropdown:hover .navdropdown-toggle,
+  nav.topnav .navdropdown:focus-within .navdropdown-toggle { border-bottom-color: var(--gold); }
+  nav.topnav .navdropdown .caret {
+    font-size: 0.7em;
+    display: inline-block;
+    transition: transform 0.2s;
+  }
+  nav.topnav .navdropdown:hover .caret,
+  nav.topnav .navdropdown:focus-within .caret { transform: translateY(2px); }
+  nav.topnav .navdropdown-menu {
+    position: absolute;
+    top: calc(100% + 0.75rem);
+    right: 0;
+    background: white;
+    border: 1px solid rgba(0,0,0,0.08);
+    border-radius: 6px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+    min-width: 290px;
+    padding: 0.5rem 0;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-4px);
+    transition: opacity 0.15s, visibility 0.15s, transform 0.15s;
+    z-index: 200;
+  }
+  nav.topnav .navdropdown:hover .navdropdown-menu,
+  nav.topnav .navdropdown:focus-within .navdropdown-menu {
+    opacity: 1; visibility: visible; transform: translateY(0);
+  }
+  nav.topnav .navlinks .navdropdown-menu a {
+    display: block;
+    padding: 0.75rem 1.125rem;
+    color: var(--charcoal);
+    text-decoration: none;
+    border: none;
+    border-bottom: none;
+    letter-spacing: 0;
+    text-transform: none;
+    font-weight: 500;
+    font-size: 0.9375rem;
+    transition: background-color 0.15s;
+  }
+  nav.topnav .navlinks .navdropdown-menu a:hover {
+    background-color: var(--cream);
+    border-bottom: none;
+  }
+  nav.topnav .navdropdown-menu .dropdown-label {
+    display: block;
+    font-weight: 700;
+    color: var(--afp-blue);
+    margin-bottom: 0.1875rem;
+    font-size: 0.9375rem;
+    letter-spacing: 0;
+  }
+  nav.topnav .navdropdown-menu .dropdown-desc {
+    display: block;
+    font-size: 0.75rem;
+    color: var(--soft-gray);
+    font-weight: 400;
+    letter-spacing: 0;
+    line-height: 1.4;
+  }
+
+  /* Mobile nav */
+  .nav-toggle { display: none; }
+  .nav-toggle-label {
+    display: none;
+    cursor: pointer;
+    width: 28px;
+    height: 22px;
+    position: relative;
+    flex-shrink: 0;
+  }
+  .nav-toggle-label span,
+  .nav-toggle-label span::before,
+  .nav-toggle-label span::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: white;
+    border-radius: 2px;
+    transition: transform 0.25s ease, opacity 0.2s ease, top 0.25s ease;
+  }
+  .nav-toggle-label span { top: 10px; }
+  .nav-toggle-label span::before { top: -8px; }
+  .nav-toggle-label span::after { top: 8px; }
+  .nav-toggle:checked ~ .nav-toggle-label span { background: transparent; }
+  .nav-toggle:checked ~ .nav-toggle-label span::before { top: 0; transform: rotate(45deg); }
+  .nav-toggle:checked ~ .nav-toggle-label span::after { top: 0; transform: rotate(-45deg); }
+
+  @media (max-width: 860px) {
+    nav.topnav { flex-wrap: wrap; padding: 0.875rem 1.25rem; }
+    nav.topnav .brand { white-space: nowrap; }
+    .nav-toggle-label { display: block; }
+    nav.topnav .navlinks {
+      display: block;
+      flex-basis: 100%;
+      width: 100%;
+      order: 3;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+    }
+    .nav-toggle:checked ~ .navlinks { max-height: 100vh; overflow-y: auto; }
+    nav.topnav .navlinks > a {
+      display: block;
+      padding: 0.875rem 0;
+      font-size: 0.8125rem;
+      border-bottom: 1px solid rgba(255,255,255,0.12);
+    }
+    nav.topnav .navlinks > a:first-child { margin-top: 0.75rem; }
+    nav.topnav .navlinks > a:hover,
+    nav.topnav .navlinks > a.active { border-bottom-color: var(--gold); }
+    nav.topnav .navdropdown { display: block; width: 100%; }
+    nav.topnav .navdropdown-toggle {
+      display: block;
+      padding: 0.875rem 0 0.5rem;
+      border-bottom: none;
+      cursor: default;
+      color: var(--gold);
+    }
+    nav.topnav .navdropdown .caret { display: none; }
+    nav.topnav .navdropdown-menu {
+      position: static;
+      opacity: 1;
+      visibility: visible;
+      transform: none;
+      min-width: 0;
+      width: 100%;
+      background: rgba(255,255,255,0.06);
+      border: none;
+      border-radius: 4px;
+      box-shadow: none;
+      margin-bottom: 0.75rem;
+      padding: 0.25rem 0;
+    }
+    nav.topnav .navlinks .navdropdown-menu a { color: white; padding: 0.75rem 1rem; }
+    nav.topnav .navlinks .navdropdown-menu a:hover { background: rgba(255,255,255,0.08); }
+    nav.topnav .navdropdown-menu .dropdown-label { color: white; }
+    nav.topnav .navdropdown-menu .dropdown-desc { color: rgba(255,255,255,0.65); }
+  }
+
+  /* ── PAGE HERO ── */
+  .page-hero {
+    background: var(--afp-blue);
+    color: white;
+    padding: 5rem 1.5rem 5.5rem;
+    text-align: center;
+  }
+  .page-hero .eyebrow {
+    font-size: 0.75rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    opacity: 0.85;
+    margin-bottom: 1.25rem;
+    font-weight: 600;
+  }
+  .page-hero h1 {
+    font-family: var(--serif);
+    font-size: clamp(2.75rem, 7.5vw, 4.75rem);
+    font-weight: 600;
+    letter-spacing: -0.028em;
+    margin-bottom: 0.5rem;
+    line-height: 0.98;
+    font-variation-settings: "opsz" 72;
+  }
+  .page-hero .subtitle {
+    font-family: var(--serif);
+    font-size: clamp(1.1rem, 2.5vw, 1.45rem);
+    font-style: italic;
+    opacity: 0.92;
+    font-weight: 400;
+    margin-bottom: 1.5rem;
+    font-variation-settings: "opsz" 24;
+    letter-spacing: 0.005em;
+  }
+
+  /* ── FIELD NOTES INDEX ── */
+  .fn-index {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 5rem 1.5rem 6rem;
+  }
+  .fn-index-intro {
+    font-family: var(--serif);
+    font-size: 1.35rem;
+    line-height: 1.55;
+    color: var(--afp-blue);
+    margin-bottom: 3.5rem;
+    font-variation-settings: "opsz" 24;
+    letter-spacing: -0.005em;
+    font-weight: 400;
+  }
+
+  /* Entry card */
+  .fn-entry {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    border-top: 1px solid rgba(61,0,164,0.15);
+    padding: 2.25rem 0;
+    transition: none;
+  }
+  .fn-entry:last-child { border-bottom: 1px solid rgba(61,0,164,0.15); }
+  .fn-entry:hover .fn-entry-title { color: var(--afp-blue); }
+  .fn-entry:hover .fn-read { border-bottom-color: var(--afp-blue); }
+
+  .fn-entry-meta {
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 700;
+    margin-bottom: 0.625rem;
+  }
+  .fn-entry-title {
+    font-family: var(--serif);
+    font-size: clamp(1.5rem, 3.5vw, 2rem);
+    font-weight: 600;
+    color: var(--charcoal);
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.5rem;
+    font-variation-settings: "opsz" 36;
+    transition: color 0.2s;
+  }
+  .fn-entry-desc {
+    font-style: italic;
+    color: var(--soft-gray);
+    font-size: 0.9375rem;
+    margin-bottom: 1rem;
+    line-height: 1.5;
+  }
+  .fn-entry-summary {
+    font-size: 1rem;
+    line-height: 1.75;
+    color: var(--charcoal);
+    margin-bottom: 1.25rem;
+    max-width: 640px;
+  }
+  .fn-read {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--afp-blue);
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 0.1rem;
+    display: inline-block;
+    transition: border-color 0.2s;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--cream);
+    padding: 2.5rem 1.5rem;
+    text-align: center;
+    color: var(--soft-gray);
+    font-size: 0.8125rem;
+    border-top: 1px solid rgba(0,0,0,0.05);
+  }
+  footer p { margin-bottom: 0.25rem; }
+  footer .footer-url { color: var(--afp-blue); font-weight: 700; letter-spacing: 0.05em; }
+  footer .attribution { margin-top: 0.5rem; font-style: italic; }
+
+  /* Responsive */
+  @media (max-width: 600px) {
+    .page-hero { padding: 3.5rem 1.25rem 3.5rem; }
+    .fn-index { padding: 3rem 1.25rem 4rem; }
+    .fn-entry { padding: 1.75rem 0; }
+  }
+  @media (max-width: 480px) {
+    nav.topnav { padding: 0.75rem 1rem; }
+    nav.topnav .brand { font-size: 0.75rem; letter-spacing: 0.12em; }
+    .page-hero { padding: 2.5rem 1.25rem 2.75rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <a href="index.html" class="brand">Show Me the Receipts</a>
+  <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-hidden="true">
+  <label for="nav-toggle" class="nav-toggle-label" aria-label="Open menu"><span></span></label>
+  <div class="navlinks">
+    <a href="index.html">Home</a>
+    <a href="field-notes.html" class="active">Field Notes</a>
+    <a href="relationship-report.html">The Relationship Report</a>
+    <a href="glossary.html">Glossary</a>
+    <div class="navdropdown" tabindex="0">
+      <span class="navdropdown-toggle">Resources <span class="caret">&#9662;</span></span>
+      <div class="navdropdown-menu">
+        <a href="trace-one-failure.html">
+          <span class="dropdown-label">Trace One Failure</span>
+          <span class="dropdown-desc">Interactive tracing instrument</span>
+        </a>
+        <a href="downloads/show-me-the-receipts-reference-card.pdf" download>
+          <span class="dropdown-label">Reference Card</span>
+          <span class="dropdown-desc">190 receipts &middot; PDF download</span>
+        </a>
+        <a href="downloads/show-me-the-receipts-trust-audit.pdf" download>
+          <span class="dropdown-label">Trust Audit Worksheet</span>
+          <span class="dropdown-desc">19-page audit &middot; PDF download</span>
+        </a>
+        <a href="relationship-report.html">
+          <span class="dropdown-label">The Relationship Report</span>
+          <span class="dropdown-desc">5 metrics &middot; build it yourself</span>
+        </a>
+        <a href="glossary.html">
+          <span class="dropdown-label">Glossary</span>
+          <span class="dropdown-desc">40 working terms</span>
+        </a>
+        <a href="downloads/relationships-in-fundraising.pdf" download>
+          <span class="dropdown-label">Further Reading</span>
+          <span class="dropdown-desc">Relationships in Fundraising &middot; PDF download</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<header class="page-hero">
+  <p class="eyebrow">Show Me the Receipts</p>
+  <h1>Field Notes</h1>
+  <p class="subtitle">Dispatches from the work</p>
+</header>
+
+<main>
+  <section class="fn-index">
+
+    <p class="fn-index-intro">What the sessions teach, what the research confirms, and where the work is going. Each entry is a record from inside the project &mdash; honest about what we discovered and what we still don&rsquo;t know.</p>
+
+    <!-- Field Note 1 -->
+    <a href="field-notes/what-the-room-taught-me.html" class="fn-entry">
+      <div class="fn-entry-meta">Field Note 061126 &middot; First delivery</div>
+      <div class="fn-entry-title">What the Room Taught Me</div>
+      <div class="fn-entry-desc">A field note from the first delivery of Show Me the Receipts</div>
+      <p class="fn-entry-summary">The first version of Show Me the Receipts was built for a room that could discover the gap through exercises. What happened instead was clarifying: the room could name donor failures fluently and completely, and could not trace a single one back to its cause. That silence is what Version 2 is built on.</p>
+      <span class="fn-read">Read the field note &rarr;</span>
+    </a>
+
+    <!-- Field Note 2 -->
+    <a href="field-notes/what-a-room-cant-trace.html" class="fn-entry">
+      <div class="fn-entry-meta">Field Note 061426 &middot; Research</div>
+      <div class="fn-entry-title">What a Room Can&rsquo;t Trace</div>
+      <div class="fn-entry-desc">A story about the question fundraising never learned to ask</div>
+      <p class="fn-entry-summary">Every experienced fundraiser can name a failed receipt in sixty seconds. Ask them to trace it back to its cause &mdash; to walk the failure through every person, every system, every handoff &mdash; and the room goes quiet. This is not a personal failing. It is a structural one. And it has a literature.</p>
+      <span class="fn-read">Read the article &rarr;</span>
+    </a>
+
+  </section>
+</main>
+
+<footer>
+  <p class="footer-url">ShowMeReceipts.org</p>
+  <p class="attribution">&copy; 2026 Glen E. Quiring, CFRE. All rights reserved.</p>
+</footer>
+
+<script>
+  (function () {
+    var navToggle = document.getElementById('nav-toggle');
+    if (navToggle) {
+      document.querySelectorAll('nav.topnav .navlinks a').forEach(function (link) {
+        link.addEventListener('click', function () { navToggle.checked = false; });
+      });
+    }
+  })();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trace One Failure | Show Me the Receipts</title>
+<meta name="description" content="An interactive tracing instrument for fundraisers. Take one failed receipt and follow it back through every layer until you reach the system that produced it.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --afp-blue: #3D00A4;
+    --nav-blue: #28006C;
+    --gold: #C9A24A;
+    --cream: #FAF7F0;
+    --charcoal: #2A1F3D;
+    --soft-gray: #6B6378;
+    --light-gold: #F0E4C2;
+    --serif: "Newsreader", Georgia, "Times New Roman", serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background: var(--cream);
+    color: var(--charcoal);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* ── NAV (identical to site) ── */
+  nav.topnav {
+    background: var(--nav-blue); padding: 1rem 1.5rem;
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 1rem; position: sticky; top: 0; z-index: 100;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  }
+  nav.topnav .brand {
+    color: white; font-size: 1rem; font-weight: 700;
+    letter-spacing: 0.2em; text-transform: uppercase; text-decoration: none;
+  }
+  nav.topnav .navlinks { display: flex; gap: 1.5rem; flex-wrap: wrap; align-items: center; }
+  nav.topnav .navlinks a {
+    color: white; font-size: 0.8125rem; font-weight: 600;
+    letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none;
+    padding: 0.25rem 0; border-bottom: 2px solid transparent; transition: border-color 0.2s;
+  }
+  nav.topnav .navlinks a:hover { border-bottom-color: var(--gold); }
+  nav.topnav .navlinks a.active { border-bottom-color: var(--gold); }
+  nav.topnav .navdropdown { position: relative; display: inline-block; outline: none; }
+  nav.topnav .navdropdown-toggle {
+    color: white; font-size: 0.8125rem; font-weight: 600; letter-spacing: 0.1em;
+    text-transform: uppercase; padding: 0.25rem 0; border-bottom: 2px solid transparent;
+    transition: border-color 0.2s; cursor: pointer; user-select: none;
+    display: inline-flex; align-items: center; gap: 0.25rem;
+  }
+  nav.topnav .navdropdown:hover .navdropdown-toggle,
+  nav.topnav .navdropdown:focus-within .navdropdown-toggle { border-bottom-color: var(--gold); }
+  nav.topnav .navdropdown .caret { font-size: 0.7em; display: inline-block; transition: transform 0.2s; }
+  nav.topnav .navdropdown:hover .caret,
+  nav.topnav .navdropdown:focus-within .caret { transform: translateY(2px); }
+  nav.topnav .navdropdown-menu {
+    position: absolute; top: calc(100% + 0.75rem); right: 0;
+    background: white; border: 1px solid rgba(0,0,0,0.08); border-radius: 6px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.15); min-width: 290px; padding: 0.5rem 0;
+    opacity: 0; visibility: hidden; transform: translateY(-4px);
+    transition: opacity 0.15s, visibility 0.15s, transform 0.15s; z-index: 200;
+  }
+  nav.topnav .navdropdown:hover .navdropdown-menu,
+  nav.topnav .navdropdown:focus-within .navdropdown-menu {
+    opacity: 1; visibility: visible; transform: translateY(0);
+  }
+  nav.topnav .navlinks .navdropdown-menu a {
+    display: block; padding: 0.75rem 1.125rem; color: var(--charcoal);
+    text-decoration: none; border: none; border-bottom: none; letter-spacing: 0;
+    text-transform: none; font-weight: 500; font-size: 0.9375rem; transition: background-color 0.15s;
+  }
+  nav.topnav .navlinks .navdropdown-menu a:hover { background-color: var(--cream); }
+  nav.topnav .navdropdown-menu .dropdown-label {
+    display: block; font-weight: 700; color: var(--afp-blue);
+    margin-bottom: 0.1875rem; font-size: 0.9375rem;
+  }
+  nav.topnav .navdropdown-menu .dropdown-desc {
+    display: block; font-size: 0.75rem; color: var(--soft-gray);
+    font-weight: 400; line-height: 1.4;
+  }
+  .nav-toggle { display: none; }
+  .nav-toggle-label {
+    display: none; cursor: pointer; width: 28px; height: 22px;
+    position: relative; flex-shrink: 0;
+  }
+  .nav-toggle-label span,
+  .nav-toggle-label span::before,
+  .nav-toggle-label span::after {
+    content: ""; position: absolute; left: 0; width: 100%; height: 2px;
+    background: white; border-radius: 2px;
+    transition: transform 0.25s ease, opacity 0.2s ease, top 0.25s ease;
+  }
+  .nav-toggle-label span { top: 10px; }
+  .nav-toggle-label span::before { top: -8px; }
+  .nav-toggle-label span::after { top: 8px; }
+  .nav-toggle:checked ~ .nav-toggle-label span { background: transparent; }
+  .nav-toggle:checked ~ .nav-toggle-label span::before { top: 0; transform: rotate(45deg); }
+  .nav-toggle:checked ~ .nav-toggle-label span::after { top: 0; transform: rotate(-45deg); }
+
+  @media (max-width: 860px) {
+    nav.topnav { flex-wrap: wrap; padding: 0.875rem 1.25rem; }
+    nav.topnav .brand { white-space: nowrap; }
+    .nav-toggle-label { display: block; }
+    nav.topnav .navlinks {
+      display: block; flex-basis: 100%; width: 100%; order: 3;
+      max-height: 0; overflow: hidden; transition: max-height 0.3s ease;
+    }
+    .nav-toggle:checked ~ .navlinks { max-height: 100vh; overflow-y: auto; }
+    nav.topnav .navlinks > a {
+      display: block; padding: 0.875rem 0; font-size: 0.8125rem;
+      border-bottom: 1px solid rgba(255,255,255,0.12);
+    }
+    nav.topnav .navlinks > a:first-child { margin-top: 0.75rem; }
+    nav.topnav .navlinks > a:hover,
+    nav.topnav .navlinks > a.active { border-bottom-color: var(--gold); }
+    nav.topnav .navdropdown { display: block; width: 100%; }
+    nav.topnav .navdropdown-toggle {
+      display: block; padding: 0.875rem 0 0.5rem;
+      border-bottom: none; cursor: default; color: var(--gold);
+    }
+    nav.topnav .navdropdown .caret { display: none; }
+    nav.topnav .navdropdown-menu {
+      position: static; opacity: 1; visibility: visible; transform: none;
+      min-width: 0; width: 100%; background: rgba(255,255,255,0.06);
+      border: none; border-radius: 4px; box-shadow: none;
+      margin-bottom: 0.75rem; padding: 0.25rem 0;
+    }
+    nav.topnav .navlinks .navdropdown-menu a { color: white; padding: 0.75rem 1rem; }
+    nav.topnav .navlinks .navdropdown-menu a:hover { background: rgba(255,255,255,0.08); }
+    nav.topnav .navdropdown-menu .dropdown-label { color: white; }
+    nav.topnav .navdropdown-menu .dropdown-desc { color: rgba(255,255,255,0.65); }
+  }
+
+  /* ── HEADER ── */
+  .tool-header {
+    background: var(--afp-blue); color: white;
+    padding: 4.5rem 1.5rem 5rem; text-align: center;
+  }
+  .tool-header .eyebrow {
+    font-size: 0.7rem; letter-spacing: 0.3em;
+    text-transform: uppercase; color: var(--gold);
+    font-weight: 700; margin-bottom: 1.25rem;
+  }
+  .tool-header h1 {
+    font-family: var(--serif);
+    font-size: clamp(2.5rem, 6.5vw, 4.25rem);
+    font-weight: 600; letter-spacing: -0.028em;
+    margin-bottom: 0.75rem; line-height: 1.0;
+    font-variation-settings: "opsz" 72;
+  }
+  .tool-header .subtitle {
+    font-family: var(--serif);
+    font-size: clamp(1.05rem, 2.5vw, 1.35rem);
+    font-style: italic; opacity: 0.92;
+    font-weight: 400; max-width: 580px;
+    margin: 0 auto; font-variation-settings: "opsz" 24;
+  }
+
+  /* ── TOOL BODY ── */
+  main { max-width: 720px; margin: 0 auto; padding: 4rem 1.5rem 5rem; }
+
+  /* Intro panel */
+  .intro {
+    background: white;
+    border-left: 3px solid var(--gold);
+    border-radius: 0 6px 6px 0;
+    padding: 2rem 2.25rem;
+    margin-bottom: 2.5rem;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+  }
+  .intro h2 {
+    font-family: var(--serif);
+    font-size: 1.5rem; font-weight: 600;
+    color: var(--afp-blue); margin-bottom: 1rem;
+    letter-spacing: -0.015em; font-variation-settings: "opsz" 24;
+  }
+  .intro p {
+    font-size: 1rem; line-height: 1.75;
+    color: var(--charcoal); margin-bottom: 0.875rem;
+  }
+  .intro p:last-child { margin-bottom: 0; }
+  .intro .micro {
+    font-size: 0.825rem; color: var(--soft-gray);
+    font-style: italic; margin-top: 1.25rem;
+  }
+
+  /* ── LAYER CARDS ── */
+  .layer {
+    background: white;
+    border-radius: 8px;
+    padding: 1.875rem 2rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: opacity 0.35s ease, max-height 0.5s ease, padding 0.35s ease, margin 0.35s ease;
+    padding-top: 0; padding-bottom: 0;
+    margin-top: 0; margin-bottom: 0;
+  }
+  .layer.active {
+    opacity: 1;
+    max-height: 800px;
+    padding: 1.875rem 2rem;
+    margin-bottom: 1.5rem;
+  }
+  .layer.locked {
+    opacity: 0.5;
+    max-height: 200px;
+    padding: 1.25rem 2rem;
+    margin-bottom: 1.5rem;
+    pointer-events: none;
+  }
+
+  .layer-label {
+    font-size: 0.7rem; letter-spacing: 0.25em;
+    text-transform: uppercase; color: var(--gold);
+    font-weight: 700; margin-bottom: 0.625rem;
+  }
+  .layer-prompt {
+    font-family: var(--serif);
+    font-size: 1.25rem; font-weight: 500;
+    color: var(--afp-blue); line-height: 1.35;
+    margin-bottom: 0.5rem; letter-spacing: -0.01em;
+    font-variation-settings: "opsz" 24;
+  }
+  .layer-hint {
+    font-size: 0.875rem; color: var(--soft-gray);
+    font-style: italic; margin-bottom: 1.25rem;
+    line-height: 1.5;
+  }
+  .layer-input {
+    width: 100%; min-height: 110px;
+    padding: 1rem 1.125rem;
+    border: 1.5px solid rgba(61,0,164,0.15);
+    border-radius: 6px;
+    font-family: inherit; font-size: 1rem;
+    line-height: 1.6; color: var(--charcoal);
+    background: var(--cream); resize: vertical;
+    transition: border-color 0.2s;
+  }
+  .layer-input:focus {
+    outline: none; border-color: var(--afp-blue);
+  }
+  .layer-input::placeholder { color: rgba(107, 99, 120, 0.5); }
+
+  .layer.locked .layer-input { background: rgba(0,0,0,0.02); }
+
+  .layer-display {
+    background: var(--cream);
+    border-left: 2px solid var(--gold);
+    padding: 0.875rem 1.125rem;
+    border-radius: 0 4px 4px 0;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: var(--charcoal);
+    margin-top: 0.5rem;
+  }
+
+  /* Button row */
+  .row {
+    display: flex; gap: 0.875rem; margin-top: 1.5rem;
+    flex-wrap: wrap; justify-content: flex-end;
+  }
+  .btn {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    border-radius: 4px;
+    font-size: 0.8125rem; font-weight: 700;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    cursor: pointer; border: none;
+    transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+    font-family: inherit;
+  }
+  .btn:hover:not(:disabled) {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+  }
+  .btn:disabled {
+    opacity: 0.4; cursor: not-allowed;
+  }
+  .btn-primary {
+    background: var(--afp-blue); color: white;
+  }
+  .btn-primary:hover:not(:disabled) { background: var(--nav-blue); }
+  .btn-secondary {
+    background: transparent; color: var(--soft-gray);
+    border: 1.5px solid rgba(107, 99, 120, 0.3);
+  }
+  .btn-secondary:hover:not(:disabled) {
+    color: var(--afp-blue); border-color: var(--afp-blue);
+  }
+  .btn-gold {
+    background: var(--gold); color: var(--afp-blue);
+  }
+  .btn-gold:hover:not(:disabled) { background: #b8932f; }
+
+  /* ── PROGRESS ── */
+  .progress {
+    display: flex; gap: 0.5rem; justify-content: center;
+    margin-bottom: 3rem;
+  }
+  .progress-dot {
+    width: 32px; height: 4px;
+    background: rgba(61,0,164,0.15); border-radius: 2px;
+    transition: background 0.3s ease;
+  }
+  .progress-dot.complete { background: var(--gold); }
+  .progress-dot.current { background: var(--afp-blue); }
+
+  /* ── COMPLETE STATE ── */
+  .trace-complete {
+    display: none;
+    background: white;
+    border-radius: 8px;
+    padding: 2.5rem 2.5rem;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+    margin-bottom: 2rem;
+  }
+  .trace-complete.show { display: block; }
+
+  .trace-complete h2 {
+    font-family: var(--serif);
+    font-size: 2rem; font-weight: 600;
+    color: var(--afp-blue); margin-bottom: 0.5rem;
+    letter-spacing: -0.02em;
+    font-variation-settings: "opsz" 36;
+  }
+  .trace-complete .subhead {
+    font-family: var(--serif);
+    font-size: 1.1rem; font-style: italic;
+    color: var(--soft-gray); margin-bottom: 2rem;
+  }
+
+  .trace-card {
+    background: var(--cream);
+    border-radius: 6px;
+    padding: 1.75rem 1.875rem;
+    margin-bottom: 2rem;
+    border: 1px solid rgba(61,0,164,0.08);
+  }
+  .trace-row {
+    margin-bottom: 1.25rem;
+    padding-bottom: 1.25rem;
+    border-bottom: 1px solid rgba(61,0,164,0.1);
+  }
+  .trace-row:last-child {
+    margin-bottom: 0; padding-bottom: 0; border-bottom: none;
+  }
+  .trace-row-label {
+    font-size: 0.7rem; letter-spacing: 0.25em;
+    text-transform: uppercase; color: var(--gold);
+    font-weight: 700; margin-bottom: 0.5rem;
+  }
+  .trace-row-content {
+    font-size: 1rem; line-height: 1.65;
+    color: var(--charcoal);
+  }
+
+  .trace-insight {
+    background: rgba(61,0,164,0.05);
+    border-left: 3px solid var(--afp-blue);
+    border-radius: 0 4px 4px 0;
+    padding: 1.5rem 1.75rem;
+    margin-bottom: 2rem;
+  }
+  .trace-insight .insight-label {
+    font-size: 0.7rem; letter-spacing: 0.25em;
+    text-transform: uppercase; color: var(--afp-blue);
+    font-weight: 700; margin-bottom: 0.625rem;
+  }
+  .trace-insight p {
+    font-family: var(--serif);
+    font-size: 1.15rem; line-height: 1.55;
+    color: var(--charcoal); font-style: italic;
+    font-variation-settings: "opsz" 24;
+  }
+
+  /* ── PROMISE BRIDGE ── */
+  .promise-bridge {
+    display: none;
+    background: var(--afp-blue);
+    color: white;
+    border-radius: 8px;
+    padding: 2.5rem 2.5rem;
+    text-align: center;
+    margin-top: 2rem;
+  }
+  .promise-bridge.show { display: block; }
+  .promise-bridge .bridge-eyebrow {
+    font-size: 0.7rem; letter-spacing: 0.3em;
+    text-transform: uppercase; color: var(--gold);
+    font-weight: 700; margin-bottom: 1rem;
+  }
+  .promise-bridge h3 {
+    font-family: var(--serif);
+    font-size: 1.85rem; font-weight: 600;
+    line-height: 1.15; letter-spacing: -0.018em;
+    margin-bottom: 1rem;
+    font-variation-settings: "opsz" 36;
+  }
+  .promise-bridge p {
+    font-size: 1rem; line-height: 1.7;
+    opacity: 0.92; max-width: 520px;
+    margin: 0 auto 1.75rem;
+  }
+  .promise-bridge .bridge-link {
+    display: inline-block; text-decoration: none;
+    background: var(--gold); color: var(--afp-blue);
+    padding: 0.875rem 1.875rem; border-radius: 4px;
+    font-size: 0.8125rem; font-weight: 700;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .promise-bridge .bridge-link:hover {
+    transform: translateY(-2px); box-shadow: 0 6px 16px rgba(0,0,0,0.2);
+  }
+
+  /* Reset link */
+  .reset-link {
+    display: block; text-align: center; margin-top: 2.5rem;
+    font-size: 0.75rem; font-weight: 700;
+    letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--soft-gray); text-decoration: none;
+    transition: color 0.2s; cursor: pointer;
+  }
+  .reset-link:hover { color: var(--afp-blue); }
+
+  /* ── PRINT STYLES ── */
+  @media print {
+    nav.topnav, .tool-header, .intro, .layer, .progress,
+    .promise-bridge, .reset-link, footer { display: none !important; }
+    .trace-complete { display: block !important; box-shadow: none; padding: 0; }
+    .trace-complete .row { display: none; }
+    body { background: white; }
+    main { padding: 0; max-width: none; }
+    @page { margin: 0.75in; }
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--cream); padding: 2.5rem 1.5rem;
+    text-align: center; color: var(--soft-gray);
+    font-size: 0.8125rem; border-top: 1px solid rgba(0,0,0,0.05);
+  }
+  footer p { margin-bottom: 0.25rem; }
+  footer .footer-url { color: var(--afp-blue); font-weight: 700; letter-spacing: 0.05em; }
+  footer .attribution { margin-top: 0.5rem; font-style: italic; }
+
+  @media (max-width: 600px) {
+    .tool-header { padding: 3rem 1.25rem 3.5rem; }
+    main { padding: 2.5rem 1.25rem 4rem; }
+    .intro, .layer.active, .trace-complete, .promise-bridge {
+      padding: 1.5rem 1.5rem;
+    }
+    .row { flex-direction: column; }
+    .btn { width: 100%; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <a href="index.html" class="brand">Show Me the Receipts</a>
+  <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-hidden="true">
+  <label for="nav-toggle" class="nav-toggle-label" aria-label="Open menu"><span></span></label>
+  <div class="navlinks">
+    <a href="index.html">Home</a>
+    <a href="field-notes.html">Field Notes</a>
+    <a href="relationship-report.html">The Relationship Report</a>
+    <a href="glossary.html">Glossary</a>
+    <div class="navdropdown" tabindex="0">
+      <span class="navdropdown-toggle">Resources <span class="caret">&#9662;</span></span>
+      <div class="navdropdown-menu">
+        <a href="trace-one-failure.html">
+          <span class="dropdown-label">Trace One Failure</span>
+          <span class="dropdown-desc">Interactive tracing instrument</span>
+        </a>
+        <a href="downloads/show-me-the-receipts-reference-card.pdf" download>
+          <span class="dropdown-label">Reference Card</span>
+          <span class="dropdown-desc">190 receipts &middot; PDF download</span>
+        </a>
+        <a href="downloads/show-me-the-receipts-trust-audit.pdf" download>
+          <span class="dropdown-label">Trust Audit Worksheet</span>
+          <span class="dropdown-desc">19-page audit &middot; PDF download</span>
+        </a>
+        <a href="relationship-report.html">
+          <span class="dropdown-label">The Relationship Report</span>
+          <span class="dropdown-desc">5 metrics &middot; build it yourself</span>
+        </a>
+        <a href="glossary.html">
+          <span class="dropdown-label">Glossary</span>
+          <span class="dropdown-desc">40 working terms</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<header class="tool-header">
+  <p class="eyebrow">An instrument for fundraisers</p>
+  <h1>Trace One Failure</h1>
+  <p class="subtitle">Take one failed receipt. Follow it back through every layer until you reach the system that produced it.</p>
+</header>
+
+<main>
+
+  <!-- Intro -->
+  <div class="intro" id="intro">
+    <h2>How this works</h2>
+    <p>Name one failed receipt &mdash; one promise made to a donor that wasn&rsquo;t kept. The tool will ask you why it happened. Then it will ask you why that happened. Then again. Five times.</p>
+    <p>Each pass is meant to push you one layer deeper than the last. Don&rsquo;t worry about getting it right. The work is the descent.</p>
+    <p class="micro">Nothing is stored on our servers. When you finish, you&rsquo;ll be able to save or print your trace. If you close this page before saving, your work is gone.</p>
+  </div>
+
+  <!-- Progress -->
+  <div class="progress" id="progress">
+    <div class="progress-dot" data-step="0"></div>
+    <div class="progress-dot" data-step="1"></div>
+    <div class="progress-dot" data-step="2"></div>
+    <div class="progress-dot" data-step="3"></div>
+    <div class="progress-dot" data-step="4"></div>
+    <div class="progress-dot" data-step="5"></div>
+  </div>
+
+  <!-- Layer 0: Name the failure -->
+  <div class="layer active" id="layer-0">
+    <div class="layer-label">Start here</div>
+    <div class="layer-prompt">Name one failed receipt.</div>
+    <div class="layer-hint">A promise made to a donor that wasn&rsquo;t kept. Be specific. Don&rsquo;t worry about scope &mdash; small failures often reveal the biggest systems.</div>
+    <textarea class="layer-input" id="input-0" placeholder="Example: A donor's name was missing from the recognition wall on dedication day."></textarea>
+    <div class="row">
+      <button class="btn btn-primary" onclick="advance(0)">Continue &rarr;</button>
+    </div>
+  </div>
+
+  <!-- Layer 1: Proximate cause -->
+  <div class="layer" id="layer-1">
+    <div class="layer-label">First why &middot; The proximate cause</div>
+    <div class="layer-prompt">What is the first explanation that comes to mind?</div>
+    <div class="layer-hint">The instinctive answer. The person, the missed step, the obvious break. Trust your first instinct here.</div>
+    <textarea class="layer-input" id="input-1" placeholder="What you would say if a colleague asked, &lsquo;What happened?&rsquo;"></textarea>
+    <div class="row">
+      <button class="btn btn-secondary" onclick="goBack(1)">&larr; Back</button>
+      <button class="btn btn-primary" onclick="advance(1)">Continue &rarr;</button>
+    </div>
+  </div>
+
+  <!-- Layer 2: One layer deeper -->
+  <div class="layer" id="layer-2">
+    <div class="layer-label">Second why &middot; Granted. Now go deeper</div>
+    <div class="layer-prompt">What produced <em>that</em>?</div>
+    <div class="layer-hint">Accept your first answer. Now ask what allowed it to happen. If you named a person, look for the system that gave that person the only check. If you named a system, look for the assumption inside it.</div>
+    <textarea class="layer-input" id="input-2" placeholder="What conditions, processes, or assumptions made your first answer possible?"></textarea>
+    <div class="row">
+      <button class="btn btn-secondary" onclick="goBack(2)">&larr; Back</button>
+      <button class="btn btn-primary" onclick="advance(2)">Continue &rarr;</button>
+    </div>
+  </div>
+
+  <!-- Layer 3: Deeper -->
+  <div class="layer" id="layer-3">
+    <div class="layer-label">Third why &middot; Keep descending</div>
+    <div class="layer-prompt">And what produced <em>that</em>?</div>
+    <div class="layer-hint">By now you&rsquo;re reaching into the structure of how work moves through your organization. What handoff was assumed? What role wasn&rsquo;t explicitly named? What was nobody responsible for checking?</div>
+    <textarea class="layer-input" id="input-3" placeholder="The handoff, the missing role, the unowned step..."></textarea>
+    <div class="row">
+      <button class="btn btn-secondary" onclick="goBack(3)">&larr; Back</button>
+      <button class="btn btn-primary" onclick="advance(3)">Continue &rarr;</button>
+    </div>
+  </div>
+
+  <!-- Layer 4: Deeper -->
+  <div class="layer" id="layer-4">
+    <div class="layer-label">Fourth why &middot; The pattern beneath</div>
+    <div class="layer-prompt">And what produced <em>that</em>?</div>
+    <div class="layer-hint">This is the layer where most fundraisers begin to run out of words. That&rsquo;s the right feeling. You&rsquo;re close to the system. Stay with the discomfort and write what you can.</div>
+    <textarea class="layer-input" id="input-4" placeholder="Write what you can. &lsquo;I don&rsquo;t know&rsquo; is also a valid answer here &mdash; and it tells you something important."></textarea>
+    <div class="row">
+      <button class="btn btn-secondary" onclick="goBack(4)">&larr; Back</button>
+      <button class="btn btn-primary" onclick="advance(4)">Continue &rarr;</button>
+    </div>
+  </div>
+
+  <!-- Layer 5: The wall -->
+  <div class="layer" id="layer-5">
+    <div class="layer-label">Fifth why &middot; The wall</div>
+    <div class="layer-prompt">And what produced <em>that</em>?</div>
+    <div class="layer-hint">The last pass. You may have reached a system-level cause. You may have reached a place where you genuinely don&rsquo;t know what produced the previous answer. Both are useful. Both are insight. The wall is the gap.</div>
+    <textarea class="layer-input" id="input-5" placeholder="The deepest layer you can reach, or honest acknowledgment of the wall."></textarea>
+    <div class="row">
+      <button class="btn btn-secondary" onclick="goBack(5)">&larr; Back</button>
+      <button class="btn btn-gold" onclick="advance(5)">Complete the trace &rarr;</button>
+    </div>
+  </div>
+
+  <!-- Complete state -->
+  <div class="trace-complete" id="trace-complete">
+    <h2>Your trace</h2>
+    <p class="subhead">This is what you produced. Save or print it before you close the page.</p>
+
+    <div class="trace-card" id="trace-card">
+      <!-- Rendered dynamically -->
+    </div>
+
+    <div class="trace-insight">
+      <div class="insight-label">What you just did</div>
+      <p id="trace-insight-text">You took one symptom and followed it five layers back. Most fundraising training stops at the first layer. You went four further.</p>
+    </div>
+
+    <div class="row" style="justify-content: center; margin-top: 2rem;">
+      <button class="btn btn-gold" onclick="window.print()">Save or print as PDF</button>
+      <button class="btn btn-secondary" onclick="downloadTrace()">Download text file</button>
+    </div>
+  </div>
+
+  <!-- Promise bridge -->
+  <div class="promise-bridge" id="promise-bridge">
+    <div class="bridge-eyebrow">The next move</div>
+    <h3>You found a gap. Make a promise that closes it.</h3>
+    <p>The trace was comprehension. The promise is commitment. Take what you just discovered and put it on a 30-day timer with a named witness. This is how the gap closes.</p>
+    <a href="index.html#make-my-promise" class="bridge-link">Make a 30-Day Promise &rarr;</a>
+  </div>
+
+  <a class="reset-link" onclick="resetTrace()">&#x21BB; Start a new trace</a>
+
+</main>
+
+<footer>
+  <p class="footer-url">ShowMeReceipts.org</p>
+  <p class="attribution">&copy; 2026 Glen E. Quiring, CFRE. All rights reserved.</p>
+</footer>
+
+<script>
+  // ── State ──
+  var currentLayer = 0;
+  var answers = ['', '', '', '', '', ''];
+  var layerLabels = [
+    'The failed receipt',
+    'First why',
+    'Second why',
+    'Third why',
+    'Fourth why',
+    'Fifth why &middot; The wall'
+  ];
+
+  // ── Progress dots ──
+  function updateProgress() {
+    var dots = document.querySelectorAll('.progress-dot');
+    dots.forEach(function (dot, i) {
+      dot.classList.remove('complete', 'current');
+      if (i < currentLayer) dot.classList.add('complete');
+      else if (i === currentLayer) dot.classList.add('current');
+    });
+  }
+
+  // ── Layer transitions ──
+  function showLayer(n) {
+    document.querySelectorAll('.layer').forEach(function (el, i) {
+      el.classList.remove('active', 'locked');
+      if (i === n) {
+        el.classList.add('active');
+        // Focus the textarea after the transition begins
+        setTimeout(function () {
+          var input = document.getElementById('input-' + i);
+          if (input) input.focus();
+        }, 150);
+      } else if (i < n) {
+        el.classList.add('locked');
+      }
+    });
+    currentLayer = n;
+    updateProgress();
+    // Scroll the active layer into view
+    setTimeout(function () {
+      var active = document.getElementById('layer-' + n);
+      if (active) active.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 200);
+  }
+
+  function advance(fromLayer) {
+    var input = document.getElementById('input-' + fromLayer);
+    var value = input.value.trim();
+    if (!value) {
+      input.focus();
+      input.style.borderColor = '#C9A24A';
+      setTimeout(function () { input.style.borderColor = ''; }, 1200);
+      return;
+    }
+    answers[fromLayer] = value;
+    if (fromLayer === 5) {
+      completeTrace();
+    } else {
+      showLayer(fromLayer + 1);
+    }
+  }
+
+  function goBack(fromLayer) {
+    if (fromLayer > 0) showLayer(fromLayer - 1);
+  }
+
+  // ── Completion ──
+  function completeTrace() {
+    // Hide all layers and progress
+    document.querySelectorAll('.layer').forEach(function (el) {
+      el.classList.remove('active');
+      el.classList.add('locked');
+    });
+    document.getElementById('intro').style.display = 'none';
+    document.getElementById('progress').style.display = 'none';
+
+    // Build the trace card
+    var card = document.getElementById('trace-card');
+    var html = '';
+    for (var i = 0; i <= 5; i++) {
+      html += '<div class="trace-row">';
+      html += '<div class="trace-row-label">' + layerLabels[i] + '</div>';
+      html += '<div class="trace-row-content">' + escapeHtml(answers[i]) + '</div>';
+      html += '</div>';
+    }
+    card.innerHTML = html;
+
+    // Show complete state + bridge
+    document.getElementById('trace-complete').classList.add('show');
+    document.getElementById('promise-bridge').classList.add('show');
+
+    // Scroll to top of trace
+    setTimeout(function () {
+      document.getElementById('trace-complete').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 150);
+  }
+
+  // ── Helpers ──
+  function escapeHtml(s) {
+    var div = document.createElement('div');
+    div.textContent = s;
+    return div.innerHTML;
+  }
+
+  function downloadTrace() {
+    var today = new Date();
+    var dateStr = today.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+    var content = 'TRACE ONE FAILURE\n';
+    content += 'ShowMeReceipts.org\n';
+    content += dateStr + '\n\n';
+    content += '─────────────────────────────────\n\n';
+    for (var i = 0; i <= 5; i++) {
+      content += layerLabels[i].replace(/&middot;/g, '·').toUpperCase() + '\n';
+      content += answers[i] + '\n\n';
+    }
+    content += '─────────────────────────────────\n';
+    content += 'The trace was comprehension.\n';
+    content += 'The promise is commitment.\n';
+    content += 'Next: make a 30-day promise that closes the gap.\n';
+    content += 'ShowMeReceipts.org\n';
+
+    var blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    a.href = url;
+    a.download = 'trace-one-failure-' + today.toISOString().slice(0,10) + '.txt';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  }
+
+  function resetTrace() {
+    if (!confirm('This will clear your current trace. Are you sure?')) return;
+    answers = ['', '', '', '', '', ''];
+    for (var i = 0; i <= 5; i++) {
+      var inp = document.getElementById('input-' + i);
+      if (inp) inp.value = '';
+    }
+    document.getElementById('trace-complete').classList.remove('show');
+    document.getElementById('promise-bridge').classList.remove('show');
+    document.getElementById('intro').style.display = 'block';
+    document.getElementById('progress').style.display = 'flex';
+    showLayer(0);
+  }
+
+  // Mobile nav close
+  (function () {
+    var navToggle = document.getElementById('nav-toggle');
+    if (navToggle) {
+      document.querySelectorAll('nav.topnav .navlinks a').forEach(function (link) {
+        link.addEventListener('click', function () { navToggle.checked = false; });
+      });
+    }
+  })();
+
+  // Initialize
+  updateProgress();
+</script>
+
+</body>
+</html>

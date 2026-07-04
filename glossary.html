@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Glossary | Show Me the Receipts</title>
+<meta name="description" content="Plain-language definitions of the fundraising terms used in Show Me the Receipts.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --afp-blue: #3D00A4;
+    --nav-blue: #28006C;
+    --gold: #C9A24A;
+    --cream: #FAF7F0;
+    --charcoal: #2A1F3D;
+    --soft-gray: #6B6378;
+    --light-gold: #F0E4C2;
+    --serif: "Newsreader", Georgia, "Times New Roman", serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background: var(--cream);
+    color: var(--charcoal);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* NAV BAND */
+  nav.topnav {
+    background: var(--nav-blue);
+    padding: 1rem 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  nav.topnav .brand {
+    color: white;
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    text-decoration: none;
+  }
+  nav.topnav .navlinks {
+    display: flex;
+    gap: 1.75rem;
+  }
+  nav.topnav .navlinks a {
+    color: white;
+    font-size: 0.875rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 0.25rem 0;
+    border-bottom: 2px solid transparent;
+    transition: border-color 0.2s;
+  }
+  nav.topnav .navlinks a:hover {
+    border-bottom-color: var(--gold);
+  }
+  nav.topnav .navlinks a.active {
+    border-bottom-color: var(--gold);
+  }
+
+  /* RESOURCES DROPDOWN — added for cross-page nav access */
+  nav.topnav .navdropdown {
+    position: relative;
+    display: inline-block;
+    outline: none;
+  }
+  nav.topnav .navdropdown-toggle {
+    color: white;
+    font-size: 0.875rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.25rem 0;
+    border-bottom: 2px solid transparent;
+    transition: border-color 0.2s;
+    cursor: pointer;
+    user-select: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+  nav.topnav .navdropdown:hover .navdropdown-toggle,
+  nav.topnav .navdropdown:focus-within .navdropdown-toggle {
+    border-bottom-color: var(--gold);
+  }
+  nav.topnav .navdropdown .caret {
+    font-size: 0.7em;
+    display: inline-block;
+    transition: transform 0.2s;
+  }
+  nav.topnav .navdropdown:hover .caret,
+  nav.topnav .navdropdown:focus-within .caret {
+    transform: translateY(2px);
+  }
+  nav.topnav .navdropdown-menu {
+    position: absolute;
+    top: calc(100% + 0.75rem);
+    right: 0;
+    background: white;
+    border: 1px solid rgba(0,0,0,0.08);
+    border-radius: 6px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+    min-width: 290px;
+    padding: 0.5rem 0;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-4px);
+    transition: opacity 0.15s, visibility 0.15s, transform 0.15s;
+    z-index: 200;
+  }
+  nav.topnav .navdropdown:hover .navdropdown-menu,
+  nav.topnav .navdropdown:focus-within .navdropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+  nav.topnav .navlinks .navdropdown-menu a {
+    display: block;
+    padding: 0.75rem 1.125rem;
+    color: var(--charcoal);
+    text-decoration: none;
+    border: none;
+    border-bottom: none;
+    letter-spacing: 0;
+    text-transform: none;
+    font-weight: 500;
+    font-size: 0.9375rem;
+    transition: background-color 0.15s;
+  }
+  nav.topnav .navlinks .navdropdown-menu a:hover {
+    background-color: var(--cream);
+    border-bottom: none;
+  }
+  nav.topnav .navdropdown-menu .dropdown-label {
+    display: block;
+    font-weight: 700;
+    color: var(--afp-blue);
+    margin-bottom: 0.1875rem;
+    font-size: 0.9375rem;
+    letter-spacing: 0;
+  }
+  nav.topnav .navdropdown-menu .dropdown-desc {
+    display: block;
+    font-size: 0.75rem;
+    color: var(--soft-gray);
+    font-weight: 400;
+    letter-spacing: 0;
+    line-height: 1.4;
+  }
+  @media (max-width: 720px) {
+    nav.topnav .navdropdown-menu {
+      right: -1rem;
+      min-width: 240px;
+    }
+  }
+
+  /* PAGE HERO */
+  .page-hero {
+    background: var(--afp-blue);
+    color: white;
+    padding: 3rem 1.5rem 4rem;
+    text-align: center;
+  }
+  .page-hero h1 {
+    font-family: var(--serif);
+    font-size: clamp(2.25rem, 5.5vw, 3.25rem);
+    font-weight: 600;
+    letter-spacing: -0.025em;
+    margin-bottom: 1rem;
+    line-height: 1;
+    font-variation-settings: "opsz" 60;
+  }
+  .page-hero p {
+    font-family: var(--serif);
+    font-size: 1.125rem;
+    font-style: italic;
+    opacity: 0.9;
+    max-width: 640px;
+    margin: 0 auto;
+    line-height: 1.6;
+    font-weight: 400;
+    font-variation-settings: "opsz" 20;
+  }
+
+  /* A-Z INDEX */
+  .az-index {
+    background: var(--gold);
+    padding: 1.5rem 1rem;
+    text-align: center;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    box-shadow: 0 2px 8px rgba(61, 0, 164, 0.1);
+  }
+  .az-index .letters {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem;
+    max-width: 880px;
+    margin: 0 auto;
+  }
+  .az-index a, .az-index span {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.875rem;
+    height: 1.875rem;
+    font-size: 0.875rem;
+    font-weight: 700;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background 0.2s;
+  }
+  .az-index a {
+    color: var(--afp-blue);
+    background: rgba(255,255,255,0.8);
+  }
+  .az-index a:hover {
+    background: var(--afp-blue);
+    color: white;
+  }
+  .az-index span {
+    color: rgba(61,0,164,0.3);
+    cursor: not-allowed;
+  }
+
+  /* GLOSSARY CONTENT */
+  .glossary-container {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 3rem 1.5rem 4rem;
+  }
+
+  .letter-group {
+    margin-bottom: 2.5rem;
+    scroll-margin-top: 6rem;
+  }
+  .letter-group h2 {
+    font-family: var(--serif);
+    font-size: 3.75rem;
+    color: var(--gold);
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--gold);
+    line-height: 1;
+    font-variation-settings: "opsz" 72;
+  }
+
+  .entry {
+    padding: 1.5rem 0;
+    border-bottom: 1px solid rgba(201, 162, 74, 0.3);
+  }
+  .entry:last-child {
+    border-bottom: none;
+  }
+  .entry .term {
+    color: var(--afp-blue);
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.01em;
+  }
+  .entry .definition {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--charcoal);
+  }
+  .entry .definition em {
+    color: var(--soft-gray);
+    font-style: italic;
+  }
+
+  /* FOOTER */
+  footer {
+    background: var(--cream);
+    padding: 2.5rem 1.5rem;
+    text-align: center;
+    color: var(--soft-gray);
+    font-size: 0.8125rem;
+    border-top: 1px solid rgba(0,0,0,0.05);
+  }
+  footer p { margin-bottom: 0.25rem; }
+  footer .footer-url {
+    color: var(--afp-blue);
+    font-weight: 700;
+    letter-spacing: 0.05em;
+  }
+  footer .attribution {
+    margin-top: 0.5rem;
+    font-style: italic;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 600px) {
+    nav.topnav { padding: 1rem; }
+    nav.topnav .brand { font-size: 0.875rem; }
+    nav.topnav .navlinks { gap: 1.25rem; }
+    .page-hero { padding: 2.5rem 1.25rem 3rem; }
+    .glossary-container { padding: 2rem 1.25rem 3rem; }
+    .letter-group h2 { font-size: 2.25rem; }
+    .az-index a, .az-index span {
+      width: 1.625rem;
+      height: 1.625rem;
+      font-size: 0.75rem;
+    }
+  }
+
+  /* MOBILE REFINEMENTS — applied last so they override earlier rules */
+  @media (max-width: 600px) {
+    /* Tighter nav typography, allow links to wrap if needed */
+    nav.topnav .navlinks {
+      flex-wrap: wrap;
+      row-gap: 0.5rem;
+    }
+    nav.topnav .navlinks > a,
+    nav.topnav .navdropdown-toggle {
+      font-size: 0.75rem;
+      letter-spacing: 0.06em;
+      padding: 0.375rem 0;
+    }
+    /* Dropdown menu hugs viewport on narrow screens */
+    nav.topnav .navdropdown-menu {
+      min-width: 0;
+      width: calc(100vw - 2rem);
+      right: -1rem;
+    }
+    /* Generous tap targets within dropdown */
+    nav.topnav .navlinks .navdropdown-menu a {
+      padding: 0.875rem 1.125rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    /* Stack the nav: brand on row 1, links on row 2 */
+    nav.topnav {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.5rem;
+      padding: 0.625rem 1rem 0.75rem;
+    }
+    nav.topnav .brand {
+      font-size: 0.75rem;
+      letter-spacing: 0.12em;
+    }
+    nav.topnav .navlinks {
+      width: 100%;
+      gap: 1rem;
+      row-gap: 0.5rem;
+    }
+    nav.topnav .navlinks > a,
+    nav.topnav .navdropdown-toggle {
+      font-size: 0.6875rem;
+      letter-spacing: 0.05em;
+    }
+    /* Push the navdropdown to the right end of the row so the
+       dropdown menu opens within the viewport, not past its left edge */
+    nav.topnav .navlinks .navdropdown {
+      margin-left: auto;
+    }
+    nav.topnav .navdropdown-menu {
+      right: 0;
+      left: auto;
+      width: calc(100vw - 2rem);
+    }
+    /* Hero / content padding tightened further */
+    .page-hero { padding: 2.5rem 1.25rem 2.75rem; }
+    .essay { padding: 2.5rem 1.25rem 0.5rem; }
+    .downloads { padding: 2.5rem 1rem 2.5rem; }
+    .download-card { padding: 1.5rem 1.25rem; }
+    .mantra-band { padding: 2.5rem 1rem; }
+  }
+
+  /* TOUCH DEVICES — improve dropdown UX on devices without hover */
+  @media (hover: none) and (pointer: coarse) {
+    /* Ensure dropdown is tappable: visible focus state */
+    nav.topnav .navdropdown:focus-within .navdropdown-toggle {
+      border-bottom-color: var(--gold);
+    }
+    /* Larger tap area for nav items */
+    nav.topnav .navlinks > a {
+      padding: 0.5rem 0;
+    }
+  }
+
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <a href="index.html" class="brand">Show Me the Receipts</a>
+  <div class="navlinks">
+    <a href="index.html">Home</a>
+    <a href="ai-witness.html">AI as Witness</a>
+    <a href="glossary.html" class="active">Glossary</a>
+    <div class="navdropdown" tabindex="0">
+      <span class="navdropdown-toggle">Resources <span class="caret">&#9662;</span></span>
+      <div class="navdropdown-menu">
+        <a href="downloads/show-me-the-receipts-reference-card.pdf" download>
+          <span class="dropdown-label">Reference Card</span>
+          <span class="dropdown-desc">190 receipts &middot; PDF download</span>
+        </a>
+        <a href="downloads/show-me-the-receipts-trust-audit.pdf" download>
+          <span class="dropdown-label">Trust Audit Worksheet</span>
+          <span class="dropdown-desc">19-page audit &middot; PDF download</span>
+        </a>
+        <a href="glossary.html">
+          <span class="dropdown-label">Glossary</span>
+          <span class="dropdown-desc">40 working terms</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<header class="page-hero">
+  <h1>Glossary</h1>
+  <p>Plain-language definitions of the technical fundraising terms used on the Show Me the Receipts reference card. Every term newer development directors might not yet know &mdash; explained in two or three sentences, with why it matters for donor trust.</p>
+</header>
+
+<nav class="az-index">
+  <div class="letters">
+    <a href="#letter-a">A</a>
+    <span>B</span>
+    <a href="#letter-c">C</a>
+    <a href="#letter-d">D</a>
+    <a href="#letter-e">E</a>
+    <a href="#letter-f">F</a>
+    <a href="#letter-g">G</a>
+    <a href="#letter-h">H</a>
+    <a href="#letter-i">I</a>
+    <span>J</span>
+    <span>K</span>
+    <span>L</span>
+    <a href="#letter-m">M</a>
+    <a href="#letter-n">N</a>
+    <span>O</span>
+    <a href="#letter-p">P</a>
+    <a href="#letter-q">Q</a>
+    <a href="#letter-r">R</a>
+    <a href="#letter-s">S</a>
+    <span>T</span>
+    <span>U</span>
+    <span>V</span>
+    <span>W</span>
+    <span>X</span>
+    <span>Y</span>
+    <span>Z</span>
+  </div>
+</nav>
+
+<main class="glossary-container">
+
+  <!-- A -->
+  <section class="letter-group" id="letter-a">
+    <h2>A</h2>
+    <div class="entry">
+      <div class="term">501(h) election</div>
+      <div class="definition">A formal IRS election that lets a nonprofit measure its lobbying activities by what it spends rather than by the murkier &ldquo;substantial part&rdquo; test. <em>Why it matters:</em> nonprofits that engage in advocacy need clear, defensible limits. The 501(h) election makes those limits trackable and protects the organization's tax-exempt status &mdash; which protects the donor's deduction.</div>
+    </div>
+    <div class="entry">
+      <div class="term">Affinity rating</div>
+      <div class="definition">A score in the donor database estimating how connected someone feels to the organization's mission, based on giving history, event attendance, volunteer hours, and other engagement signals. <em>Why it matters:</em> affinity ratings determine which cultivation moves a donor receives. A donor with high affinity and modest capacity may be a great planned-giving candidate; a high-capacity donor with low affinity needs different attention.</div>
+    </div>
+    <div class="entry">
+      <div class="term">Anonymous gift</div>
+      <div class="definition">A donation made without public recognition, with the donor's identity protected from listings, donor walls, or external acknowledgments. <em>Why it matters:</em> anonymous gifts require their own protocols. Staff who handle the gift know the donor; everyone downstream in the publication chain must not. A single leak &mdash; a name accidentally printed in the annual report &mdash; breaches trust permanently.</div>
+    </div>
+    <div class="entry">
+      <div class="term">ASC 958</div>
+      <div class="definition">Financial Accounting Standards Board guidance specifically for nonprofits, requiring every donation to be classified on the books as either &ldquo;with donor restrictions&rdquo; or &ldquo;without donor restrictions.&rdquo; <em>Why it matters:</em> a donor who designates their gift for a specific program is trusting that the organization will track and report that restriction accurately, year after year, until the funds are spent. ASC 958 is the accounting framework that makes that tracking auditable.</div>
+    </div>
+  </section>
+
+  <!-- C -->
+  <section class="letter-group" id="letter-c">
+    <h2>C</h2>
+    <div class="entry">
+      <div class="term">CAN-SPAM</div>
+      <div class="definition">A U.S. law governing commercial email, requiring senders to identify themselves, honor unsubscribes promptly, and not use deceptive subject lines. Nonprofits sending fundraising emails fall under it. <em>Why it matters:</em> the donor who unsubscribes and still gets emails experiences a small but real breach of trust &mdash; the organization is technically violating federal law and visibly ignoring the donor's stated preference.</div>
+    </div>
+    <div class="entry">
+      <div class="term">Capacity rating</div>
+      <div class="definition">An estimate of how much a donor can afford to give to charity, often built from real estate values, public salary information, business ownership, foundation involvement, and other wealth signals. <em>Why it matters:</em> capacity shapes the size of the ask. Asking far below capacity may miss the opportunity; asking far above can damage the relationship. The accuracy of the rating is itself a receipt.</div>
+    </div>
+    <div class="entry">
+      <div class="term">Complex gift</div>
+      <div class="definition">A donation that's harder to process than a check or credit card transaction. Examples: appreciated stock, real estate, life insurance, retirement assets, business interests. <em>Why it matters:</em> complex gifts require coordination between development, finance, legal counsel, and often the donor's own advisors. Mishandling delays the gift or creates tax problems for the donor &mdash; problems that may not surface until they file their return.</div>
+    </div>
+    <div class="entry">
+      <div class="term">Cultivation</div>
+      <div class="definition">The phase of donor relationship-building between identifying a prospect and making the ask. Includes site visits, personal updates, introductions to leadership, behind-the-scenes access, and other relationship-deepening touches. <em>Why it matters:</em> cultivation creates the readiness for a successful solicitation. Skipping it produces declined asks, smaller-than-possible gifts, and donors who feel suddenly transactional rather than valued.</div>
+    </div>
+    <div class="entry">
+      <div class="term">Custom field</div>
+      <div class="definition">A data field added to the donor record beyond the standard ones &mdash; wine preference, alumni class year, spouse's nickname, interest in scholarships. <em>Why it matters:</em> custom fields capture the specific knowledge that makes a relationship feel personal. When a donor's custom-field data is missing or wrong, the next interaction often feels generic &mdash; and donors notice.</div>
+    </div>
+  </section>
+
+  <!-- D -->
+  <section class="letter-group" id="letter-d">
+    <h2>D</h2>
+    <div class="entry">
+      <div class="term">Designation</div>
+      <div class="definition">A donor's specification of how a gift should be used &mdash; scholarship fund, building campaign, general operating, a specific program. <em>Why it matters:</em> a designated gift creates a contract. Spending designated funds for any other purpose violates the donor's authorization and may violate the law. Honoring designations across fiscal years and staff transitions is one of the quietest, most important receipts an organization issues.</div>
+    </div>
+    <div class="entry">
+      <div class="term">Donor cycle</div>
+      <div class="definition">The sequence of stages a donor moves through with an organization: identification, qualification, cultivation, solicitation, stewardship, and renewal. Often called the &ldquo;moves management cycle.&rdquo; <em>Why it matters:</em> every donor is at some point in the cycle. Trust grows or erodes depending on whether the organization handles each stage with attention and follow-through.</div>
+    </div>
+    <div class="entry">
+      <div class="term">Duplicate detection</div>
+      <div class="definition">Database tools that flag when two records may represent the same person &mdash; John Smith and J. Smith with the same address, for example. <em>Why it matters:</em> duplicates produce double mailings, contradictory thank-you letters, and missed connections between gifts. The donor who receives two appeals in the same week, or whose major gift isn't connected to their annual giving history, experiences this as the organization not knowing them.</div>
+    </div>
+  </section>
+
+  <!-- E -->
+  <section class="letter-group" id="letter-e">
+    <h2>E</h2>
+    <div class="entry">
+      <div class="term">Email deliverability</div>
+      <div class="definition">The likelihood that an email you send actually reaches the recipient's inbox rather than the spam folder. Affected by sender reputation, list hygiene, content patterns, and authentication standards. <em>Why it matters:</em> the acknowledgment email that lands in spam is functionally a broken receipt &mdash; the donor never got it, but the organization's records show it as sent.</div>
+    </div>
+    <div class="entry">
+      <div class="term">Endowment policy</div>
+      <div class="definition">A written organizational document specifying how endowment funds are invested, spent, and reported. Includes the spending rate (typically 4&ndash;5% of a rolling average), investment guidelines, and approval processes. <em>Why it matters:</em> a donor who gives to an endowment is trusting the policy. Violations may not be discovered for years, but they're discoverable &mdash; and they damage the trust of every endowment donor at once.</div>
+    </div>
+  </section>
+
+  <!-- F -->
+  <section class="letter-group" id="letter-f">
+    <h2>F</h2>
+    <div class="entry">
+      <div class="term">FIN 48</div>
+      <div class="definition">A FASB interpretation requiring nonprofits to disclose uncertain tax positions in their financial statements. <em>Why it matters:</em> most donors will never read a FIN 48 footnote, but the practice of disclosing tax uncertainties reflects how candidly the organization handles its own complications. Auditors and major donors do read them.</div>
+    </div>
+    <div class="entry">
+      <div class="term">Form 990</div>
+      <div class="definition">The annual information return that most tax-exempt organizations must file with the IRS. Publicly available &mdash; every donor, journalist, and watchdog group can pull it from GuideStar or ProPublica. <em>Why it matters:</em> the Form 990 is the most public document the organization produces about its finances and governance. Inaccuracies, late filings, or evasive answers create permanent visible records that follow the organization for years.</div>
+    </div>
+    <div class="entry">
+      <div class="term">Form 8283</div>
+      <div class="definition">An IRS form donors must file when claiming a deduction for non-cash gifts over $500, with additional appraisal requirements for gifts over $5,000. The organization signs the form to confirm receipt. <em>Why it matters:</em> a donor giving stock, art, or property depends on the organization to handle the Form 8283 correctly. Mistakes can void the donor's tax deduction.</div>
+    </div>
+    <div class="entry">
+      <div class="term">Functional expense allocation</div>
+      <div class="definition">The accounting practice of splitting expenses across program services, management, and fundraising categories. Required on Form 990 and audited financial statements. <em>Why it matters:</em> donors and watchdogs often judge organizations by these ratios (&ldquo;75% to programs&rdquo;). Inaccurate allocation may technically pass an audit but mislead donors about how their gifts are used.</div>
+    </div>
+  </section>
+
+  <!-- G -->
+  <section class="letter-group" id="letter-g">
+    <h2>G</h2>
+    <div class="entry">
+      <div class="term">GDPR</div>
+      <div class="definition">The European Union's General Data Protection Regulation, governing how personal data is collected, stored, and used. Applies to U.S. nonprofits that fundraise from or hold data about EU residents. <em>Why it matters:</em> a donor with EU citizenship has specific rights about their data &mdash; the right to access it, correct it, or have it deleted. Honoring those rights is itself a receipt, even if the donor never invokes them.</div>
+    </div>
+    <div class="entry">
+      <div class="term">Gift agreement</div>
+      <div class="definition">A written contract between donor and organization specifying the gift's amount, purpose, payment schedule, recognition terms, and any conditions. Most common for major gifts and pledges. <em>Why it matters:</em> the agreement defines what was promised. Disputes years later &mdash; about naming, about restrictions, about timing &mdash; get resolved by referring back to the document. A poorly drafted agreement is a future trust failure waiting to happen.</div>
+    </div>
+  </section>
+
+  <!-- H -->
+  <section class="letter-group" id="letter-h">
+    <h2>H</h2>
+    <div class="entry">
+      <div class="term">Household record</div>
+      <div class="definition">A database approach that links multiple donor records &mdash; spouses, partners, family members &mdash; so that the household is recognized as a unit while individuals retain their own records. <em>Why it matters:</em> donors expect their spouse to be acknowledged on shared gifts. Without household records, letters get addressed to one spouse but not the other, or solicitations go out to one with no awareness of the other's giving. Households feel invisible.</div>
+    </div>
+  </section>
+
+  <!-- I -->
+  <section class="letter-group" id="letter-i">
+    <h2>I</h2>
+    <div class="entry">
+      <div class="term">In-kind gift</div>
+      <div class="definition">A donation of goods or services rather than money &mdash; a printer donating brochure printing, a board member donating professional services, a company donating equipment. <em>Why it matters:</em> in-kind gifts require careful valuation, acknowledgment that doesn't overstate the tax benefit, and clear documentation. Mishandling creates IRS exposure for the donor and possible audit findings for the organization.</div>
+    </div>
+    <div class="entry">
+      <div class="term">IRS substantiation</div>
+      <div class="definition">The legal requirement that donors receive specific written acknowledgment from the charity for any single gift of $250 or more. The acknowledgment must include the gift amount, the charity's name, and a statement about whether any goods or services were provided in return. <em>Why it matters:</em> without proper substantiation, the donor's tax deduction may be denied if audited. The acknowledgment letter isn't just a thank-you &mdash; it's a legal document.</div>
+    </div>
+  </section>
+
+  <!-- M -->
+  <section class="letter-group" id="letter-m">
+    <h2>M</h2>
+    <div class="entry">
+      <div class="term">Matching gift commitment</div>
+      <div class="definition">An employer's promise to match employee donations to charity, often dollar-for-dollar up to a cap (a common employer benefit). <em>Why it matters:</em> matching depends on the employee submitting paperwork and the organization verifying the gift. Broken matching processes mean donors expecting a $2,000 impact only delivered $1,000 &mdash; and the organization's failure to claim the match is the donor's loss.</div>
+    </div>
+    <div class="entry">
+      <div class="term">Moves management</div>
+      <div class="definition">A systematic approach to donor cultivation that tracks each interaction (each &ldquo;move&rdquo;) as the donor moves through identification, qualification, cultivation, solicitation, and stewardship. <em>Why it matters:</em> moves management is the system that prevents donor relationships from &ldquo;living in someone's head.&rdquo; When the major gift officer leaves, the moves history travels with the organization &mdash; or doesn't, and the donor relationship resets.</div>
+    </div>
+  </section>
+
+  <!-- N -->
+  <section class="letter-group" id="letter-n">
+    <h2>N</h2>
+    <div class="entry">
+      <div class="term">Naming opportunity</div>
+      <div class="definition">A specific recognition for a major gift, where the donor's name is associated with a building, room, program, scholarship, or other lasting feature. Often documented in the gift agreement. <em>Why it matters:</em> the naming opportunity is one of the most visible and emotionally loaded receipts an organization can issue. Failure to deliver it &mdash; wrong spelling, missing plaque, name removed without consultation &mdash; is permanent and public.</div>
+    </div>
+    <div class="entry">
+      <div class="term">NCOA</div>
+      <div class="definition">The U.S. Postal Service's National Change of Address database, which tracks people who have filed change-of-address forms. Nonprofits run NCOA updates regularly to keep donor addresses current. <em>Why it matters:</em> a donor who has moved and isn't updated in the database may stop receiving communications entirely. The organization appears to have forgotten them, when in fact the address is simply stale.</div>
+    </div>
+    <div class="entry">
+      <div class="term">Net asset classification</div>
+      <div class="definition">The required accounting separation of nonprofit assets into &ldquo;with donor restrictions&rdquo; and &ldquo;without donor restrictions&rdquo; categories. Required by ASC 958. <em>Why it matters:</em> misclassifying restricted funds as unrestricted is one of the most common audit findings, and one of the most serious &mdash; it suggests the organization may be spending designated dollars improperly.</div>
+    </div>
+  </section>
+
+  <!-- P -->
+  <section class="letter-group" id="letter-p">
+    <h2>P</h2>
+    <div class="entry">
+      <div class="term">Payment gateway</div>
+      <div class="definition">The technology that securely captures donor credit card information on an online donation form and transmits it to the payment processor. Distinct from the processor itself. <em>Why it matters:</em> gateway failures &mdash; timeouts, errors, security warnings &mdash; make donors abandon their gifts mid-transaction. Donors who try to give and can't experience the failure as the organization not wanting their support.</div>
+    </div>
+    <div class="entry">
+      <div class="term">PCI compliance</div>
+      <div class="definition">A set of security standards developed by the major credit card companies (Visa, Mastercard, American Express, Discover) for any organization that handles cardholder data. <em>Why it matters:</em> a non-compliant nonprofit that suffers a data breach faces fines, lawsuits, and the loss of donor trust. The donor who gave online assumed their card data was safe; PCI compliance is the standard that backs that assumption.</div>
+    </div>
+    <div class="entry">
+      <div class="term">Planned gift</div>
+      <div class="definition">A donation arranged during the donor's lifetime but typically received by the organization later &mdash; through a will, life insurance policy, charitable remainder trust, retirement account, or similar vehicle. <em>Why it matters:</em> planned gifts represent a donor's most considered commitment to the organization. Mishandling them &mdash; losing paperwork, mis-recording terms, failing to honor naming requests after death &mdash; breaks trust the donor can never know about, but their family will.</div>
+    </div>
+    <div class="entry">
+      <div class="term">Pledge</div>
+      <div class="definition">A donor's written commitment to give a specific amount over a defined period, often as installments. <em>Why it matters:</em> pledges are revenue the organization can plan around, but only if tracked carefully. Failed pledge reminders, lost paperwork, or unclear records of partial payments all damage the relationship &mdash; and may mean revenue the organization expected never arrives.</div>
+    </div>
+    <div class="entry">
+      <div class="term">Portfolio review</div>
+      <div class="definition">A regular meeting where major-gift officers review the status of donors in their assigned portfolio with leadership or development colleagues. <em>Why it matters:</em> portfolio reviews surface donors who need attention, prevent over-asking, and catch problems early. Skipping them lets donors slip through the cracks for months at a time, often without anyone noticing.</div>
+    </div>
+    <div class="entry">
+      <div class="term">Propensity score</div>
+      <div class="definition">A statistical estimate, generated by analytics software, of how likely a donor is to give again, increase their giving, or make a planned gift &mdash; based on past behavior patterns. <em>Why it matters:</em> propensity scores shape solicitation strategy. A high-propensity donor who isn't asked, or a low-propensity donor who gets over-solicited, both experience the organization as paying inadequate attention to who they are.</div>
+    </div>
+    <div class="entry">
+      <div class="term">Public charity status</div>
+      <div class="definition">A specific IRS designation under section 509(a) that distinguishes &ldquo;public charities&rdquo; from &ldquo;private foundations.&rdquo; Includes a &ldquo;public support test&rdquo; requiring that at least one-third of an organization's support come from broad public sources. <em>Why it matters:</em> public charity status determines what donors can deduct and how the organization can operate. Losing it &mdash; by failing the public support test &mdash; materially changes the donor experience and may require years to recover.</div>
+    </div>
+  </section>
+
+  <!-- Q -->
+  <section class="letter-group" id="letter-q">
+    <h2>Q</h2>
+    <div class="entry">
+      <div class="term">Quid-pro-quo disclosure</div>
+      <div class="definition">An IRS-required statement when a donor's gift includes something received in return &mdash; an event ticket, a meal, a tote bag &mdash; above token value. The acknowledgment must specify the deductible vs. non-deductible portions. <em>Why it matters:</em> donors expecting a $250 tax deduction may only be entitled to $200 once the $50 dinner is subtracted. Honest disclosure protects the donor's tax filing; sloppy disclosure puts them at risk during an audit.</div>
+    </div>
+  </section>
+
+  <!-- R -->
+  <section class="letter-group" id="letter-r">
+    <h2>R</h2>
+    <div class="entry">
+      <div class="term">Recognition tier</div>
+      <div class="definition">A predefined level of donor recognition associated with specific giving amounts. Examples: &ldquo;$10,000 Sponsor,&rdquo; &ldquo;$5,000 Partner,&rdquo; &ldquo;$1,000 Patron.&rdquo; Each tier carries specific benefits and recognition. <em>Why it matters:</em> donors at a particular tier expect specific recognition (a plaque, a publication mention, event seating). Tier confusion or inconsistency produces small but compounding trust failures across many donors at once.</div>
+    </div>
+    <div class="entry">
+      <div class="term">Recurring gift</div>
+      <div class="definition">A donation set up to charge automatically at a regular interval &mdash; monthly, quarterly, annually &mdash; most commonly via credit card or ACH. <em>Why it matters:</em> recurring gifts depend on cards not expiring, accounts not closing, and the organization handling failed transactions gracefully. A donor whose card declines and is silently dropped from the program never gets a chance to fix the problem &mdash; and may not realize their support has lapsed until much later.</div>
+    </div>
+    <div class="entry">
+      <div class="term">Restricted vs. unrestricted funds</div>
+      <div class="definition">Restricted funds carry donor-specified limitations on how they can be used &mdash; a particular program, time period, or geography. Unrestricted funds can be used for any legitimate organizational purpose. <em>Why it matters:</em> every restriction is a contract. Honoring or violating those contracts determines whether donors continue to designate gifts to specific purposes &mdash; or stop trusting that the organization can be entrusted with their intent.</div>
+    </div>
+  </section>
+
+  <!-- S -->
+  <section class="letter-group" id="letter-s">
+    <h2>S</h2>
+    <div class="entry">
+      <div class="term">Soft credit</div>
+      <div class="definition">A way of crediting a donation to a person other than the actual giver, while preserving the original donor's record. Most common with spouses (both partners credited with a household gift) or where one person facilitates another's gift. <em>Why it matters:</em> a wife who gives but whose husband isn't soft-credited will, the next time, get solicited as if she's never given. The household feels invisible &mdash; the very thing that drove the gift in the first place.</div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <p class="footer-url">ShowMeReceipts.org</p>
+  <p class="attribution">&copy; 2026 Glen E. Quiring, CFRE. All rights reserved.</p>
+</footer>
+
+</body>
+</html>
