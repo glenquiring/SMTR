@@ -405,6 +405,11 @@
   @media (max-width:620px){ .bio-grid{ grid-template-columns:1fr; } .bio-photo{ max-width:220px; margin:0 auto; display:block; } .about-wrap{padding-top:2.5rem;} }
 
   .bio-email { display:inline-block; margin-top:0.5rem; font-size:0.9rem; font-weight:700; color:var(--afp-blue); text-decoration:none; border-bottom:2px solid var(--gold); padding-bottom:0.05rem; }
+  .author-hero { margin:0 0 1.25rem; }
+  .author-hero-img { width:100%; height:auto; border-radius:12px; box-shadow:0 10px 28px rgba(40,0,108,0.16); display:block; }
+  .author-hero-cap { font-size:0.8rem; color:var(--soft-gray); text-align:center; margin-top:0.7rem; font-style:italic; }
+  .author-contact { font-size:1rem; margin:0 0 1.75rem; text-align:center; color:var(--charcoal); }
+  .author-contact a.bio-email { border-bottom:2px solid var(--gold); text-decoration:none; color:var(--afp-blue); font-weight:700; }
   .author-top { padding-top:3.5rem; }
 </style>
 </head>
@@ -444,17 +449,13 @@
   <div class="about-wrap">
 
     <section class="about-section author-top">
-      <div class="bio-grid">
-        <div>
-          <img class="bio-photo" src="images/glen-quiring.jpg" alt="Glen E. Quiring, CFRE">
-          <p class="bio-caption">Glen E. Quiring, CFRE</p>
-          <p style="text-align:center;margin:0;"><a class="bio-email" href="mailto:contact@showmereceipts.org">contact@showmereceipts.org</a></p>
-        </div>
-        <div>
-          <p>I&rsquo;m Glen Quiring, CFRE, and I am responsible for Show Me the Receipts. I&rsquo;m a Certified Fund Raising Executive, and I came to this argument the long way: through the Lilly Family School of Philanthropy and years spent creating development solutions, during which I watched development departments suffer from a lack of effectiveness that nobody could really name despite upholding the very popular mantra &ldquo;fundraising is about relationships.&rdquo; That unexplained loss is where this framework comes from. My work at the Pacific Conservatory Theatre and the Allan Hancock College Foundation and my own practice at Clearview Philanthropy is where it gets put to use.</p>
-          <p>I want to be careful about my own place in it, because it bears on how you should read a page like this. If trust is institutional rather than personal, then you shouldn&rsquo;t trust this framework, since I&rsquo;m the one making the case. You should trust it because it holds up. My job isn&rsquo;t to be the charismatic source of a good idea. It&rsquo;s to be the person accountable for the claim: the one who put his name on it, who will defend the parts that are defensible and correct the parts that aren&rsquo;t. Author and steward, not guru.</p>
-        </div>
-      </div>
+      <figure class="author-hero">
+        <img class="author-hero-img" src="images/glen-keynote.jpg" alt="Glen E. Quiring, CFRE, presenting Show Me the Receipts">
+        <figcaption class="author-hero-cap">Presenting Show Me the Receipts</figcaption>
+      </figure>
+      <p class="author-contact"><strong>Glen E. Quiring, CFRE</strong> &middot; <a class="bio-email" href="mailto:contact@showmereceipts.org">contact@showmereceipts.org</a></p>
+      <p>I&rsquo;m Glen Quiring, CFRE, and I am responsible for Show Me the Receipts. I&rsquo;m a Certified Fund Raising Executive, and I came to this argument the long way: through the Lilly Family School of Philanthropy and years spent creating development solutions, during which I watched development departments suffer from a lack of effectiveness that nobody could really name despite upholding the very popular mantra &ldquo;fundraising is about relationships.&rdquo; That unexplained loss is where this framework comes from. My work at the Pacific Conservatory Theatre and the Allan Hancock College Foundation and my own practice at Clearview Philanthropy is where it gets put to use.</p>
+      <p>I want to be careful about my own place in it, because it bears on how you should read a page like this. If trust is institutional rather than personal, then you shouldn&rsquo;t trust this framework, since I&rsquo;m the one making the case. You should trust it because it holds up. My job isn&rsquo;t to be the charismatic source of a good idea. It&rsquo;s to be the person accountable for the claim: the one who put his name on it, who will defend the parts that are defensible and correct the parts that aren&rsquo;t. Author and steward, not guru.</p>
     </section>
 
     <section class="about-section">
