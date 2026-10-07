@@ -833,6 +833,8 @@
 </style>
 <script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>
 <script defer src="/_vercel/insights/script.js"></script>
+<link rel="stylesheet" href="subscribe.css">
+<script defer src="subscribe.js"></script>
 </head>
 <body>
 
@@ -935,6 +937,24 @@
       </a>
     </div>
     <div class="fn-home-all"><a href="field-notes.html">All Field Notes &rarr;</a></div>
+    <section class="smtr-subscribe" aria-labelledby="sub-title">
+    <div class="sub-card">
+      <p class="sub-eyebrow">Field Notes by Email</p>
+      <h2 class="sub-title" id="sub-title">Get the next dispatch</h2>
+      <p class="sub-intro">Each new field note, sent the day it is published. Nothing else. That is the promise &mdash; hold us to it.</p>
+      <form class="sub-form" action="https://assets.mailerlite.com/jsonp/2364457/forms/FIELDNOTES_FORM_ID/subscribe" method="post">
+        <label class="sub-visually-hidden" for="sub-email">Email address</label>
+        <div class="sub-row">
+          <input type="email" id="sub-email" name="fields[email]" placeholder="you@organization.org" autocomplete="email" required>
+          <button type="submit" class="sub-submit">Subscribe</button>
+        </div>
+        <input type="hidden" name="ml-submit" value="1">
+        <input type="hidden" name="anticsrf" value="true">
+      </form>
+      <p class="sub-privacy">Your email is used only to send Field Notes. Unsubscribe with one click from any message.</p>
+      <p class="sub-success" role="status" tabindex="-1"><strong>One more step.</strong><span>Check your inbox for a confirmation email and click the link inside. That is your first receipt.</span></p>
+    </div>
+  </section>
   </section>
 
   <section class="field-standards">
