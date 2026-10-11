@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Windmill and the Ask | Show Me the Receipts</title>
+<meta name="description" content="A wind turbine does not make the wind. A good ask does not make the donor&rsquo;s motivation either. It stands where that motivation already moves.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --afp-blue: #3D00A4;
+    --nav-blue: #28006C;
+    --gold: #C9A24A;
+    --cream: #FAF7F0;
+    --charcoal: #2A1F3D;
+    --soft-gray: #6B6378;
+    --light-gold: #F0E4C2;
+    --serif: "Newsreader", Georgia, "Times New Roman", serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background: var(--cream);
+    color: var(--charcoal);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* ── NAV ── */
+  nav.topnav {
+    background: var(--nav-blue);
+    padding: 1rem 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  }
+  nav.topnav .brand {
+    color: white;
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    text-decoration: none;
+  }
+  nav.topnav .navlinks {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  nav.topnav .navlinks a {
+    color: white;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 0.25rem 0;
+    border-bottom: 2px solid transparent;
+    transition: border-color 0.2s;
+  }
+  nav.topnav .navlinks a:hover { border-bottom-color: var(--gold); }
+  nav.topnav .navlinks a.active { border-bottom-color: var(--gold); }
+
+  nav.topnav .navdropdown {
+    position: relative;
+    display: inline-block;
+    outline: none;
+  }
+  nav.topnav .navdropdown-toggle {
+    color: white;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.25rem 0;
+    border-bottom: 2px solid transparent;
+    transition: border-color 0.2s;
+    cursor: pointer;
+    user-select: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+  nav.topnav .navdropdown:hover .navdropdown-toggle,
+  nav.topnav .navdropdown:focus-within .navdropdown-toggle { border-bottom-color: var(--gold); }
+  nav.topnav .navdropdown .caret {
+    font-size: 0.7em;
+    display: inline-block;
+    transition: transform 0.2s;
+  }
+  nav.topnav .navdropdown:hover .caret,
+  nav.topnav .navdropdown:focus-within .caret { transform: translateY(2px); }
+  nav.topnav .navdropdown-menu {
+    position: absolute;
+    top: calc(100% + 0.75rem);
+    right: 0;
+    background: white;
+    border: 1px solid rgba(0,0,0,0.08);
+    border-radius: 6px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+    min-width: 290px;
+    padding: 0.5rem 0;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-4px);
+    transition: opacity 0.15s, visibility 0.15s, transform 0.15s;
+    z-index: 200;
+  }
+  nav.topnav .navdropdown:hover .navdropdown-menu,
+  nav.topnav .navdropdown:focus-within .navdropdown-menu {
+    opacity: 1; visibility: visible; transform: translateY(0);
+  }
+  nav.topnav .navlinks .navdropdown-menu a {
+    display: block;
+    padding: 0.75rem 1.125rem;
+    color: var(--charcoal);
+    text-decoration: none;
+    border: none;
+    border-bottom: none;
+    letter-spacing: 0;
+    text-transform: none;
+    font-weight: 500;
+    font-size: 0.9375rem;
+    transition: background-color 0.15s;
+  }
+  nav.topnav .navlinks .navdropdown-menu a:hover {
+    background-color: var(--cream);
+    border-bottom: none;
+  }
+  nav.topnav .navdropdown-menu .dropdown-label {
+    display: block;
+    font-weight: 700;
+    color: var(--afp-blue);
+    margin-bottom: 0.1875rem;
+    font-size: 0.9375rem;
+    letter-spacing: 0;
+  }
+  nav.topnav .navdropdown-menu .dropdown-desc {
+    display: block;
+    font-size: 0.75rem;
+    color: var(--soft-gray);
+    font-weight: 400;
+    letter-spacing: 0;
+    line-height: 1.4;
+  }
+
+  /* Mobile nav */
+  .nav-toggle { display: none; }
+  .nav-toggle-label {
+    display: none;
+    cursor: pointer;
+    width: 28px;
+    height: 22px;
+    position: relative;
+    flex-shrink: 0;
+  }
+  .nav-toggle-label span,
+  .nav-toggle-label span::before,
+  .nav-toggle-label span::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: white;
+    border-radius: 2px;
+    transition: transform 0.25s ease, opacity 0.2s ease, top 0.25s ease;
+  }
+  .nav-toggle-label span { top: 10px; }
+  .nav-toggle-label span::before { top: -8px; }
+  .nav-toggle-label span::after { top: 8px; }
+  .nav-toggle:checked ~ .nav-toggle-label span { background: transparent; }
+  .nav-toggle:checked ~ .nav-toggle-label span::before { top: 0; transform: rotate(45deg); }
+  .nav-toggle:checked ~ .nav-toggle-label span::after { top: 0; transform: rotate(-45deg); }
+
+  @media (max-width: 860px) {
+    nav.topnav { flex-wrap: wrap; padding: 0.875rem 1.25rem; }
+    nav.topnav .brand { white-space: nowrap; }
+    .nav-toggle-label { display: block; }
+    nav.topnav .navlinks {
+      display: block;
+      flex-basis: 100%;
+      width: 100%;
+      order: 3;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+    }
+    .nav-toggle:checked ~ .navlinks { max-height: 100vh; overflow-y: auto; }
+    nav.topnav .navlinks > a {
+      display: block;
+      padding: 0.875rem 0;
+      font-size: 0.8125rem;
+      border-bottom: 1px solid rgba(255,255,255,0.12);
+    }
+    nav.topnav .navlinks > a:first-child { margin-top: 0.75rem; }
+    nav.topnav .navlinks > a:hover,
+    nav.topnav .navlinks > a.active { border-bottom-color: var(--gold); }
+    nav.topnav .navdropdown { display: block; width: 100%; }
+    nav.topnav .navdropdown-toggle {
+      display: block;
+      padding: 0.875rem 0 0.5rem;
+      border-bottom: none;
+      cursor: default;
+      color: var(--gold);
+    }
+    nav.topnav .navdropdown .caret { display: none; }
+    nav.topnav .navdropdown-menu {
+      position: static;
+      opacity: 1;
+      visibility: visible;
+      transform: none;
+      min-width: 0;
+      width: 100%;
+      background: rgba(255,255,255,0.06);
+      border: none;
+      border-radius: 4px;
+      box-shadow: none;
+      margin-bottom: 0.75rem;
+      padding: 0.25rem 0;
+    }
+    nav.topnav .navlinks .navdropdown-menu a { color: white; padding: 0.75rem 1rem; }
+    nav.topnav .navlinks .navdropdown-menu a:hover { background: rgba(255,255,255,0.08); }
+    nav.topnav .navdropdown-menu .dropdown-label { color: white; }
+    nav.topnav .navdropdown-menu .dropdown-desc { color: rgba(255,255,255,0.65); }
+  }
+
+  /* ── PAGE HERO ── */
+  .page-hero {
+    background: var(--afp-blue);
+    color: white;
+    padding: 5rem 1.5rem 5.5rem;
+    text-align: center;
+  }
+  .page-hero .eyebrow {
+    font-size: 0.75rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    opacity: 0.85;
+    margin-bottom: 1.25rem;
+    font-weight: 600;
+  }
+  .page-hero h1 {
+    font-family: var(--serif);
+    font-size: clamp(2.75rem, 7.5vw, 4.75rem);
+    font-weight: 600;
+    letter-spacing: -0.028em;
+    margin-bottom: 0.5rem;
+    line-height: 0.98;
+    font-variation-settings: "opsz" 72;
+  }
+  .page-hero .subtitle {
+    font-family: var(--serif);
+    font-size: clamp(1.1rem, 2.5vw, 1.45rem);
+    font-style: italic;
+    opacity: 0.92;
+    font-weight: 400;
+    margin-bottom: 1.5rem;
+    font-variation-settings: "opsz" 24;
+    letter-spacing: 0.005em;
+  }
+
+  /* ── FIELD NOTES INDEX ── */
+  .fn-index {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 5rem 1.5rem 6rem;
+  }
+  .fn-index-intro {
+    font-family: var(--serif);
+    font-size: 1.35rem;
+    line-height: 1.55;
+    color: var(--afp-blue);
+    margin-bottom: 3.5rem;
+    font-variation-settings: "opsz" 24;
+    letter-spacing: -0.005em;
+    font-weight: 400;
+  }
+
+  /* Entry card */
+  .fn-entry {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    border-top: 1px solid rgba(61,0,164,0.15);
+    padding: 2.25rem 0;
+    transition: none;
+  }
+  .fn-entry:last-child { border-bottom: 1px solid rgba(61,0,164,0.15); }
+  .fn-entry:hover .fn-entry-title { color: var(--afp-blue); }
+  .fn-entry:hover .fn-read { border-bottom-color: var(--afp-blue); }
+
+  .fn-entry-meta {
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 700;
+    margin-bottom: 0.625rem;
+  }
+  .fn-entry-title {
+    font-family: var(--serif);
+    font-size: clamp(1.5rem, 3.5vw, 2rem);
+    font-weight: 600;
+    color: var(--charcoal);
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.5rem;
+    font-variation-settings: "opsz" 36;
+    transition: color 0.2s;
+  }
+  .fn-entry-desc {
+    font-style: italic;
+    color: var(--soft-gray);
+    font-size: 0.9375rem;
+    margin-bottom: 1rem;
+    line-height: 1.5;
+  }
+  .fn-entry-summary {
+    font-size: 1rem;
+    line-height: 1.75;
+    color: var(--charcoal);
+    margin-bottom: 1.25rem;
+    max-width: 640px;
+  }
+  .fn-read {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--afp-blue);
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 0.1rem;
+    display: inline-block;
+    transition: border-color 0.2s;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--cream);
+    padding: 2.5rem 1.5rem;
+    text-align: center;
+    color: var(--soft-gray);
+    font-size: 0.8125rem;
+    border-top: 1px solid rgba(0,0,0,0.05);
+  }
+  footer p { margin-bottom: 0.25rem; }
+  footer .footer-url { color: var(--afp-blue); font-weight: 700; letter-spacing: 0.05em; }
+  footer .attribution { margin-top: 0.5rem; font-style: italic; }
+
+  /* Responsive */
+  @media (max-width: 600px) {
+    .page-hero { padding: 3.5rem 1.25rem 3.5rem; }
+    .fn-index { padding: 3rem 1.25rem 4rem; }
+    .fn-entry { padding: 1.75rem 0; }
+  }
+  @media (max-width: 480px) {
+    nav.topnav { padding: 0.75rem 1rem; }
+    nav.topnav .brand { font-size: 0.75rem; letter-spacing: 0.12em; }
+    .page-hero { padding: 2.5rem 1.25rem 2.75rem; }
+  }
+
+  /* ── FIELD NOTE ARTICLE ── */
+  .page-hero .fn-meta {
+    font-size: 0.7rem; letter-spacing: 0.3em; text-transform: uppercase;
+    color: var(--light-gold); font-weight: 700; margin-bottom: 1.25rem;
+  }
+  .fn-article { max-width: 720px; margin: 0 auto; padding: 4.5rem 1.5rem 2rem; }
+  .fn-article p { font-size: 1.0625rem; line-height: 1.8; margin-bottom: 1.5rem; color: var(--charcoal); }
+  .fn-article h2 {
+    font-family: var(--serif); font-size: clamp(1.4rem, 3vw, 1.85rem); font-weight: 600;
+    color: var(--afp-blue); letter-spacing: -0.015em; line-height: 1.15;
+    margin: 3rem 0 1.25rem; font-variation-settings: "opsz" 36;
+  }
+  .fn-article h3 { font-family: var(--serif); font-size: 1.3rem; color: var(--charcoal); margin: 2.25rem 0 1rem; font-weight: 600; }
+  .fn-article strong { font-weight: 700; }
+  .fn-article em { font-style: italic; }
+  .fn-article a { color: var(--afp-blue); text-decoration: underline; text-underline-offset: 2px; }
+  .fn-article p.fn-accent {
+    font-family: var(--serif); font-size: 1.3rem; line-height: 1.55; color: var(--afp-blue);
+    text-align: center; margin: 2.5rem auto; max-width: 620px; font-variation-settings: "opsz" 28;
+    letter-spacing: -0.005em;
+  }
+  .fn-article p.fn-accent em { font-style: italic; }
+  .fn-image { display: block; width: 100%; height: auto; border-radius: 8px; margin: 2rem auto 2.5rem; box-shadow: 0 6px 20px rgba(0,0,0,0.10); }
+  .fn-article hr { border: none; border-top: 1px solid rgba(61,0,164,0.15); margin: 2.5rem 0; }
+  .fn-disclosure {
+    margin-top: 3.5rem; padding-top: 2rem; border-top: 2px solid var(--gold);
+  }
+  .fn-disclosure h2 { font-size: 1.1rem; letter-spacing: 0.02em; margin: 0 0 1rem; color: var(--charcoal); }
+  .fn-disclosure p { font-size: 0.9375rem; line-height: 1.7; color: var(--soft-gray); margin-bottom: 0.9rem; }
+  .fn-disclosure strong { color: var(--charcoal); }
+  .fn-backlink { max-width: 720px; margin: 1rem auto 0; padding: 0 1.5rem 1rem; }
+  .fn-nextprev {
+    max-width: 720px; margin: 0 auto; padding: 2.5rem 1.5rem 1rem; display: flex;
+    justify-content: space-between; gap: 1rem; border-top: 1px solid rgba(61,0,164,0.12);
+  }
+  .fn-nextprev a { color: var(--afp-blue); text-decoration: none; font-weight: 600; font-size: 0.9375rem; max-width: 48%; }
+  .fn-nextprev a:hover { text-decoration: underline; }
+  .fn-nextprev .np-label { display: block; font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.35rem; }
+  .fn-nextprev .np-next { text-align: right; margin-left: auto; }
+  .fn-toindex { text-align: center; padding: 1.5rem 1.5rem 3.5rem; }
+  .fn-toindex a {
+    font-size: 0.75rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--afp-blue); border-bottom: 2px solid var(--gold); padding-bottom: 0.1rem; text-decoration: none;
+  }
+  @media (max-width: 600px) { .fn-article { padding: 2.75rem 1.25rem 1rem; } .fn-article p.fn-accent { font-size: 1.15rem; } }
+
+  /* ── RECEIPTS (collapsible evidence block) ── */
+  .fn-receipts { margin-top: 3.5rem; border: 1px solid rgba(61,0,164,0.15); border-radius: 8px; background: white; }
+  .fn-receipts summary {
+    cursor: pointer; list-style: none; padding: 1.25rem 1.5rem; display: flex; justify-content: space-between; align-items: center; gap: 1rem;
+    font-family: var(--serif); font-size: 1.25rem; font-weight: 600; color: var(--afp-blue); font-variation-settings: "opsz" 28;
+  }
+  .fn-receipts summary::-webkit-details-marker { display: none; }
+  .fn-receipts summary .rc-hint {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    font-size: 0.7rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); white-space: nowrap;
+  }
+  .fn-receipts[open] summary .rc-hint .rc-open { display: none; }
+  .fn-receipts:not([open]) summary .rc-hint .rc-close { display: none; }
+  .fn-receipts .rc-body { padding: 0 1.5rem 1.5rem; }
+  .fn-article .fn-receipts .rc-body p { font-size: 0.9375rem; line-height: 1.7; margin-bottom: 1rem; }
+  .fn-receipts ul.rc-changes { margin: 0 0 1.5rem 1.25rem; }
+  .fn-receipts ul.rc-changes li { font-size: 0.9375rem; line-height: 1.65; margin-bottom: 0.5rem; }
+  .rc-table { width: 100%; border-collapse: collapse; font-size: 0.875rem; line-height: 1.55; margin: 0.5rem 0 1.25rem; }
+  .rc-table th {
+    text-align: left; font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--soft-gray);
+    font-weight: 700; padding: 0.5rem 0.75rem 0.5rem 0; border-bottom: 2px solid var(--gold);
+  }
+  .rc-table td { vertical-align: top; padding: 0.875rem 0.75rem 0.875rem 0; border-bottom: 1px solid rgba(61,0,164,0.10); color: var(--charcoal); }
+  .rc-table td.rc-claim { font-weight: 600; width: 26%; }
+  .rc-table td.rc-verdict { width: 16%; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.04em; color: var(--afp-blue); }
+  .rc-table a { color: var(--afp-blue); }
+  .fn-receipts h3.rc-sources { font-family: var(--serif); font-size: 1.1rem; margin: 1.5rem 0 0.75rem; color: var(--charcoal); }
+  .fn-receipts ul.rc-sourcelist { margin: 0 0 0 1.25rem; }
+  .fn-receipts ul.rc-sourcelist li { font-size: 0.8125rem; line-height: 1.6; color: var(--soft-gray); margin-bottom: 0.5rem; }
+  .fn-receipts ul.rc-sourcelist a { color: var(--afp-blue); }
+  @media (max-width: 600px) {
+    .fn-receipts summary { padding: 1rem 1.125rem; font-size: 1.1rem; }
+    .fn-receipts .rc-body { padding: 0 1.125rem 1.25rem; }
+    .rc-table thead { display: none; }
+    .rc-table, .rc-table tbody, .rc-table tr, .rc-table td { display: block; width: 100% !important; }
+    .rc-table tr { border-bottom: 1px solid rgba(61,0,164,0.12); padding: 0.875rem 0; }
+    .rc-table td { border: none; padding: 0.2rem 0; }
+    .rc-table td.rc-verdict::before { content: "Verdict: "; color: var(--soft-gray); font-weight: 600; }
+  }
+</style>
+<script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>
+<script defer src="/_vercel/insights/script.js"></script>
+</head>
+<body>
+
+<nav class="topnav">
+  <a href="../index.html" class="brand">Show Me the Receipts</a>
+  <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-hidden="true">
+  <label for="nav-toggle" class="nav-toggle-label" aria-label="Open menu"><span></span></label>
+  <div class="navlinks">
+    <a href="../index.html">Home</a>
+    <a href="../about.html">About</a>
+    <a href="../field-notes.html" class="active">Field Notes</a>
+    <a href="../relationship-report.html">The Relationship Report</a>
+    <a href="../glossary.html">Glossary</a>
+    <div class="navdropdown" tabindex="0">
+      <span class="navdropdown-toggle">Resources <span class="caret">&#9662;</span></span>
+      <div class="navdropdown-menu">
+        <a href="../trace-one-failure.html">
+          <span class="dropdown-label">Trace One Failure</span>
+          <span class="dropdown-desc">Interactive tracing instrument</span>
+        </a>
+        <a href="../downloads/show-me-the-receipts-reference-card.pdf" download>
+          <span class="dropdown-label">Reference Card</span>
+          <span class="dropdown-desc">190 receipts &middot; PDF download</span>
+        </a>
+        <a href="../downloads/show-me-the-receipts-trust-audit.pdf" download>
+          <span class="dropdown-label">Trust Audit Worksheet</span>
+          <span class="dropdown-desc">19-page audit &middot; PDF download</span>
+        </a>
+        <a href="../relationship-report.html">
+          <span class="dropdown-label">The Relationship Report</span>
+          <span class="dropdown-desc">5 metrics &middot; build it yourself</span>
+        </a>
+        <a href="../glossary.html">
+          <span class="dropdown-label">Glossary</span>
+          <span class="dropdown-desc">40 working terms</span>
+        </a>
+        <a href="../downloads/relationships-in-fundraising.pdf" download>
+          <span class="dropdown-label">Further Reading</span>
+          <span class="dropdown-desc">Relationships in Fundraising &middot; PDF download</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+
+<header class="page-hero">
+  <p class="fn-meta">Field Note 101126 &middot; Essay</p>
+  <h1>The Windmill and the Ask</h1>
+  <p class="subtitle">On wind turbines, car lots, and standing where the wind already blows</p>
+</header>
+
+<main>
+  <article class="fn-article">
+    <p>Driving through the San Gorgonio Pass outside Palm Springs, you come over the rise and there they are: hundreds of wind turbines, blades turning in the gap between the mountains. It is a remarkable thing to see. But one thing struck me as I passed them on the freeway. The place of these wind turbines is clearly not random.</p>
+    <p>The turbine does not make the wind. It just has to sit in exactly the right spot to catch what is already blowing. A good ask works the same way. The donor&rsquo;s motivation is already there. Your job is not to manufacture it. Your job is to position yourself to catch it at the moment it is moving.</p>
+    <p>Placement decides what effort can catch. You could build the most beautiful turbine in the world, but stand it in a dead-calm valley and you get nothing. An ask can be perfectly crafted and still return nothing if it is mistimed, or aimed at someone whose wind simply is not blowing that day.</p>
+    <p>And notice where they put these things. On ridgelines, in mountain passes, at the places where the wind is funneled and reliable. Those sites were chosen after years of patiently reading the land, measuring where the wind actually moves. For a development officer, that reading is the cultivation work. It is everything that happens long before you commit to the spot and make the ask.</p>
+    <p class="fn-accent"><em>So the question is not only &ldquo;is this a good ask?&rdquo; Or, &ldquo;am I doing it right?&rdquo; A better question is, &ldquo;am I standing where the wind is?&rdquo;</em></p>
+
+    <h2>The relationship is the anemometer</h2>
+    <p>Our field has a favorite sentence: &ldquo;Fundraising is all about relationships.&rdquo; I have said it myself, many times. The windmill made me want to say it more carefully.</p>
+    <p>Before anyone pours a turbine foundation, someone puts up a measuring tower with an anemometer (an-uh-MOM-ih-ter), a wind gauge, on top. It often sits there for a year or more, recording which way the wind blows, how hard, and when. The anemometer does not make a single breeze. It tells you where the breeze already is.</p>
+    <p>That is what a good relationship does for a development officer. The donor&rsquo;s motivation comes from their own values, their history, their family, the things they have lived through. It was there before I met them. The visits, the calls, the coffee, the campus tour: those are my instruments. They tell me what this person cares about, how strongly, and whether the season is right.</p>
+    <p>So relationships matter enormously. But they matter as instrumentation, not as the engine. When we tell ourselves the relationship produced the gift, we take credit for the wind. And we start to believe that more lunches will make a calm valley blow.</p>
+    <p>There is one honest qualification. A relationship can do more than measure. Done well, it builds trust, and trust is part of what keeps a donor giving year after year. The relationship does not make the wind, but it can keep the turbine in good repair, so it is still turning when the wind comes back.</p>
+
+    <h2>The car lot</h2>
+    <p>The opposite of the windmill is the car lot. You know the scene. You step out of your car and a salesman is already walking toward you. He does not know why you came or whether you are ready. It does not matter to him. His method is to make wind by force: work everyone who walks onto the lot, and turn hesitation into a signature through pressure.</p>
+    <p>Sometimes it works. That is the uncomfortable part. Pressure does produce some sales, and it produces some gifts. But look at what it costs. The customer leaves feeling handled. Next time, he parks across the street, or buys online, or avoids that dealership for ten years.</p>
+    <p>Fundraising has its own car lots. The script that does not pause for an answer. The ask made on the first visit because the quarter is ending. The third phone call in a week. The gala table where the paddle raise is designed so no one can comfortably sit still. Each of these can move money. Each of them can also teach the donor to avoid us.</p>
+    <p>None of this means the windmill is passive. A turbine has a motor that swings its whole head to face the wind, and it tilts its blades to catch more of it. That is real force. But it is always applied in the direction the wind is already moving. A clear ask, a deadline, a well-timed reminder do the same work for a donor who meant to give and had not gotten around to it. The research bears this out: being asked, and being reminded, both raise giving. The same studies show where the cost lands. It falls on the people whose wind was not blowing, who give grudgingly, unsubscribe, or stop answering the door. So the line is not pressure versus no pressure. It is pressure that helps a donor act on what they already want, versus pressure that makes a gift they never meant to give.</p>
+    <p>The salesman is pure effort with no placement. The windmill is placement first, then effort. One is extraction: taking a gift the donor did not quite mean to give. The other is alignment: being in the right place when the donor&rsquo;s own wind is moving, and giving it somewhere useful to go.</p>
+
+    <details class="fn-receipts">
+      <summary>The receipts behind this note <span class="rc-hint"><span class="rc-open">Show &darr;</span><span class="rc-close">Hide &uarr;</span></span></summary>
+      <div class="rc-body">
+        <p>The research mostly backs the windmill: donor motivation comes largely from the donor, and pressure produces gifts at a real cost. It also corrected this note in three places.</p>
+        <ul class="rc-changes">
+          <li>&ldquo;Placement matters more than effort&rdquo; became &ldquo;placement decides what effort can catch.&rdquo; Most gifts follow an ask, so the turbine has to be built, not just sited.</li>
+          <li>The relationship claim holds for motivation but not fully for loyalty. Trust and good service are built by us, and they help keep donors.</li>
+          <li>A modest push works on donors whose wind is already blowing. The line is not pressure versus none, but whose wind the pressure is pointed at.</li>
+        </ul>
+        <table class="rc-table">
+          <thead><tr><th>Claim</th><th>What the evidence says</th><th>Verdict</th></tr></thead>
+          <tbody>
+            <tr>
+              <td class="rc-claim">The wind is already there: motivation starts with the donor</td>
+              <td>70% of affluent donors (income $200,000+ or assets $1M+) say their personal values or beliefs led them to the nonprofits they support. The authors conclude values matter &ldquo;more than any other factor, appeal or external influence&rdquo; (<a href="https://agb.org/wp-content/uploads/2023/11/2023_Bank-of-America-Study-of-Philanthropy_Final_ADA_102023.pdf">Bank of America &amp; Lilly Family School, 2023</a>). Awareness of need is &ldquo;a first prerequisite for philanthropy&rdquo; (<a href="https://sinapse.gife.org.br/dlm_file/generosity-and-philanthropy-a-literature-review">Bekkers &amp; Wiepking, 2007</a>).</td>
+              <td class="rc-verdict">Supported</td>
+            </tr>
+            <tr>
+              <td class="rc-claim">The wind follows the donor&rsquo;s life, not our calendar</td>
+              <td>In Health and Retirement Study panel data (1995&ndash;2006), having no children was &ldquo;a dominant predictor&rdquo; of charitable estate planning; wealth was also positively associated (<a href="https://hrs.isr.umich.edu/bibcite/reference/12187">James, 2009</a>). Our reading: life circumstances largely set who is in the wind. The study did not test cultivation.</td>
+              <td class="rc-verdict">Supported</td>
+            </tr>
+            <tr>
+              <td class="rc-claim">Placement decides what effort can catch</td>
+              <td>Not tested directly. And 85% of donation acts in the 1996 Independent Sector survey followed a solicitation (Bryant et al., 2003, as reviewed in <a href="https://sinapse.gife.org.br/dlm_file/generosity-and-philanthropy-a-literature-review">Bekkers &amp; Wiepking, 2007</a>); a 2002 Dutch panel found 86%. Without the ask, most motivation never becomes a gift.</td>
+              <td class="rc-verdict">Supported, with the ask as the turbine</td>
+            </tr>
+            <tr>
+              <td class="rc-claim">A modest push helps donors act on wind already blowing</td>
+              <td>Correcting for who gets asked, being asked raised the probability of giving by about 19 percentage points (<a href="https://ideas.repec.org/a/eee/pubeco/v93y2009i9-10p1111-1117.html">Y&ouml;r&uuml;k, 2009</a>). In the lab, giving rose whenever the recipient could speak: &ldquo;asking is powerful&rdquo; (<a href="https://ideas.repec.org/a/eee/pubeco/v95y2011i7p513-520.html">Andreoni &amp; Rao, 2011</a>). In a field experiment, reminder emails raised donations (<a href="https://ideas.repec.org/p/aah/aarhec/2016-03.html">Damgaard &amp; Gravert, 2018</a>).</td>
+              <td class="rc-verdict">Supported</td>
+            </tr>
+            <tr>
+              <td class="rc-claim">Pressure can manufacture gifts</td>
+              <td>In door-to-door drives, an estimated 16&ndash;27% of donors gave only because of social pressure (<a href="https://www.nber.org/papers/w15629.pdf">DellaVigna, List &amp; Malmendier</a>).</td>
+              <td class="rc-verdict">Supported</td>
+            </tr>
+            <tr>
+              <td class="rc-claim">Manufactured gifts are extraction</td>
+              <td>The same study estimates about half of donors got negative utility from the visit. Each household contacted lost an estimated $0.42&ndash;$1.04 in welfare; the stronger drive raised about $0.72 per household, or $0.34 after solicitor pay (<a href="https://www.nber.org/papers/w15629.pdf">DellaVigna, List &amp; Malmendier</a>). Reminder emails also sharply raised unsubscribes; non-givers lost an estimated $2.35 per reminder while the charity netted $0.18 (<a href="https://ideas.repec.org/p/aah/aarhec/2016-03.html">Damgaard &amp; Gravert, 2018</a>).</td>
+              <td class="rc-verdict">Supported</td>
+            </tr>
+            <tr>
+              <td class="rc-claim">Pressure teaches donors to avoid us</td>
+              <td>Told in advance of a visit, about 10% fewer households opened the door; with an opt-out box, about 25% fewer (<a href="https://www.nber.org/papers/w15629.pdf">DellaVigna, List &amp; Malmendier</a>). A bell-ringer saying &ldquo;please give today&rdquo; cut traffic through that store door by 25&ndash;33% (<a href="https://econweb.ucsd.edu/~jandreon/Publications/JPE2017AvoidingTheAsk.pdf">Andreoni, Rao &amp; Trachtman, 2017</a>).</td>
+              <td class="rc-verdict">Supported</td>
+            </tr>
+            <tr>
+              <td class="rc-claim">Relationships are instruments, not the engine</td>
+              <td>Commitment rests on perceived service quality, shared beliefs, perceived risk, a personal link to the cause, and trust (<a href="https://uwe-repository.worktribe.com/output/1030456">Sargeant &amp; Woodliffe, 2007</a>). Our reading: shared beliefs and a personal link are the donor&rsquo;s own wind; trust and service are built by us.</td>
+              <td class="rc-verdict">Partly supported</td>
+            </tr>
+            <tr>
+              <td class="rc-claim">Wind farms are sited by measuring first</td>
+              <td>Recommended minimum monitoring is one year, &ldquo;but two or more years will produce more reliable results&rdquo; (<a href="https://www.nrel.gov/docs/legosti/fy97/22223.pdf">NREL, 1997</a>). The San Gorgonio Pass farm has about 667 turbines today, down from more than 4,200 in 1987 (<a href="https://en.wikipedia.org/wiki/San_Gorgonio_Pass_wind_farm">Wikipedia</a>).</td>
+              <td class="rc-verdict">Supported</td>
+            </tr>
+            <tr>
+              <td class="rc-claim">The retention problem is real</td>
+              <td>Overall donor retention was 43.3% in 2025; donor counts fell an estimated 3.6% while dollars rose 5.0% (<a href="https://www.pr.com/press-release/966389">Fundraising Effectiveness Project, Q4 2025</a>).</td>
+              <td class="rc-verdict">Context</td>
+            </tr>
+          </tbody>
+        </table>
+        <p>Door-to-door and reminder figures come from the working-paper versions of studies later published in journals.</p>
+
+        <h3 class="rc-sources">Sources</h3>
+        <ul class="rc-sourcelist">
+          <li>Andreoni, J., &amp; Rao, J. M. (2011). <a href="https://ideas.repec.org/a/eee/pubeco/v95y2011i7p513-520.html">The power of asking: How communication affects selfishness, empathy, and altruism</a>. <em>Journal of Public Economics</em>, 95(7&ndash;8), 513&ndash;520.</li>
+          <li>Andreoni, J., Rao, J. M., &amp; Trachtman, H. (2017). <a href="https://econweb.ucsd.edu/~jandreon/Publications/JPE2017AvoidingTheAsk.pdf">Avoiding the Ask: A Field Experiment on Altruism, Empathy, and Charitable Giving</a>. <em>Journal of Political Economy</em>, 125(3), 625&ndash;653.</li>
+          <li>Bank of America &amp; Indiana University Lilly Family School of Philanthropy (2023). <a href="https://agb.org/wp-content/uploads/2023/11/2023_Bank-of-America-Study-of-Philanthropy_Final_ADA_102023.pdf">The 2023 Bank of America Study of Philanthropy: Charitable Giving by Affluent Households</a>. Survey of 1,626 households, giving in 2022.</li>
+          <li>Bekkers, R., &amp; Wiepking, P. (2007). <a href="https://sinapse.gife.org.br/dlm_file/generosity-and-philanthropy-a-literature-review">Generosity and Philanthropy: A Literature Review</a>. Working paper. Source of the 85% and 86% solicitation figures and the &ldquo;first prerequisite&rdquo; quote.</li>
+          <li>Bekkers, R., &amp; Wiepking, P. (2011). <a href="https://journals.sagepub.com/doi/10.1177/0899764010380927">A Literature Review of Empirical Studies of Philanthropy: Eight Mechanisms That Drive Charitable Giving</a>. <em>Nonprofit and Voluntary Sector Quarterly</em>, 40(5). The published version of the review.</li>
+          <li>Damgaard, M. T., &amp; Gravert, C. (2018). <a href="https://ideas.repec.org/p/aah/aarhec/2016-03.html">The hidden costs of nudging: Experimental evidence from reminders in fundraising</a>. <em>Journal of Public Economics</em>, 157, 15&ndash;26. Figures from the 2016 working paper.</li>
+          <li>DellaVigna, S., List, J. A., &amp; Malmendier, U. (2012). <a href="https://www.nber.org/papers/w15629.pdf">Testing for Altruism and Social Pressure in Charitable Giving</a>. <em>Quarterly Journal of Economics</em>, 127(1). Figures from the 2009 NBER working paper.</li>
+          <li>Fundraising Effectiveness Project (AFP Foundation for Philanthropy &amp; GivingTuesday) (2026, April 21). <a href="https://www.pr.com/press-release/966389">Q4 2025 report press release</a>.</li>
+          <li>James, R. N. III (2009). <a href="https://hrs.isr.umich.edu/bibcite/reference/12187">Health, Wealth, and Charitable Estate Planning: A Longitudinal Examination of Testamentary Charitable Giving Plans</a>. <em>Nonprofit and Voluntary Sector Quarterly</em>, 38(6), 1026&ndash;1043.</li>
+          <li>National Renewable Energy Laboratory (1997). <a href="https://www.nrel.gov/docs/legosti/fy97/22223.pdf">Wind Resource Assessment Handbook: Fundamentals for Conducting a Successful Monitoring Program</a>. Prepared by AWS Scientific.</li>
+          <li>Sargeant, A., &amp; Woodliffe, L. (2007). <a href="https://uwe-repository.worktribe.com/output/1030456">Building Donor Loyalty: The Antecedents and Role of Commitment in the Context of Charity Giving</a>. <em>Journal of Nonprofit &amp; Public Sector Marketing</em>, 18(2), 47&ndash;68.</li>
+          <li>Wikipedia. <a href="https://en.wikipedia.org/wiki/San_Gorgonio_Pass_wind_farm">San Gorgonio Pass wind farm</a>. Accessed October 11, 2026.</li>
+          <li>Y&ouml;r&uuml;k, B. K. (2009). <a href="https://ideas.repec.org/a/eee/pubeco/v93y2009i9-10p1111-1117.html">How responsive are charitable donors to requests to give?</a> <em>Journal of Public Economics</em>, 93(9&ndash;10), 1111&ndash;1117.</li>
+        </ul>
+      </div>
+    </details>
+
+    <div class="fn-disclosure">
+    <h2>About this Field Note</h2>
+    <p>Field Notes from Show Me the Receipts record what we see in the field, written by a practitioner for other practitioners. This one is not a composite. The drive through the San Gorgonio Pass is the author&rsquo;s own. The car lot is a familiar scene, not a single event, and the fundraising examples that follow it come from practitioner observation, not from data. Where the note leans on research, the receipts above show what each claim rests on, and where a line is our interpretation rather than a study&rsquo;s finding, it says so. Glen E. Quiring, CFRE, is the developer of the Show Me the Receipts framework. ShowMeReceipts.org.</p>
+    </div>
+  </article>
+
+  <nav class="fn-nextprev"><a class="np-prev" href="the-second-draw.html"><span class="np-label">Older</span>The Second Draw</a></nav>
+  <div class="fn-toindex"><a href="../field-notes.html">&larr; All Field Notes</a></div>
+</main>
+
+<footer>
+  <p class="footer-url">ShowMeReceipts.org</p>
+  <p class="attribution">&copy; 2026 Glen E. Quiring, CFRE. All rights reserved.</p>
+</footer>
+
+<script>
+  (function () {
+    var navToggle = document.getElementById('nav-toggle');
+    if (navToggle) {
+      document.querySelectorAll('nav.topnav .navlinks a').forEach(function (link) {
+        link.addEventListener('click', function () { navToggle.checked = false; });
+      });
+    }
+  })();
+</script>
+</body>
+</html>
