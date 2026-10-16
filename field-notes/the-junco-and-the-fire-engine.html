@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Junco and the Fire Engine | Show Me the Receipts</title>
+<meta name="description" content="A bird that sounds like a car alarm, a siren with responders on the way, and the difference between a story that lands and a story that works.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --afp-blue: #3D00A4;
+    --nav-blue: #28006C;
+    --gold: #C9A24A;
+    --cream: #FAF7F0;
+    --charcoal: #2A1F3D;
+    --soft-gray: #6B6378;
+    --light-gold: #F0E4C2;
+    --serif: "Newsreader", Georgia, "Times New Roman", serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background: var(--cream);
+    color: var(--charcoal);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* ── NAV ── */
+  nav.topnav {
+    background: var(--nav-blue);
+    padding: 1rem 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  }
+  nav.topnav .brand {
+    color: white;
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    text-decoration: none;
+  }
+  nav.topnav .navlinks {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  nav.topnav .navlinks a {
+    color: white;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 0.25rem 0;
+    border-bottom: 2px solid transparent;
+    transition: border-color 0.2s;
+  }
+  nav.topnav .navlinks a:hover { border-bottom-color: var(--gold); }
+  nav.topnav .navlinks a.active { border-bottom-color: var(--gold); }
+
+  nav.topnav .navdropdown {
+    position: relative;
+    display: inline-block;
+    outline: none;
+  }
+  nav.topnav .navdropdown-toggle {
+    color: white;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.25rem 0;
+    border-bottom: 2px solid transparent;
+    transition: border-color 0.2s;
+    cursor: pointer;
+    user-select: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+  nav.topnav .navdropdown:hover .navdropdown-toggle,
+  nav.topnav .navdropdown:focus-within .navdropdown-toggle { border-bottom-color: var(--gold); }
+  nav.topnav .navdropdown .caret {
+    font-size: 0.7em;
+    display: inline-block;
+    transition: transform 0.2s;
+  }
+  nav.topnav .navdropdown:hover .caret,
+  nav.topnav .navdropdown:focus-within .caret { transform: translateY(2px); }
+  nav.topnav .navdropdown-menu {
+    position: absolute;
+    top: calc(100% + 0.75rem);
+    right: 0;
+    background: white;
+    border: 1px solid rgba(0,0,0,0.08);
+    border-radius: 6px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+    min-width: 290px;
+    padding: 0.5rem 0;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-4px);
+    transition: opacity 0.15s, visibility 0.15s, transform 0.15s;
+    z-index: 200;
+  }
+  nav.topnav .navdropdown:hover .navdropdown-menu,
+  nav.topnav .navdropdown:focus-within .navdropdown-menu {
+    opacity: 1; visibility: visible; transform: translateY(0);
+  }
+  nav.topnav .navlinks .navdropdown-menu a {
+    display: block;
+    padding: 0.75rem 1.125rem;
+    color: var(--charcoal);
+    text-decoration: none;
+    border: none;
+    border-bottom: none;
+    letter-spacing: 0;
+    text-transform: none;
+    font-weight: 500;
+    font-size: 0.9375rem;
+    transition: background-color 0.15s;
+  }
+  nav.topnav .navlinks .navdropdown-menu a:hover {
+    background-color: var(--cream);
+    border-bottom: none;
+  }
+  nav.topnav .navdropdown-menu .dropdown-label {
+    display: block;
+    font-weight: 700;
+    color: var(--afp-blue);
+    margin-bottom: 0.1875rem;
+    font-size: 0.9375rem;
+    letter-spacing: 0;
+  }
+  nav.topnav .navdropdown-menu .dropdown-desc {
+    display: block;
+    font-size: 0.75rem;
+    color: var(--soft-gray);
+    font-weight: 400;
+    letter-spacing: 0;
+    line-height: 1.4;
+  }
+
+  /* Mobile nav */
+  .nav-toggle { display: none; }
+  .nav-toggle-label {
+    display: none;
+    cursor: pointer;
+    width: 28px;
+    height: 22px;
+    position: relative;
+    flex-shrink: 0;
+  }
+  .nav-toggle-label span,
+  .nav-toggle-label span::before,
+  .nav-toggle-label span::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: white;
+    border-radius: 2px;
+    transition: transform 0.25s ease, opacity 0.2s ease, top 0.25s ease;
+  }
+  .nav-toggle-label span { top: 10px; }
+  .nav-toggle-label span::before { top: -8px; }
+  .nav-toggle-label span::after { top: 8px; }
+  .nav-toggle:checked ~ .nav-toggle-label span { background: transparent; }
+  .nav-toggle:checked ~ .nav-toggle-label span::before { top: 0; transform: rotate(45deg); }
+  .nav-toggle:checked ~ .nav-toggle-label span::after { top: 0; transform: rotate(-45deg); }
+
+  @media (max-width: 860px) {
+    nav.topnav { flex-wrap: wrap; padding: 0.875rem 1.25rem; }
+    nav.topnav .brand { white-space: nowrap; }
+    .nav-toggle-label { display: block; }
+    nav.topnav .navlinks {
+      display: block;
+      flex-basis: 100%;
+      width: 100%;
+      order: 3;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+    }
+    .nav-toggle:checked ~ .navlinks { max-height: 100vh; overflow-y: auto; }
+    nav.topnav .navlinks > a {
+      display: block;
+      padding: 0.875rem 0;
+      font-size: 0.8125rem;
+      border-bottom: 1px solid rgba(255,255,255,0.12);
+    }
+    nav.topnav .navlinks > a:first-child { margin-top: 0.75rem; }
+    nav.topnav .navlinks > a:hover,
+    nav.topnav .navlinks > a.active { border-bottom-color: var(--gold); }
+    nav.topnav .navdropdown { display: block; width: 100%; }
+    nav.topnav .navdropdown-toggle {
+      display: block;
+      padding: 0.875rem 0 0.5rem;
+      border-bottom: none;
+      cursor: default;
+      color: var(--gold);
+    }
+    nav.topnav .navdropdown .caret { display: none; }
+    nav.topnav .navdropdown-menu {
+      position: static;
+      opacity: 1;
+      visibility: visible;
+      transform: none;
+      min-width: 0;
+      width: 100%;
+      background: rgba(255,255,255,0.06);
+      border: none;
+      border-radius: 4px;
+      box-shadow: none;
+      margin-bottom: 0.75rem;
+      padding: 0.25rem 0;
+    }
+    nav.topnav .navlinks .navdropdown-menu a { color: white; padding: 0.75rem 1rem; }
+    nav.topnav .navlinks .navdropdown-menu a:hover { background: rgba(255,255,255,0.08); }
+    nav.topnav .navdropdown-menu .dropdown-label { color: white; }
+    nav.topnav .navdropdown-menu .dropdown-desc { color: rgba(255,255,255,0.65); }
+  }
+
+  /* ── PAGE HERO ── */
+  .page-hero {
+    background: var(--afp-blue);
+    color: white;
+    padding: 5rem 1.5rem 5.5rem;
+    text-align: center;
+  }
+  .page-hero .eyebrow {
+    font-size: 0.75rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    opacity: 0.85;
+    margin-bottom: 1.25rem;
+    font-weight: 600;
+  }
+  .page-hero h1 {
+    font-family: var(--serif);
+    font-size: clamp(2.75rem, 7.5vw, 4.75rem);
+    font-weight: 600;
+    letter-spacing: -0.028em;
+    margin-bottom: 0.5rem;
+    line-height: 0.98;
+    font-variation-settings: "opsz" 72;
+  }
+  .page-hero .subtitle {
+    font-family: var(--serif);
+    font-size: clamp(1.1rem, 2.5vw, 1.45rem);
+    font-style: italic;
+    opacity: 0.92;
+    font-weight: 400;
+    margin-bottom: 1.5rem;
+    font-variation-settings: "opsz" 24;
+    letter-spacing: 0.005em;
+  }
+
+  /* ── FIELD NOTES INDEX ── */
+  .fn-index {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 5rem 1.5rem 6rem;
+  }
+  .fn-index-intro {
+    font-family: var(--serif);
+    font-size: 1.35rem;
+    line-height: 1.55;
+    color: var(--afp-blue);
+    margin-bottom: 3.5rem;
+    font-variation-settings: "opsz" 24;
+    letter-spacing: -0.005em;
+    font-weight: 400;
+  }
+
+  /* Entry card */
+  .fn-entry {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    border-top: 1px solid rgba(61,0,164,0.15);
+    padding: 2.25rem 0;
+    transition: none;
+  }
+  .fn-entry:last-child { border-bottom: 1px solid rgba(61,0,164,0.15); }
+  .fn-entry:hover .fn-entry-title { color: var(--afp-blue); }
+  .fn-entry:hover .fn-read { border-bottom-color: var(--afp-blue); }
+
+  .fn-entry-meta {
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 700;
+    margin-bottom: 0.625rem;
+  }
+  .fn-entry-title {
+    font-family: var(--serif);
+    font-size: clamp(1.5rem, 3.5vw, 2rem);
+    font-weight: 600;
+    color: var(--charcoal);
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.5rem;
+    font-variation-settings: "opsz" 36;
+    transition: color 0.2s;
+  }
+  .fn-entry-desc {
+    font-style: italic;
+    color: var(--soft-gray);
+    font-size: 0.9375rem;
+    margin-bottom: 1rem;
+    line-height: 1.5;
+  }
+  .fn-entry-summary {
+    font-size: 1rem;
+    line-height: 1.75;
+    color: var(--charcoal);
+    margin-bottom: 1.25rem;
+    max-width: 640px;
+  }
+  .fn-read {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--afp-blue);
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 0.1rem;
+    display: inline-block;
+    transition: border-color 0.2s;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--cream);
+    padding: 2.5rem 1.5rem;
+    text-align: center;
+    color: var(--soft-gray);
+    font-size: 0.8125rem;
+    border-top: 1px solid rgba(0,0,0,0.05);
+  }
+  footer p { margin-bottom: 0.25rem; }
+  footer .footer-url { color: var(--afp-blue); font-weight: 700; letter-spacing: 0.05em; }
+  footer .attribution { margin-top: 0.5rem; font-style: italic; }
+
+  /* Responsive */
+  @media (max-width: 600px) {
+    .page-hero { padding: 3.5rem 1.25rem 3.5rem; }
+    .fn-index { padding: 3rem 1.25rem 4rem; }
+    .fn-entry { padding: 1.75rem 0; }
+  }
+  @media (max-width: 480px) {
+    nav.topnav { padding: 0.75rem 1rem; }
+    nav.topnav .brand { font-size: 0.75rem; letter-spacing: 0.12em; }
+    .page-hero { padding: 2.5rem 1.25rem 2.75rem; }
+  }
+
+  /* ── FIELD NOTE ARTICLE ── */
+  .page-hero .fn-meta {
+    font-size: 0.7rem; letter-spacing: 0.3em; text-transform: uppercase;
+    color: var(--light-gold); font-weight: 700; margin-bottom: 1.25rem;
+  }
+  .fn-article { max-width: 720px; margin: 0 auto; padding: 4.5rem 1.5rem 2rem; }
+  .fn-article p { font-size: 1.0625rem; line-height: 1.8; margin-bottom: 1.5rem; color: var(--charcoal); }
+  .fn-article h2 {
+    font-family: var(--serif); font-size: clamp(1.4rem, 3vw, 1.85rem); font-weight: 600;
+    color: var(--afp-blue); letter-spacing: -0.015em; line-height: 1.15;
+    margin: 3rem 0 1.25rem; font-variation-settings: "opsz" 36;
+  }
+  .fn-article h3 { font-family: var(--serif); font-size: 1.3rem; color: var(--charcoal); margin: 2.25rem 0 1rem; font-weight: 600; }
+  .fn-article strong { font-weight: 700; }
+  .fn-article em { font-style: italic; }
+  .fn-article a { color: var(--afp-blue); text-decoration: underline; text-underline-offset: 2px; }
+  .fn-article p.fn-accent {
+    font-family: var(--serif); font-size: 1.3rem; line-height: 1.55; color: var(--afp-blue);
+    text-align: center; margin: 2.5rem auto; max-width: 620px; font-variation-settings: "opsz" 28;
+    letter-spacing: -0.005em;
+  }
+  .fn-article p.fn-accent em { font-style: italic; }
+  .fn-image { display: block; width: 100%; height: auto; border-radius: 8px; margin: 2rem auto 2.5rem; box-shadow: 0 6px 20px rgba(0,0,0,0.10); }
+  .fn-article hr { border: none; border-top: 1px solid rgba(61,0,164,0.15); margin: 2.5rem 0; }
+  .fn-disclosure {
+    margin-top: 3.5rem; padding-top: 2rem; border-top: 2px solid var(--gold);
+  }
+  .fn-disclosure h2 { font-size: 1.1rem; letter-spacing: 0.02em; margin: 0 0 1rem; color: var(--charcoal); }
+  .fn-disclosure p { font-size: 0.9375rem; line-height: 1.7; color: var(--soft-gray); margin-bottom: 0.9rem; }
+  .fn-disclosure strong { color: var(--charcoal); }
+  .fn-backlink { max-width: 720px; margin: 1rem auto 0; padding: 0 1.5rem 1rem; }
+  .fn-nextprev {
+    max-width: 720px; margin: 0 auto; padding: 2.5rem 1.5rem 1rem; display: flex;
+    justify-content: space-between; gap: 1rem; border-top: 1px solid rgba(61,0,164,0.12);
+  }
+  .fn-nextprev a { color: var(--afp-blue); text-decoration: none; font-weight: 600; font-size: 0.9375rem; max-width: 48%; }
+  .fn-nextprev a:hover { text-decoration: underline; }
+  .fn-nextprev .np-label { display: block; font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.35rem; }
+  .fn-nextprev .np-next { text-align: right; margin-left: auto; }
+  .fn-toindex { text-align: center; padding: 1.5rem 1.5rem 3.5rem; }
+  .fn-toindex a {
+    font-size: 0.75rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--afp-blue); border-bottom: 2px solid var(--gold); padding-bottom: 0.1rem; text-decoration: none;
+  }
+  @media (max-width: 600px) { .fn-article { padding: 2.75rem 1.25rem 1rem; } .fn-article p.fn-accent { font-size: 1.15rem; } }
+
+  /* ── RECEIPTS (collapsible evidence block) ── */
+  .fn-receipts { margin-top: 3.5rem; border: 1px solid rgba(61,0,164,0.15); border-radius: 8px; background: white; }
+  .fn-receipts summary {
+    cursor: pointer; list-style: none; padding: 1.25rem 1.5rem; display: flex; justify-content: space-between; align-items: center; gap: 1rem;
+    font-family: var(--serif); font-size: 1.25rem; font-weight: 600; color: var(--afp-blue); font-variation-settings: "opsz" 28;
+  }
+  .fn-receipts summary::-webkit-details-marker { display: none; }
+  .fn-receipts summary .rc-hint {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    font-size: 0.7rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); white-space: nowrap;
+  }
+  .fn-receipts[open] summary .rc-hint .rc-open { display: none; }
+  .fn-receipts:not([open]) summary .rc-hint .rc-close { display: none; }
+  .fn-receipts .rc-body { padding: 0 1.5rem 1.5rem; }
+  .fn-article .fn-receipts .rc-body p { font-size: 0.9375rem; line-height: 1.7; margin-bottom: 1rem; }
+  .fn-receipts ul.rc-changes { margin: 0 0 1.5rem 1.25rem; }
+  .fn-receipts ul.rc-changes li { font-size: 0.9375rem; line-height: 1.65; margin-bottom: 0.5rem; }
+  .rc-table { width: 100%; border-collapse: collapse; font-size: 0.875rem; line-height: 1.55; margin: 0.5rem 0 1.25rem; }
+  .rc-table th {
+    text-align: left; font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--soft-gray);
+    font-weight: 700; padding: 0.5rem 0.75rem 0.5rem 0; border-bottom: 2px solid var(--gold);
+  }
+  .rc-table td { vertical-align: top; padding: 0.875rem 0.75rem 0.875rem 0; border-bottom: 1px solid rgba(61,0,164,0.10); color: var(--charcoal); }
+  .rc-table td.rc-claim { font-weight: 600; width: 26%; }
+  .rc-table td.rc-verdict { width: 16%; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.04em; color: var(--afp-blue); }
+  .rc-table a { color: var(--afp-blue); }
+  .fn-receipts h3.rc-sources { font-family: var(--serif); font-size: 1.1rem; margin: 1.5rem 0 0.75rem; color: var(--charcoal); }
+  .fn-receipts ul.rc-sourcelist { margin: 0 0 0 1.25rem; }
+  .fn-receipts ul.rc-sourcelist li { font-size: 0.8125rem; line-height: 1.6; color: var(--soft-gray); margin-bottom: 0.5rem; }
+  .fn-receipts ul.rc-sourcelist a { color: var(--afp-blue); }
+  @media (max-width: 600px) {
+    .fn-receipts summary { padding: 1rem 1.125rem; font-size: 1.1rem; }
+    .fn-receipts .rc-body { padding: 0 1.125rem 1.25rem; }
+    .rc-table thead { display: none; }
+    .rc-table, .rc-table tbody, .rc-table tr, .rc-table td { display: block; width: 100% !important; }
+    .rc-table tr { border-bottom: 1px solid rgba(61,0,164,0.12); padding: 0.875rem 0; }
+    .rc-table td { border: none; padding: 0.2rem 0; }
+    .rc-table td.rc-verdict::before { content: "Verdict: "; color: var(--soft-gray); font-weight: 600; }
+  }
+</style>
+<script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>
+<script defer src="/_vercel/insights/script.js"></script>
+</head>
+<body>
+
+<nav class="topnav">
+  <a href="../index.html" class="brand">Show Me the Receipts</a>
+  <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-hidden="true">
+  <label for="nav-toggle" class="nav-toggle-label" aria-label="Open menu"><span></span></label>
+  <div class="navlinks">
+    <a href="../index.html">Home</a>
+    <a href="../about.html">About</a>
+    <a href="../field-notes.html" class="active">Field Notes</a>
+    <a href="../relationship-report.html">The Relationship Report</a>
+    <a href="../glossary.html">Glossary</a>
+    <div class="navdropdown" tabindex="0">
+      <span class="navdropdown-toggle">Resources <span class="caret">&#9662;</span></span>
+      <div class="navdropdown-menu">
+        <a href="../trace-one-failure.html">
+          <span class="dropdown-label">Trace One Failure</span>
+          <span class="dropdown-desc">Interactive tracing instrument</span>
+        </a>
+        <a href="../downloads/show-me-the-receipts-reference-card.pdf" download>
+          <span class="dropdown-label">Reference Card</span>
+          <span class="dropdown-desc">190 receipts &middot; PDF download</span>
+        </a>
+        <a href="../downloads/show-me-the-receipts-trust-audit.pdf" download>
+          <span class="dropdown-label">Trust Audit Worksheet</span>
+          <span class="dropdown-desc">19-page audit &middot; PDF download</span>
+        </a>
+        <a href="../relationship-report.html">
+          <span class="dropdown-label">The Relationship Report</span>
+          <span class="dropdown-desc">5 metrics &middot; build it yourself</span>
+        </a>
+        <a href="../glossary.html">
+          <span class="dropdown-label">Glossary</span>
+          <span class="dropdown-desc">40 working terms</span>
+        </a>
+        <a href="../downloads/relationships-in-fundraising.pdf" download>
+          <span class="dropdown-label">Further Reading</span>
+          <span class="dropdown-desc">Relationships in Fundraising &middot; PDF download</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+
+
+<header class="page-hero">
+  <p class="fn-meta">Field Note 101626 &middot; Essay</p>
+  <h1>The Junco and the Fire Engine</h1>
+  <p class="subtitle">What two alarms in one neighborhood teach us about the stories we tell</p>
+</header>
+
+<main>
+  <article class="fn-article">
+    <h2>The lead story</h2>
+    <p>At a certain point in life, bird watching stops being a hobby and becomes the evening news. In our neighborhood, the lead story is the junco. Juncos are beautiful, but it&rsquo;s their song that gets the headlines: it sounds exactly like a car alarm.</p>
+    <p>&ldquo;There&rsquo;s the neighborhood alarm,&rdquo; Jen and I will say when they arrive. For a second, we&rsquo;re transported back to the hood, where such occurrences were commonplace. That&rsquo;s the part worth noticing.</p>
+    <p>The junco doesn&rsquo;t fool us because we&rsquo;re careless. It fools us because it sounds exactly like something we&rsquo;ve learned to take seriously. It borrows the authority of a real signal. You brace, you turn toward the street, and then it&rsquo;s just a bird.</p>
+
+    <h2>How folklore lands</h2>
+    <p>Okay, that&rsquo;s a little hyperbolic, but that&rsquo;s how folklore works. It doesn&rsquo;t fall flat. It lands, and often it lands hard, because it sounds like the accumulated wisdom of the field. It comes from someone with years in the work, it fits what the room already believes, and it has been repeated so often that nobody thinks to ask what&rsquo;s behind it.</p>
+    <p>The response it produces is real: the nods, the conviction, the sense of having learned something. What&rsquo;s missing is the thing it sounds like. The bracing is genuine. The alarm isn&rsquo;t.</p>
+
+    <h2>The other alarm</h2>
+    <p>The same neighborhood sees a lot of medical emergencies. Fire engines pull in with sirens and horns. When we hear those, we know it&rsquo;s a real emergency and first responders are on the way to deal with it.</p>
+    <p>Two alarms, one street. The junco borrows an urgency it hasn&rsquo;t earned. The fire engine carries urgency with someone already on the way. Nobody on our street needs the difference explained.</p>
+
+    <p class="fn-accent"><em>The bracing is genuine. The alarm isn&rsquo;t.</em></p>
+
+    <h2>When the alarm stops working</h2>
+    <p>Nobody on our street runs to the window when a car alarm goes off anymore. Car alarms trained us. They sounded urgent so many times, with nothing behind them, that we learned to stop listening. The junco is funny because we already tune out the thing it imitates.</p>
+    <p>That&rsquo;s the hidden cost of a folklore story. Each one spends a little of the room&rsquo;s urgency and returns nothing for it. Do it often enough and the room learns the pattern: the setup, the turn, the nods, and then nothing to do. When a story finally arrives with something real behind it, it lands in a room that has learned to sit still.</p>
+    <p>The fire engine only works because the siren still means something. Spend the siren on birds, and eventually it stops meaning anything at all.</p>
+
+    <h2>You knew this was coming</h2>
+    <p>Every fundraiser repeats it: stories are the lifeline of fundraising. That&rsquo;s true. But a full week of conference stories tested the claim and came up empty. Story after story, nods all around, and the attendees walked out with nothing they could do on Monday. The actionable association was never delivered. The &ldquo;so what&rdquo; was missing.</p>
+
+    <h2>Same form, opposite effect</h2>
+    <p>A story can move the mission forward: it shows a donor what their gift did, or hands a practitioner something they can actually go do. Or a story can simply function as folklore: emotionally satisfying, it gets nods in the room, and it leaves people with nothing to act on.</p>
+
+    <h2>What the research says about stories</h2>
+    <p>Stories do work on audiences, and the receipts are real. Psychologists Melanie Green and Timothy Brock showed in 2000 that the more a listener is &ldquo;transported&rdquo; into a story, the more likely they are to adopt the beliefs it carries (<a href="https://doi.org/10.1037/0022-3514.79.5.701">Green &amp; Brock, 2000</a>). A 2014 meta-analysis pooling 76 papers confirmed it: transportation reliably moves beliefs, attitudes and intentions toward the story (<a href="https://openaccess.city.ac.uk/id/eprint/6755/">van Laer et al., 2014</a>). Closer to our field, Deborah Small, George Loewenstein and Paul Slovic found people gave more to one named girl, Rokia, than to statistics about millions facing famine (<a href="https://www.gsb.stanford.edu/insights/increase-charitable-donations-appeal-heart-not-head">Small, Loewenstein &amp; Slovic, 2007</a>).</p>
+    <p>Stories also pull listener and teller into alignment. Princeton neuroscientists Greg Stephens, Lauren Silbert and Uri Hasson scanned the brain of a woman as she told a story about her freshman year of high school, then scanned eleven people listening to a recording of it. The listeners&rsquo; brain activity came to mirror hers, mostly a second or two behind and in some areas slightly ahead, as if anticipating where she was going. The coupling vanished when communication failed, and the listeners who understood the story best showed the strongest coupling, especially in the areas that ran ahead (<a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC2922522/">Stephens, Silbert &amp; Hasson, 2010</a>). A good story, in other words, brings the room into step with the person at the front of it. Whether that alignment leads anywhere depends on what the teller hands them once they arrive.</p>
+    <p>But notice what the research measures: belief, attention and giving in the moment. None of it asks whether the listener walks away knowing what to do next. And the story evidence needs its own receipts check. A 2024 replication of the Rokia study, run online with hypothetical donations, found no support for the effect; its authors call for a test with real money before the question is settled (<a href="https://doi.org/10.1525/collabra.90203">Maier, Wong &amp; Feldman, 2024</a>). And the popular claim that stories are &ldquo;22 times more memorable&rdquo; than facts traces to no verified study at all. When Shawn Callahan of Anecdote went looking for its source, he found an estimate attributed to Jerome Bruner, not an experiment (<a href="https://www.anecdote.com/2015/01/link-between-memory-and-stories">Callahan, 2015</a>). Even the folklore about stories is folklore.</p>
+
+    <h2>The test</h2>
+    <p>After the warm feeling fades, what can the listener do differently? If the answer is nothing, it was folklore wearing a story&rsquo;s clothes.</p>
+    <p>The next time a story gets nods in the room, listen for what comes after. If someone is on the way, it was a siren. If not, it was a junco.</p>
+
+    <details class="fn-receipts">
+      <summary>Resources <span class="rc-hint"><span class="rc-open">Show &darr;</span><span class="rc-close">Hide &uarr;</span></span></summary>
+      <div class="rc-body">
+        <p>The research cited in this field note.</p>
+        <ul class="rc-sourcelist">
+          <li>Callahan, S. (2015, January). <a href="https://www.anecdote.com/2015/01/link-between-memory-and-stories">The link between memory and stories</a>. <em>Anecdote</em>.</li>
+          <li>Green, M. C., &amp; Brock, T. C. (2000). <a href="https://doi.org/10.1037/0022-3514.79.5.701">The role of transportation in the persuasiveness of public narratives</a>. <em>Journal of Personality and Social Psychology</em>, 79(5), 701&ndash;721.</li>
+          <li>Maier, M., Wong, Y. C., &amp; Feldman, G. (2024). <a href="https://doi.org/10.1525/collabra.90203">Revisiting and rethinking the identifiable victim effect: Replication and extension of Small, Loewenstein, and Slovic (2007)</a>. <em>Collabra: Psychology</em>, 9(1).</li>
+          <li>Small, D. A., Loewenstein, G., &amp; Slovic, P. (2007). <a href="https://doi.org/10.1016/j.obhdp.2006.01.005">Sympathy and callousness: The impact of deliberative thought on donations to identifiable and statistical victims</a>. <em>Organizational Behavior and Human Decision Processes</em>, 102(2), 143&ndash;153.</li>
+          <li>Stephens, G. J., Silbert, L. J., &amp; Hasson, U. (2010). <a href="https://doi.org/10.1073/pnas.1008662107">Speaker-listener neural coupling underlies successful communication</a>. <em>Proceedings of the National Academy of Sciences</em>, 107(32), 14425&ndash;14430.</li>
+          <li>van Laer, T., de Ruyter, K., Visconti, L. M., &amp; Wetzels, M. (2014). <a href="https://doi.org/10.1086/673383">The extended transportation-imagery model: A meta-analysis of the antecedents and consequences of consumers&rsquo; narrative transportation</a>. <em>Journal of Consumer Research</em>, 40(5), 797&ndash;817.</li>
+        </ul>
+      </div>
+    </details>
+
+    <div class="fn-disclosure">
+    <h2>About this Field Note</h2>
+    <p>Field Notes from Show Me the Receipts record what we see in the field, written by a practitioner for other practitioners. This one is not a composite. The neighborhood in this note is real, and so is the conference week. Research cited is listed under Resources above. Glen E. Quiring, CFRE, is the developer of the Show Me the Receipts framework. ShowMeReceipts.org.</p>
+    </div>
+  </article>
+
+  <nav class="fn-nextprev"><a class="np-prev" href="the-windmill-and-the-ask.html"><span class="np-label">Older</span>The Windmill and the Ask</a></nav>
+  <div class="fn-toindex"><a href="../field-notes.html">&larr; All Field Notes</a></div>
+</main>
+
+<footer>
+  <p class="footer-url">ShowMeReceipts.org</p>
+  <p class="attribution">&copy; 2026 Glen E. Quiring, CFRE. All rights reserved.</p>
+</footer>
+
+<script>
+  (function () {
+    var navToggle = document.getElementById('nav-toggle');
+    if (navToggle) {
+      document.querySelectorAll('nav.topnav .navlinks a').forEach(function (link) {
+        link.addEventListener('click', function () { navToggle.checked = false; });
+      });
+    }
+  })();
+</script>
+</body>
+</html>
