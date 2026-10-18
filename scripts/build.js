@@ -151,7 +151,8 @@ function rss(file, title, description, list, linkPage) {
       '    </item>'
     ].join('\n');
   }).join('\n');
-  const last = list.length ? new Date(list[0].date + 'T15:00:00Z').toUTCString() : new Date().toUTCString();
+  // Date of the newest note; an empty feed gets none, so rebuilding never changes it.
+  const last = list.length ? new Date(list[0].date + 'T15:00:00Z').toUTCString() : '';
   const xml = [
     '<?xml version="1.0" encoding="UTF-8"?>',
     '<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">',
@@ -161,7 +162,7 @@ function rss(file, title, description, list, linkPage) {
     '    <atom:link href="' + self + '" rel="self" type="application/rss+xml" />',
     '    <description>' + esc(description) + '</description>',
     '    <language>en-us</language>',
-    '    <lastBuildDate>' + last + '</lastBuildDate>',
+    last ? '    <lastBuildDate>' + last + '</lastBuildDate>' : '',
     items,
     '  </channel>',
     '</rss>',
