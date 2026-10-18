@@ -8,6 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../site-nav.css">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -430,13 +431,13 @@
   <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-hidden="true">
   <label for="nav-toggle" class="nav-toggle-label" aria-label="Open menu"><span></span></label>
   <div class="navlinks">
-    <a href="../index.html">Home</a>
-    <a href="../about.html">About</a>
-    <a href="../field-notes.html" class="active">Field Notes</a>
-    <a href="../relationship-report.html">The Relationship Report</a>
-    <a href="../glossary.html">Glossary</a>
+    <div class="navpair">
+      <a href="../leadership-notes.html">Leadership Notes</a>
+      <span class="navpair-divider" aria-hidden="true"></span>
+      <a href="../field-notes.html" class="active" aria-current="page">Field Notes</a>
+    </div>
     <div class="navdropdown" tabindex="0">
-      <span class="navdropdown-toggle">Resources <span class="caret">&#9662;</span></span>
+      <span class="navdropdown-toggle">Tools <span class="caret">&#9662;</span></span>
       <div class="navdropdown-menu">
         <a href="../trace-one-failure.html">
           <span class="dropdown-label">Trace One Failure</span>
@@ -458,12 +459,19 @@
           <span class="dropdown-label">Glossary</span>
           <span class="dropdown-desc">40 working terms</span>
         </a>
+        <a href="../ai-witness.html">
+          <span class="dropdown-label">AI as Witness</span>
+          <span class="dropdown-desc">Six prompts &middot; method</span>
+        </a>
         <a href="../downloads/relationships-in-fundraising.pdf" download>
           <span class="dropdown-label">Further Reading</span>
           <span class="dropdown-desc">Relationships in Fundraising &middot; PDF download</span>
         </a>
       </div>
     </div>
+    <a href="../about.html">About</a>
+    <a href="../about.html#speaking">Speaking &amp; Coaching</a>
+    <a href="../promise.html" class="nav-cta">Make My Promise</a>
   </div>
 </nav>
 
