@@ -5,9 +5,28 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>What&rsquo;s Being Planted Now? | Show Me the Receipts</title>
 <meta name="description" content="A record fundraising year is a harvest planted a decade ago. The question the napkin asks is what's being planted now.">
+<!-- share:begin -->
+<link rel="canonical" href="https://www.showmereceipts.org/field-notes/whats-being-planted-now.html">
+<meta property="og:site_name" content="Show Me the Receipts">
+<meta property="og:type" content="article">
+<meta property="og:title" content="What’s Being Planted Now?">
+<meta property="og:description" content="A record fundraising year is a harvest planted a decade ago. The question the napkin asks is what’s being planted now.">
+<meta property="og:url" content="https://www.showmereceipts.org/field-notes/whats-being-planted-now.html">
+<meta property="og:image" content="https://www.showmereceipts.org/images/share-default.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="627">
+<meta property="og:image:alt" content="Show Me the Receipts: a receipt of promises kept, with the balance reading Trust">
+<meta property="article:published_time" content="2026-07-02">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="What’s Being Planted Now?">
+<meta name="twitter:description" content="A record fundraising year is a harvest planted a decade ago. The question the napkin asks is what’s being planted now.">
+<meta name="twitter:image" content="https://www.showmereceipts.org/images/share-default.png">
+<!-- share:end -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../site-nav.css">
+<link rel="stylesheet" href="../site-signup.css">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -430,13 +449,13 @@
   <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-hidden="true">
   <label for="nav-toggle" class="nav-toggle-label" aria-label="Open menu"><span></span></label>
   <div class="navlinks">
-    <a href="../index.html">Home</a>
-    <a href="../about.html">About</a>
-    <a href="../field-notes.html" class="active">Field Notes</a>
-    <a href="../relationship-report.html">The Relationship Report</a>
-    <a href="../glossary.html">Glossary</a>
+    <div class="navpair">
+      <a href="../leadership-notes.html">Leadership Notes</a>
+      <span class="navpair-divider" aria-hidden="true"></span>
+      <a href="../field-notes.html" class="active" aria-current="page">Field Notes</a>
+    </div>
     <div class="navdropdown" tabindex="0">
-      <span class="navdropdown-toggle">Resources <span class="caret">&#9662;</span></span>
+      <span class="navdropdown-toggle">Tools <span class="caret">&#9662;</span></span>
       <div class="navdropdown-menu">
         <a href="../trace-one-failure.html">
           <span class="dropdown-label">Trace One Failure</span>
@@ -458,12 +477,19 @@
           <span class="dropdown-label">Glossary</span>
           <span class="dropdown-desc">40 working terms</span>
         </a>
+        <a href="../ai-witness.html">
+          <span class="dropdown-label">AI as Witness</span>
+          <span class="dropdown-desc">Six prompts &middot; method</span>
+        </a>
         <a href="../downloads/relationships-in-fundraising.pdf" download>
           <span class="dropdown-label">Further Reading</span>
           <span class="dropdown-desc">Relationships in Fundraising &middot; PDF download</span>
         </a>
       </div>
     </div>
+    <a href="../about.html">About</a>
+    <a href="../about.html#speaking">Speaking &amp; Coaching</a>
+    <a href="../promise.html" class="nav-cta">Make My Promise</a>
   </div>
 </nav>
 
@@ -474,6 +500,9 @@
 </header>
 
 <main>
+  <!-- signup-top:begin -->
+<p class="signup-top"><a href="#subscribe">Get new notes by email &darr;</a></p>
+<!-- signup-top:end -->
   <article class="fn-article">
     <!-- napkin image: restore once /images/smtr-napkin-pipeline.png is committed -->
     <p>A colleague and I got coffee last week. Giving USA had just landed and she was in a good mood. $617 billion. A record. The most Americans have ever given in a single year. Her board had already forwarded the number around with exclamation points.</p>
@@ -504,6 +533,24 @@
     <p>Field Notes from Show Me the Receipts document observations from the field in the register of a practitioner writing to practitioners. The scene above is composite and fictional; the numbers and the conditions they describe are not. Figures are drawn from Giving USA 2026 (data year 2025) and the Fundraising Effectiveness Project Q4 2025 report. Glen E. Quiring, CFRE, is the developer of the Show Me the Receipts framework. ShowMeReceipts.org.</p>
     </div>
   </article>
+  <!-- signup:begin -->
+<section class="signup-card" id="subscribe" aria-label="Get new notes by email">
+  <div class="signup-card-inner">
+    <p class="signup-eyebrow">Field Notes and Leadership Notes</p>
+    <p class="signup-head">Get the next note by email.</p>
+    <iframe name="ml_signup_target" style="display:none;width:0;height:0;border:0;" title="MailerLite submission target"></iframe>
+    <form class="signup-form" id="signup-form" action="https://assets.mailerlite.com/jsonp/2364457/forms/201691017100920369/subscribe" method="post" target="ml_signup_target">
+      <label class="signup-label" for="signup-email">Your email</label>
+      <input type="email" id="signup-email" name="fields[email]" placeholder="you@organization.org" autocomplete="email" required>
+      <input type="hidden" name="ml-submit" value="1">
+      <input type="hidden" name="anticsrf" value="true">
+      <button type="submit">Subscribe</button>
+      <p class="signup-note">Only when something new publishes. Unsubscribe anytime.</p>
+      <p class="signup-msg" id="signup-msg" role="status"></p>
+    </form>
+  </div>
+</section>
+<!-- signup:end -->
 
   <nav class="fn-nextprev"><a class="np-prev" href="they-know-the-river.html"><span class="np-label">Older</span>They Know the River</a><a class="np-next" href="planting-on-purpose.html"><span class="np-label">Newer</span>Planting on Purpose</a></nav>
   <div class="fn-toindex"><a href="../field-notes.html">&larr; All Field Notes</a></div>
@@ -524,5 +571,6 @@
     }
   })();
 </script>
+<script defer src="../site-signup.js"></script>
 </body>
 </html>

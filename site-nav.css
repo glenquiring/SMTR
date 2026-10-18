@@ -1,0 +1,55 @@
+/* Shared navigation additions, linked from every page.
+   Each page keeps its own base nav styles; this file adds the
+   Leadership Notes | Field Notes pair and the Make My Promise button. */
+
+nav.topnav .navpair {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.875rem;
+  padding: 0.3rem 1rem;
+  border: 1px solid rgba(201, 162, 74, 0.55);
+  border-radius: 999px;
+}
+nav.topnav .navpair-divider {
+  width: 1px;
+  height: 14px;
+  background: #C9A24A;
+}
+nav.topnav .navlinks a.nav-cta {
+  background: #C9A24A;
+  color: #28006C;
+  padding: 0.55rem 0.95rem;
+  border-radius: 4px;
+  border-bottom: none;
+  font-weight: 700;
+}
+nav.topnav .navlinks a.nav-cta:hover,
+nav.topnav .navlinks a.nav-cta.active {
+  background: #D8B664;
+  border-bottom: none;
+}
+
+@media (max-width: 860px) {
+  nav.topnav .navpair {
+    display: block;
+    border: none;
+    border-radius: 0;
+    padding: 0;
+    margin-top: 0.75rem;
+  }
+  nav.topnav .navpair-divider { display: none; }
+  nav.topnav .navlinks .navpair > a {
+    display: block;
+    padding: 0.875rem 0;
+    font-size: 0.8125rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  }
+  nav.topnav .navlinks .navpair > a:hover,
+  nav.topnav .navlinks .navpair > a.active { border-bottom-color: #C9A24A; }
+  nav.topnav .navlinks a.nav-cta {
+    display: inline-block;
+    margin: 1rem 0 1.25rem;
+    padding: 0.75rem 1.1rem;
+    border-bottom: none;
+  }
+}

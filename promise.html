@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Make Your Promise | Show Me the Receipts</title>
+<meta name="description" content="Make one promise you will keep in the next thirty days. You will hear from us twice along the way, and once on day thirty: the receipt.">
+<!-- share:begin -->
+<link rel="canonical" href="https://www.showmereceipts.org/promise.html">
+<meta property="og:site_name" content="Show Me the Receipts">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Make Your Promise | Show Me the Receipts">
+<meta property="og:description" content="Make one promise you will keep in the next thirty days. You will hear from us twice along the way, and once on day thirty: the receipt.">
+<meta property="og:url" content="https://www.showmereceipts.org/promise.html">
+<meta property="og:image" content="https://www.showmereceipts.org/images/share-default.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="627">
+<meta property="og:image:alt" content="Show Me the Receipts: a receipt of promises kept, with the balance reading Trust">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Make Your Promise | Show Me the Receipts">
+<meta name="twitter:description" content="Make one promise you will keep in the next thirty days. You will hear from us twice along the way, and once on day thirty: the receipt.">
+<meta name="twitter:image" content="https://www.showmereceipts.org/images/share-default.png">
+<!-- share:end -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="site-nav.css">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --afp-blue: #3D00A4;
+    --nav-blue: #28006C;
+    --gold: #C9A24A;
+    --cream: #FAF7F0;
+    --charcoal: #2A1F3D;
+    --soft-gray: #6B6378;
+    --light-gold: #F0E4C2;
+    --serif: "Newsreader", Georgia, "Times New Roman", serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background: var(--cream);
+    color: var(--charcoal);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* NAV BAND */
+  nav.topnav {
+    background: var(--nav-blue);
+    padding: 1rem 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  }
+  nav.topnav .brand {
+    color: white;
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    text-decoration: none;
+  }
+  nav.topnav .navlinks {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  nav.topnav .navlinks a {
+    color: white;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 0.25rem 0;
+    border-bottom: 2px solid transparent;
+    transition: border-color 0.2s;
+  }
+  nav.topnav .navlinks a:hover { border-bottom-color: var(--gold); }
+  nav.topnav .navlinks a.active { border-bottom-color: var(--gold); }
+
+  /* RESOURCES DROPDOWN — added for cross-page nav access */
+  nav.topnav .navdropdown {
+    position: relative;
+    display: inline-block;
+    outline: none;
+  }
+  nav.topnav .navdropdown-toggle {
+    color: white;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.25rem 0;
+    border-bottom: 2px solid transparent;
+    transition: border-color 0.2s;
+    cursor: pointer;
+    user-select: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+  nav.topnav .navdropdown:hover .navdropdown-toggle,
+  nav.topnav .navdropdown:focus-within .navdropdown-toggle {
+    border-bottom-color: var(--gold);
+  }
+  nav.topnav .navdropdown .caret {
+    font-size: 0.7em;
+    display: inline-block;
+    transition: transform 0.2s;
+  }
+  nav.topnav .navdropdown:hover .caret,
+  nav.topnav .navdropdown:focus-within .caret {
+    transform: translateY(2px);
+  }
+  nav.topnav .navdropdown-menu {
+    position: absolute;
+    top: calc(100% + 0.75rem);
+    right: 0;
+    background: white;
+    border: 1px solid rgba(0,0,0,0.08);
+    border-radius: 6px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+    min-width: 290px;
+    padding: 0.5rem 0;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-4px);
+    transition: opacity 0.15s, visibility 0.15s, transform 0.15s;
+    z-index: 200;
+  }
+  nav.topnav .navdropdown:hover .navdropdown-menu,
+  nav.topnav .navdropdown:focus-within .navdropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+  nav.topnav .navlinks .navdropdown-menu a {
+    display: block;
+    padding: 0.75rem 1.125rem;
+    color: var(--charcoal);
+    text-decoration: none;
+    border: none;
+    border-bottom: none;
+    letter-spacing: 0;
+    text-transform: none;
+    font-weight: 500;
+    font-size: 0.9375rem;
+    transition: background-color 0.15s;
+  }
+  nav.topnav .navlinks .navdropdown-menu a:hover {
+    background-color: var(--cream);
+    border-bottom: none;
+  }
+  nav.topnav .navdropdown-menu .dropdown-label {
+    display: block;
+    font-weight: 700;
+    color: var(--afp-blue);
+    margin-bottom: 0.1875rem;
+    font-size: 0.9375rem;
+    letter-spacing: 0;
+  }
+  nav.topnav .navdropdown-menu .dropdown-desc {
+    display: block;
+    font-size: 0.75rem;
+    color: var(--soft-gray);
+    font-weight: 400;
+    letter-spacing: 0;
+    line-height: 1.4;
+  }
+  /* MOBILE NAV — pure-CSS hamburger (checkbox toggle, no JS required) */
+  .nav-toggle { display: none; }
+  .nav-toggle-label {
+    display: none;
+    cursor: pointer;
+    width: 28px;
+    height: 22px;
+    position: relative;
+    flex-shrink: 0;
+  }
+  .nav-toggle-label span,
+  .nav-toggle-label span::before,
+  .nav-toggle-label span::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: white;
+    border-radius: 2px;
+    transition: transform 0.25s ease, opacity 0.2s ease, top 0.25s ease;
+  }
+  .nav-toggle-label span { top: 10px; }
+  .nav-toggle-label span::before { top: -8px; }
+  .nav-toggle-label span::after { top: 8px; }
+  .nav-toggle:checked ~ .nav-toggle-label span { background: transparent; }
+  .nav-toggle:checked ~ .nav-toggle-label span::before { top: 0; transform: rotate(45deg); }
+  .nav-toggle:checked ~ .nav-toggle-label span::after { top: 0; transform: rotate(-45deg); }
+
+  @media (max-width: 860px) {
+    nav.topnav {
+      flex-wrap: wrap;
+      padding: 0.875rem 1.25rem;
+    }
+    nav.topnav .brand { white-space: nowrap; }
+    .nav-toggle-label { display: block; }
+
+    /* Collapse the link row into a slide-down panel */
+    nav.topnav .navlinks {
+      display: block;
+      flex-basis: 100%;
+      width: 100%;
+      order: 3;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+    }
+    .nav-toggle:checked ~ .navlinks {
+      max-height: 100vh;
+      overflow-y: auto;
+    }
+    nav.topnav .navlinks > a {
+      display: block;
+      padding: 0.875rem 0;
+      font-size: 0.8125rem;
+      border-bottom: 1px solid rgba(255,255,255,0.12);
+    }
+    nav.topnav .navlinks > a:first-child { margin-top: 0.75rem; }
+    nav.topnav .navlinks > a:hover,
+    nav.topnav .navlinks > a.active { border-bottom-color: var(--gold); }
+
+    /* Flatten the Resources dropdown: always-visible group inside the panel */
+    nav.topnav .navdropdown { display: block; width: 100%; }
+    nav.topnav .navdropdown-toggle {
+      display: block;
+      padding: 0.875rem 0 0.5rem;
+      border-bottom: none;
+      cursor: default;
+      color: var(--gold);
+    }
+    nav.topnav .navdropdown .caret { display: none; }
+    nav.topnav .navdropdown-menu {
+      position: static;
+      opacity: 1;
+      visibility: visible;
+      transform: none;
+      min-width: 0;
+      width: 100%;
+      background: rgba(255,255,255,0.06);
+      border: none;
+      border-radius: 4px;
+      box-shadow: none;
+      margin-bottom: 0.75rem;
+      padding: 0.25rem 0;
+    }
+    nav.topnav .navlinks .navdropdown-menu a {
+      color: white;
+      padding: 0.75rem 1rem;
+    }
+    nav.topnav .navlinks .navdropdown-menu a:hover { background: rgba(255,255,255,0.08); }
+    nav.topnav .navdropdown-menu .dropdown-label { color: white; }
+    nav.topnav .navdropdown-menu .dropdown-desc { color: rgba(255,255,255,0.65); }
+  }
+
+
+  /* MAKE MY PROMISE — form section */
+  .promise {
+    background: var(--afp-blue);
+    padding: 5rem 1.5rem 5.5rem;
+  }
+  .promise-inner {
+    max-width: 620px;
+    margin: 0 auto;
+  }
+  .promise .promise-eyebrow {
+    text-align: center;
+    font-size: 0.75rem;
+    color: var(--light-gold);
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+  .promise h1 {
+    font-family: var(--serif);
+    color: white;
+    font-size: clamp(2rem, 5vw, 2.875rem);
+    font-weight: 600;
+    line-height: 1.05;
+    letter-spacing: -0.022em;
+    text-align: center;
+    margin-bottom: 1rem;
+    font-variation-settings: "opsz" 48;
+  }
+  .promise .promise-intro {
+    text-align: center;
+    color: rgba(255,255,255,0.9);
+    font-size: 1.0625rem;
+    line-height: 1.7;
+    max-width: 520px;
+    margin: 0 auto 2.5rem;
+  }
+  .promise-card {
+    background: var(--cream);
+    border: 2px solid var(--gold);
+    border-radius: 4px;
+    padding: 2.5rem 2.25rem;
+  }
+  .promise-field { margin-bottom: 1.5rem; }
+  .promise-field:last-of-type { margin-bottom: 2rem; }
+  .promise-field label {
+    display: block;
+    font-size: 0.75rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: var(--afp-blue);
+    margin-bottom: 0.5rem;
+  }
+  .promise-field .field-hint {
+    font-size: 0.8125rem;
+    color: var(--soft-gray);
+    font-style: italic;
+    margin-bottom: 0.625rem;
+    line-height: 1.5;
+  }
+  .promise-field input,
+  .promise-field textarea {
+    width: 100%;
+    box-sizing: border-box;
+    background: white;
+    border: 1px solid rgba(61, 0, 164, 0.25);
+    border-radius: 4px;
+    padding: 0.875rem 1rem;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--charcoal);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+  .promise-field textarea {
+    resize: none;
+    overflow: hidden;
+    min-height: 5.25rem;
+  }
+  .promise-field input:focus,
+  .promise-field textarea:focus {
+    outline: none;
+    border-color: var(--afp-blue);
+    box-shadow: 0 0 0 3px rgba(61, 0, 164, 0.12);
+  }
+  .promise-field input::placeholder,
+  .promise-field textarea::placeholder { color: #9a93a8; }
+  .promise-submit {
+    width: 100%;
+    background: var(--afp-blue);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 1rem 1.5rem;
+    font-family: inherit;
+    font-size: 0.8125rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.2s ease;
+  }
+  .promise-submit:hover { background: var(--nav-blue); }
+  .promise-privacy {
+    text-align: center;
+    color: rgba(255,255,255,0.7);
+    font-size: 0.8125rem;
+    font-style: italic;
+    line-height: 1.6;
+    margin-top: 1.75rem;
+    max-width: 480px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  /* Success state */
+  .promise-success {
+    display: none;
+    background: var(--cream);
+    border: 2px solid var(--gold);
+    border-radius: 4px;
+    padding: 3rem 2.25rem;
+    text-align: center;
+  }
+  .promise-success h3 {
+    font-family: var(--serif);
+    color: var(--afp-blue);
+    font-size: clamp(1.75rem, 4vw, 2.25rem);
+    font-weight: 600;
+    margin-bottom: 0.875rem;
+    font-variation-settings: "opsz" 36;
+  }
+  .promise-success p {
+    color: var(--charcoal);
+    font-size: 1.0625rem;
+    line-height: 1.7;
+    max-width: 420px;
+    margin: 0 auto;
+  }
+
+  .promise { min-height: 72vh; }
+  @media (max-width: 600px) {
+    .promise { padding: 3.5rem 1.25rem 4rem; }
+    .promise-card { padding: 2rem 1.5rem; }
+    .promise-success { padding: 2.5rem 1.5rem; }
+  }
+
+  /* FOOTER */
+  footer {
+    background: var(--cream);
+    padding: 2.5rem 1.5rem;
+    text-align: center;
+    color: var(--soft-gray);
+    font-size: 0.8125rem;
+    border-top: 1px solid rgba(0,0,0,0.05);
+  }
+  footer p { margin-bottom: 0.25rem; }
+  footer .footer-url {
+    color: var(--afp-blue);
+    font-weight: 700;
+    letter-spacing: 0.05em;
+  }
+  footer .attribution {
+    margin-top: 0.5rem;
+    font-style: italic;
+  }
+
+
+  @media (hover: none) and (pointer: coarse) {
+    nav.topnav .navlinks a,
+    nav.topnav .navlinks .navdropdown-menu a {
+      -webkit-tap-highlight-color: rgba(201, 162, 74, 0.25);
+    }
+  }
+  @media (max-width: 600px) {
+    nav.topnav { padding: 0.875rem 1rem; }
+    nav.topnav .brand { font-size: 0.8125rem; letter-spacing: 0.15em; }
+  }
+</style>
+<script defer src="/_vercel/insights/script.js"></script>
+</head>
+<body>
+
+<nav class="topnav">
+  <a href="index.html" class="brand">Show Me the Receipts</a>
+  <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-hidden="true">
+  <label for="nav-toggle" class="nav-toggle-label" aria-label="Open menu"><span></span></label>
+  <div class="navlinks">
+    <div class="navpair">
+      <a href="leadership-notes.html">Leadership Notes</a>
+      <span class="navpair-divider" aria-hidden="true"></span>
+      <a href="field-notes.html">Field Notes</a>
+    </div>
+    <div class="navdropdown" tabindex="0">
+      <span class="navdropdown-toggle">Tools <span class="caret">&#9662;</span></span>
+      <div class="navdropdown-menu">
+        <a href="trace-one-failure.html">
+          <span class="dropdown-label">Trace One Failure</span>
+          <span class="dropdown-desc">Interactive tracing instrument</span>
+        </a>
+        <a href="downloads/show-me-the-receipts-reference-card.pdf" download>
+          <span class="dropdown-label">Reference Card</span>
+          <span class="dropdown-desc">190 receipts &middot; PDF download</span>
+        </a>
+        <a href="downloads/show-me-the-receipts-trust-audit.pdf" download>
+          <span class="dropdown-label">Trust Audit Worksheet</span>
+          <span class="dropdown-desc">19-page audit &middot; PDF download</span>
+        </a>
+        <a href="relationship-report.html">
+          <span class="dropdown-label">The Relationship Report</span>
+          <span class="dropdown-desc">5 metrics &middot; build it yourself</span>
+        </a>
+        <a href="glossary.html">
+          <span class="dropdown-label">Glossary</span>
+          <span class="dropdown-desc">40 working terms</span>
+        </a>
+        <a href="ai-witness.html">
+          <span class="dropdown-label">AI as Witness</span>
+          <span class="dropdown-desc">Six prompts &middot; method</span>
+        </a>
+        <a href="downloads/relationships-in-fundraising.pdf" download>
+          <span class="dropdown-label">Further Reading</span>
+          <span class="dropdown-desc">Relationships in Fundraising &middot; PDF download</span>
+        </a>
+      </div>
+    </div>
+    <a href="about.html">About</a>
+    <a href="about.html#speaking">Speaking &amp; Coaching</a>
+    <a href="promise.html" class="nav-cta active" aria-current="page">Make My Promise</a>
+  </div>
+</nav>
+
+<main>
+  <section class="promise" id="make-my-promise">
+    <div class="promise-inner">
+      <p class="promise-eyebrow">Thirty Days</p>
+      <h1>Make Your Promise</h1>
+      <p class="promise-intro">Say what you will do, and the day you will do it by. You will hear from us twice along the way, and once on day thirty: the receipt.</p>
+
+      <!-- The form posts to MailerLite via a hidden iframe so the participant stays here. -->
+      <iframe name="ml_promise_target" id="ml_promise_target" style="display:none;width:0;height:0;border:0;" title="MailerLite submission target"></iframe>
+
+      <div class="promise-card" id="promise-form-card">
+        <form id="promise-form"
+              action="https://assets.mailerlite.com/jsonp/2364457/forms/187979614547608768/subscribe"
+              method="post"
+              target="ml_promise_target">
+
+          <div class="promise-field">
+            <label for="promise-email">Your email</label>
+            <input type="email" id="promise-email" name="fields[email]"
+                   placeholder="you@organization.org" autocomplete="email" required>
+          </div>
+
+          <div class="promise-field">
+            <label for="promise-text">Your promise</label>
+            <p class="field-hint">What will you do, and by when? Write it the way you would say it out loud.</p>
+            <textarea id="promise-text" name="fields[promise]" rows="3"
+                      maxlength="1024" placeholder="In the next thirty days, I will&hellip;" required></textarea>
+          </div>
+
+          <div class="promise-field">
+            <label for="promise-witness">Your witness <span style="font-weight:400;text-transform:none;letter-spacing:0;color:var(--soft-gray);">(optional)</span></label>
+            <p class="field-hint">The first name of someone who will know you made this promise.</p>
+            <input type="text" id="promise-witness" name="fields[witness]"
+                   placeholder="First name" autocomplete="off">
+          </div>
+
+          <input type="hidden" name="ml-submit" value="1">
+          <input type="hidden" name="anticsrf" value="true">
+
+          <button type="submit" class="promise-submit">Submit My Promise</button>
+        </form>
+      </div>
+
+      <div class="promise-success" id="promise-success">
+        <h3>Congratulations!</h3>
+        <p>You're on the path to durable trust with your donors!</p>
+      </div>
+
+      <p class="promise-privacy">Your email is used only for these three messages and the cohort record. The record is deleted within sixty days of day thirty.</p>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <p class="footer-url">ShowMeReceipts.org</p>
+  <p class="attribution">&copy; 2026 Glen E. Quiring, CFRE. All rights reserved.</p>
+</footer>
+
+<script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>
+
+</body>
+</html>

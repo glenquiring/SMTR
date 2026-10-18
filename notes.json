@@ -1,0 +1,97 @@
+{
+  "settings": {
+    "leadershipNotesFirstMonth": ""
+  },
+  "notes": [
+    {
+      "stream": "field",
+      "slug": "the-junco-and-the-fire-engine",
+      "date": "2026-10-16",
+      "type": "Essay",
+      "title": "The Junco and the Fire Engine",
+      "descriptor": "What two alarms in one neighborhood teach us about the stories we tell",
+      "summary": "A bird that sounds like a car alarm and a siren with responders on the way. One story lands. The other one works."
+    },
+    {
+      "stream": "field",
+      "slug": "the-windmill-and-the-ask",
+      "date": "2026-10-11",
+      "type": "Essay",
+      "title": "The Windmill and the Ask",
+      "descriptor": "On wind turbines, car lots, and standing where the wind already blows",
+      "summary": "A wind turbine does not make the wind. A good ask does not make the donor’s motivation either. It stands where that motivation already moves."
+    },
+    {
+      "stream": "field",
+      "slug": "the-second-draw",
+      "date": "2026-10-06",
+      "type": "Essay",
+      "title": "The Second Draw",
+      "descriptor": "On a repeated blood test, a two-hour wait, and the person standing in the gap",
+      "summary": "Two blood draws, two hours apart, looked redundant. They were the only way to know nothing was happening, and someone made room to find out."
+    },
+    {
+      "stream": "field",
+      "slug": "the-most-skeptical-donors-gave-the-most",
+      "date": "2026-10-04",
+      "type": "Diagnosis",
+      "title": "The Most Skeptical Donors Gave the Most",
+      "descriptor": "A headline said connection beats trust. The study underneath it said something more useful.",
+      "summary": "A headline said connection beats trust. The donors who trusted charities least gave the most, and that tells us which trust matters."
+    },
+    {
+      "stream": "field",
+      "slug": "who-did-it-bring-together",
+      "date": "2026-10-04",
+      "type": "Parable",
+      "title": "Who Did It Bring Together?",
+      "descriptor": "On nostalgia, inefficient events, and the flock an affinity makes visible for a day",
+      "summary": "A car show and an air show are poor fundraisers. Their real yield is the community they gather, a crowd of strangers who turn out to be a flock."
+    },
+    {
+      "stream": "field",
+      "slug": "a-jay-in-my-yard",
+      "date": "2026-07-05",
+      "type": "Parable",
+      "title": "A Jay in My Yard",
+      "descriptor": "On love for one person, the gift you never reclaim, and keeping the ground open",
+      "summary": "A backyard jay buries acorns to survive one winter and, without meaning to, plants the forest that outlives her."
+    },
+    {
+      "stream": "field",
+      "slug": "planting-on-purpose",
+      "date": "2026-07-03",
+      "type": "Practice",
+      "title": "Planting on Purpose",
+      "descriptor": "A major gifts program that starts at the first gift, not the wealth screen",
+      "summary": "The napkin asked what’s being planted now. This is the answer: a major gifts program that begins at the first gift."
+    },
+    {
+      "stream": "field",
+      "slug": "whats-being-planted-now",
+      "date": "2026-07-02",
+      "type": "Diagnosis",
+      "title": "What’s Being Planted Now?",
+      "descriptor": "Giving USA announced a record year. I drew a pyramid on a napkin.",
+      "summary": "A record fundraising year is a harvest planted a decade ago. The question the napkin asks is what’s being planted now."
+    },
+    {
+      "stream": "field",
+      "slug": "they-know-the-river",
+      "date": "2026-06-18",
+      "type": "Essay",
+      "title": "They Know the River",
+      "descriptor": "What salmon can teach us about the loop fundraising runs",
+      "summary": "Marcus fixed the late card. He never fixed the system that produced it. A field note on single-loop learning, told through the salmon run."
+    },
+    {
+      "stream": "field",
+      "slug": "what-a-room-cant-trace",
+      "date": "2026-06-14",
+      "type": "Research",
+      "title": "What a Room Can’t Trace",
+      "descriptor": "A story about the question fundraising never learned to ask",
+      "summary": "Every experienced fundraiser can name a failed receipt in sixty seconds. Ask them to trace it to its cause, and the room goes quiet."
+    }
+  ]
+}

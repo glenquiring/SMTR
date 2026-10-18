@@ -5,9 +5,26 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>About | Show Me the Receipts</title>
 <meta name="description" content="Glen E. Quiring, CFRE, on the thesis behind Show Me the Receipts: that durable donor trust is the institutional record of kept promises, not a product of the fundraiser-donor relationship. The claim, its grounding in the field, and the person accountable for it.">
+<!-- share:begin -->
+<link rel="canonical" href="https://www.showmereceipts.org/about.html">
+<meta property="og:site_name" content="Show Me the Receipts">
+<meta property="og:type" content="website">
+<meta property="og:title" content="About | Show Me the Receipts">
+<meta property="og:description" content="The argument behind Show Me the Receipts, and the person accountable for it: Glen E. Quiring, CFRE.">
+<meta property="og:url" content="https://www.showmereceipts.org/about.html">
+<meta property="og:image" content="https://www.showmereceipts.org/images/share-default.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="627">
+<meta property="og:image:alt" content="Show Me the Receipts: a receipt of promises kept, with the balance reading Trust">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="About | Show Me the Receipts">
+<meta name="twitter:description" content="The argument behind Show Me the Receipts, and the person accountable for it: Glen E. Quiring, CFRE.">
+<meta name="twitter:image" content="https://www.showmereceipts.org/images/share-default.png">
+<!-- share:end -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="site-nav.css">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -391,6 +408,7 @@
   /* speaking callout */
   .speak-callout { background: linear-gradient(180deg,#fff 0%, var(--cream) 100%); border:1px solid rgba(61,0,164,0.16); border-left:4px solid var(--gold); border-radius:12px; padding:2rem 2rem 1.75rem; margin:1rem 0 0; }
   .speak-callout h2 { margin-top:0; }
+  .speak-callout { scroll-margin-top: 5rem; }
   .speak-callout .speak-email { display:inline-block; margin-top:0.5rem; font-weight:700; color:var(--afp-blue); text-decoration:none; border-bottom:2px solid var(--gold); }
   /* CTA row */
   .about-cta { text-align:center; padding:2.5rem 1.5rem 1rem; }
@@ -422,22 +440,47 @@
   <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-hidden="true">
   <label for="nav-toggle" class="nav-toggle-label" aria-label="Open menu"><span></span></label>
   <div class="navlinks">
-    <a href="index.html">Home</a>
-    <a href="about.html" class="active">About</a>
-    <a href="field-notes.html">Field Notes</a>
-    <a href="relationship-report.html">The Relationship Report</a>
-    <a href="glossary.html">Glossary</a>
+    <div class="navpair">
+      <a href="leadership-notes.html">Leadership Notes</a>
+      <span class="navpair-divider" aria-hidden="true"></span>
+      <a href="field-notes.html">Field Notes</a>
+    </div>
     <div class="navdropdown" tabindex="0">
-      <span class="navdropdown-toggle">Resources <span class="caret">&#9662;</span></span>
+      <span class="navdropdown-toggle">Tools <span class="caret">&#9662;</span></span>
       <div class="navdropdown-menu">
-        <a href="trace-one-failure.html"><span class="dropdown-label">Trace One Failure</span><span class="dropdown-desc">Interactive tracing instrument</span></a>
-        <a href="downloads/show-me-the-receipts-reference-card.pdf" download><span class="dropdown-label">Reference Card</span><span class="dropdown-desc">190 receipts &middot; PDF download</span></a>
-        <a href="downloads/show-me-the-receipts-trust-audit.pdf" download><span class="dropdown-label">Trust Audit Worksheet</span><span class="dropdown-desc">19-page audit &middot; PDF download</span></a>
-        <a href="relationship-report.html"><span class="dropdown-label">The Relationship Report</span><span class="dropdown-desc">5 metrics &middot; build it yourself</span></a>
-        <a href="glossary.html"><span class="dropdown-label">Glossary</span><span class="dropdown-desc">40 working terms</span></a>
-        <a href="downloads/relationships-in-fundraising.pdf" download><span class="dropdown-label">Further Reading</span><span class="dropdown-desc">Relationships in Fundraising &middot; PDF download</span></a>
+        <a href="trace-one-failure.html">
+          <span class="dropdown-label">Trace One Failure</span>
+          <span class="dropdown-desc">Interactive tracing instrument</span>
+        </a>
+        <a href="downloads/show-me-the-receipts-reference-card.pdf" download>
+          <span class="dropdown-label">Reference Card</span>
+          <span class="dropdown-desc">190 receipts &middot; PDF download</span>
+        </a>
+        <a href="downloads/show-me-the-receipts-trust-audit.pdf" download>
+          <span class="dropdown-label">Trust Audit Worksheet</span>
+          <span class="dropdown-desc">19-page audit &middot; PDF download</span>
+        </a>
+        <a href="relationship-report.html">
+          <span class="dropdown-label">The Relationship Report</span>
+          <span class="dropdown-desc">5 metrics &middot; build it yourself</span>
+        </a>
+        <a href="glossary.html">
+          <span class="dropdown-label">Glossary</span>
+          <span class="dropdown-desc">40 working terms</span>
+        </a>
+        <a href="ai-witness.html">
+          <span class="dropdown-label">AI as Witness</span>
+          <span class="dropdown-desc">Six prompts &middot; method</span>
+        </a>
+        <a href="downloads/relationships-in-fundraising.pdf" download>
+          <span class="dropdown-label">Further Reading</span>
+          <span class="dropdown-desc">Relationships in Fundraising &middot; PDF download</span>
+        </a>
       </div>
     </div>
+    <a href="about.html" class="active" aria-current="page">About</a>
+    <a href="about.html#speaking">Speaking &amp; Coaching</a>
+    <a href="promise.html" class="nav-cta">Make My Promise</a>
   </div>
 </nav>
 
@@ -488,7 +531,7 @@
     </section>
 
     <section class="about-section">
-      <div class="speak-callout">
+      <div class="speak-callout" id="speaking">
         <h2>Bring it to your chapter or conference</h2>
         <p>Show Me the Receipts is also a keynote: a 60-minute, story-driven talk in three acts &mdash; Naming, Tracing, and Repairing &mdash; written for fundraising professionals and the directors who lead them. The room doesn&rsquo;t leave with theory. It leaves with a way to see the failure that quietly costs them donors, and one repair they can make in the next thirty days. The content is designed to align with the CFRE competency areas of Relationship Building and Leadership and Management.</p>
         <p>If you program an AFP chapter, a regional conference, or a staff development day, I&rsquo;d welcome the conversation.</p>

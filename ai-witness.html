@@ -8,6 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="site-nav.css">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -583,6 +584,112 @@
     }
   }
 
+
+  /* Mobile menu (added with the shared navigation) */
+  /* MOBILE NAV — pure-CSS hamburger (checkbox toggle, no JS required) */
+  .nav-toggle { display: none; }
+  .nav-toggle-label {
+    display: none;
+    cursor: pointer;
+    width: 28px;
+    height: 22px;
+    position: relative;
+    flex-shrink: 0;
+  }
+  .nav-toggle-label span,
+  .nav-toggle-label span::before,
+  .nav-toggle-label span::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: white;
+    border-radius: 2px;
+    transition: transform 0.25s ease, opacity 0.2s ease, top 0.25s ease;
+  }
+  .nav-toggle-label span { top: 10px; }
+  .nav-toggle-label span::before { top: -8px; }
+  .nav-toggle-label span::after { top: 8px; }
+  .nav-toggle:checked ~ .nav-toggle-label span { background: transparent; }
+  .nav-toggle:checked ~ .nav-toggle-label span::before { top: 0; transform: rotate(45deg); }
+  .nav-toggle:checked ~ .nav-toggle-label span::after { top: 0; transform: rotate(-45deg); }
+
+  @media (max-width: 860px) {
+    nav.topnav {
+      flex-wrap: wrap;
+      padding: 0.875rem 1.25rem;
+    }
+    nav.topnav .brand { white-space: nowrap; }
+    .nav-toggle-label { display: block; }
+
+    /* Collapse the link row into a slide-down panel */
+    nav.topnav .navlinks {
+      display: block;
+      flex-basis: 100%;
+      width: 100%;
+      order: 3;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+    }
+    .nav-toggle:checked ~ .navlinks {
+      max-height: 100vh;
+      overflow-y: auto;
+    }
+    nav.topnav .navlinks > a {
+      display: block;
+      padding: 0.875rem 0;
+      font-size: 0.8125rem;
+      border-bottom: 1px solid rgba(255,255,255,0.12);
+    }
+    nav.topnav .navlinks > a:first-child { margin-top: 0.75rem; }
+    nav.topnav .navlinks > a:hover,
+    nav.topnav .navlinks > a.active { border-bottom-color: var(--gold); }
+
+    /* Flatten the Resources dropdown: always-visible group inside the panel */
+    nav.topnav .navdropdown { display: block; width: 100%; }
+    nav.topnav .navdropdown-toggle {
+      display: block;
+      padding: 0.875rem 0 0.5rem;
+      border-bottom: none;
+      cursor: default;
+      color: var(--gold);
+    }
+    nav.topnav .navdropdown .caret { display: none; }
+    nav.topnav .navdropdown-menu {
+      position: static;
+      opacity: 1;
+      visibility: visible;
+      transform: none;
+      min-width: 0;
+      width: 100%;
+      background: rgba(255,255,255,0.06);
+      border: none;
+      border-radius: 4px;
+      box-shadow: none;
+      margin-bottom: 0.75rem;
+      padding: 0.25rem 0;
+    }
+    nav.topnav .navlinks .navdropdown-menu a {
+      color: white;
+      padding: 0.75rem 1rem;
+    }
+    nav.topnav .navlinks .navdropdown-menu a:hover { background: rgba(255,255,255,0.08); }
+    nav.topnav .navdropdown-menu .dropdown-label { color: white; }
+    nav.topnav .navdropdown-menu .dropdown-desc { color: rgba(255,255,255,0.65); }
+  }
+
+  /* Match the shared navigation's desktop spacing */
+  nav.topnav .navlinks { gap: 1.5rem; flex-wrap: wrap; align-items: center; }
+  nav.topnav .navlinks a, nav.topnav .navdropdown-toggle { font-size: 0.8125rem; }
+  /* Keep the brand and menu button on one row (overrides this page's older stacked-nav rules) */
+  @media (max-width: 860px) {
+    nav.topnav { flex-direction: row; align-items: center; justify-content: space-between; gap: 1rem; padding: 0.875rem 1.25rem; }
+    nav.topnav .navlinks { gap: 0; row-gap: 0; }
+    nav.topnav .navlinks > a,
+    nav.topnav .navdropdown-toggle { font-size: 0.8125rem; letter-spacing: 0.1em; }
+  }
 </style>
 <script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>
 <script defer src="/_vercel/insights/script.js"></script>
@@ -591,14 +698,21 @@
 
 <nav class="topnav">
   <a href="index.html" class="brand">Show Me the Receipts</a>
+  <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-hidden="true">
+  <label for="nav-toggle" class="nav-toggle-label" aria-label="Open menu"><span></span></label>
   <div class="navlinks">
-    <a href="index.html">Home</a>
-    <a href="about.html">About</a>
-    <a href="ai-witness.html" class="active">AI as Witness</a>
-    <a href="glossary.html">Glossary</a>
+    <div class="navpair">
+      <a href="leadership-notes.html">Leadership Notes</a>
+      <span class="navpair-divider" aria-hidden="true"></span>
+      <a href="field-notes.html">Field Notes</a>
+    </div>
     <div class="navdropdown" tabindex="0">
-      <span class="navdropdown-toggle">Resources <span class="caret">&#9662;</span></span>
+      <span class="navdropdown-toggle">Tools <span class="caret">&#9662;</span></span>
       <div class="navdropdown-menu">
+        <a href="trace-one-failure.html">
+          <span class="dropdown-label">Trace One Failure</span>
+          <span class="dropdown-desc">Interactive tracing instrument</span>
+        </a>
         <a href="downloads/show-me-the-receipts-reference-card.pdf" download>
           <span class="dropdown-label">Reference Card</span>
           <span class="dropdown-desc">190 receipts &middot; PDF download</span>
@@ -607,12 +721,27 @@
           <span class="dropdown-label">Trust Audit Worksheet</span>
           <span class="dropdown-desc">19-page audit &middot; PDF download</span>
         </a>
+        <a href="relationship-report.html">
+          <span class="dropdown-label">The Relationship Report</span>
+          <span class="dropdown-desc">5 metrics &middot; build it yourself</span>
+        </a>
         <a href="glossary.html">
           <span class="dropdown-label">Glossary</span>
           <span class="dropdown-desc">40 working terms</span>
         </a>
+        <a href="ai-witness.html">
+          <span class="dropdown-label">AI as Witness</span>
+          <span class="dropdown-desc">Six prompts &middot; method</span>
+        </a>
+        <a href="downloads/relationships-in-fundraising.pdf" download>
+          <span class="dropdown-label">Further Reading</span>
+          <span class="dropdown-desc">Relationships in Fundraising &middot; PDF download</span>
+        </a>
       </div>
     </div>
+    <a href="about.html">About</a>
+    <a href="about.html#speaking">Speaking &amp; Coaching</a>
+    <a href="promise.html" class="nav-cta">Make My Promise</a>
   </div>
 </nav>
 
