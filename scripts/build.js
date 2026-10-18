@@ -53,6 +53,7 @@ const notes = (data.notes || []).map((n, i) => {
   if (!/^[a-z0-9-]+$/.test(n.slug)) fail(where + ' has slug "' + n.slug + '". Use lowercase letters, numbers and dashes only.');
   const file = path.join(ROOT, STREAMS[n.stream].folder, n.slug + '.html');
   if (!fs.existsSync(file)) fail(where + ' points to ' + STREAMS[n.stream].folder + '/' + n.slug + '.html, which does not exist.');
+  if (n.image && !fs.existsSync(path.join(ROOT, n.image))) fail(where + ' uses image "' + n.image + '", which does not exist.');
   return { ...n, _order: i };
 });
 
@@ -131,6 +132,117 @@ for (const page of PAGES) {
   if (after !== before) fs.writeFileSync(file, after);
   console.log('lists   ' + page);
 }
+
+/* ---------- note pages: email sign-up and link previews ---------- */
+
+// The MailerLite form that adds readers to the notes list.
+const SIGNUP_ACTION = 'https://assets.mailerlite.com/jsonp/2364457/forms/201691017100920369/subscribe';
+// Image LinkedIn shows with a shared link. A note can use its own by adding
+// "image": "images/your-file.png" to its entry in notes.json (1200 x 627).
+const DEFAULT_IMAGE = 'images/share-default.png';
+
+// Replace whatever sits between <!-- name:begin --> and <!-- name:end -->.
+function fillBlock(html, name, content) {
+  const re = new RegExp('(<!-- ' + name + ':begin -->)[\\s\\S]*?(<!-- ' + name + ':end -->)');
+  return re.test(html) ? html.replace(re, (all, open, close) => open + '\n' + content + '\n' + close) : html;
+}
+
+function signupTop() {
+  return '<p class="signup-top"><a href="#subscribe">Get new notes by email &darr;</a></p>';
+}
+
+function signupCard() {
+  return [
+    '<section class="signup-card" id="subscribe" aria-label="Get new notes by email">',
+    '  <div class="signup-card-inner">',
+    '    <p class="signup-eyebrow">Field Notes and Leadership Notes</p>',
+    '    <p class="signup-head">Get the next note by email.</p>',
+    '    <iframe name="ml_signup_target" style="display:none;width:0;height:0;border:0;" title="MailerLite submission target"></iframe>',
+    '    <form class="signup-form" id="signup-form" action="' + SIGNUP_ACTION + '" method="post" target="ml_signup_target">',
+    '      <label class="signup-label" for="signup-email">Your email</label>',
+    '      <input type="email" id="signup-email" name="fields[email]" placeholder="you@organization.org" autocomplete="email" required>',
+    '      <input type="hidden" name="ml-submit" value="1">',
+    '      <input type="hidden" name="anticsrf" value="true">',
+    '      <button type="submit">Subscribe</button>',
+    '      <p class="signup-note">Only when something new publishes. Unsubscribe anytime.</p>',
+    '      <p class="signup-msg" id="signup-msg" role="status"></p>',
+    '    </form>',
+    '  </div>',
+    '</section>'
+  ].join('\n');
+}
+
+function shareTags({ title, description, path, image, type, date }) {
+  const pageUrl = SITE_URL + '/' + path;
+  const img = SITE_URL + '/' + (image || DEFAULT_IMAGE);
+  return [
+    '<link rel="canonical" href="' + pageUrl + '">',
+    '<meta property="og:site_name" content="Show Me the Receipts">',
+    '<meta property="og:type" content="' + (type || 'website') + '">',
+    '<meta property="og:title" content="' + esc(title) + '">',
+    '<meta property="og:description" content="' + esc(description) + '">',
+    '<meta property="og:url" content="' + pageUrl + '">',
+    '<meta property="og:image" content="' + img + '">',
+    '<meta property="og:image:width" content="1200">',
+    '<meta property="og:image:height" content="627">',
+    '<meta property="og:image:alt" content="Show Me the Receipts: a receipt of promises kept, with the balance reading Trust">',
+    date ? '<meta property="article:published_time" content="' + date + '">' : '',
+    '<meta name="twitter:card" content="summary_large_image">',
+    '<meta name="twitter:title" content="' + esc(title) + '">',
+    '<meta name="twitter:description" content="' + esc(description) + '">',
+    '<meta name="twitter:image" content="' + img + '">'
+  ].filter(Boolean).join('\n');
+}
+
+// Every note listed in notes.json.
+for (const n of notes) {
+  const rel = url(n);
+  const file = path.join(ROOT, rel);
+  let html = fs.readFileSync(file, 'utf8');
+  const before = html;
+  html = fillBlock(html, 'share', shareTags({
+    title: n.title, description: n.summary, path: rel, image: n.image, type: 'article', date: n.date
+  }));
+  html = fillBlock(html, 'signup-top', signupTop());
+  html = fillBlock(html, 'signup', signupCard());
+  if (html !== before) fs.writeFileSync(file, html);
+}
+console.log('notes   ' + notes.length + ' note pages (sign-up and link previews)');
+
+// The note templates, so a copied template already has the sign-up.
+for (const stream of Object.values(STREAMS)) {
+  const file = path.join(ROOT, stream.folder, '_TEMPLATE.html');
+  if (!fs.existsSync(file)) continue;
+  let html = fs.readFileSync(file, 'utf8');
+  const before = html;
+  html = fillBlock(html, 'signup-top', signupTop());
+  html = fillBlock(html, 'signup', signupCard());
+  if (html !== before) fs.writeFileSync(file, html);
+}
+
+// Link previews for the main pages.
+const MAIN_PAGES = [
+  { path: 'index.html', share: '', title: 'Show Me the Receipts: Trust is what the receipts add up to.',
+    description: 'Durable donor trust is a record of promises made and kept. Field Notes, Leadership Notes and working tools for Executive Directors and Directors of Development.' },
+  { path: 'field-notes.html', title: 'Field Notes | Show Me the Receipts',
+    description: 'What the field repeats, and what the receipts show. Field Notes by Glen E. Quiring, CFRE.' },
+  { path: 'leadership-notes.html', title: 'Leadership Notes | Show Me the Receipts',
+    description: 'On building an organization where promises to donors get kept. Leadership Notes by Glen E. Quiring, CFRE.' },
+  { path: 'promise.html', title: 'Make Your Promise | Show Me the Receipts',
+    description: 'Make one promise you will keep in the next thirty days. You will hear from us twice along the way, and once on day thirty: the receipt.' },
+  { path: 'about.html', title: 'About | Show Me the Receipts',
+    description: 'The argument behind Show Me the Receipts, and the person accountable for it: Glen E. Quiring, CFRE.' }
+];
+for (const p of MAIN_PAGES) {
+  const file = path.join(ROOT, p.path);
+  if (!fs.existsSync(file)) continue;
+  const html = fs.readFileSync(file, 'utf8');
+  const out = fillBlock(html, 'share', shareTags({
+    title: p.title, description: p.description, path: p.share !== undefined ? p.share : p.path
+  }));
+  if (out !== html) fs.writeFileSync(file, out);
+}
+console.log('share   main pages');
 
 /* ---------- RSS feeds ---------- */
 

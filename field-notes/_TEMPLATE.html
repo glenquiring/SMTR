@@ -5,10 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>NOTE TITLE | Show Me the Receipts</title>
 <meta name="description" content="One-sentence summary for search engines and the index card.">
+<!-- share:begin -->
+<!-- share:end -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../site-nav.css">
+<link rel="stylesheet" href="../site-signup.css">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -482,6 +485,9 @@
 </header>
 
 <main>
+  <!-- signup-top:begin -->
+<p class="signup-top"><a href="#subscribe">Get new notes by email &darr;</a></p>
+<!-- signup-top:end -->
   <article class="fn-article">
     <!-- Paste note body HTML here. Section headers = <h2>. -->
     <p>First paragraph...</p>
@@ -491,6 +497,24 @@
       <p>Disclosure...</p>
     </div>
   </article>
+  <!-- signup:begin -->
+<section class="signup-card" id="subscribe" aria-label="Get new notes by email">
+  <div class="signup-card-inner">
+    <p class="signup-eyebrow">Field Notes and Leadership Notes</p>
+    <p class="signup-head">Get the next note by email.</p>
+    <iframe name="ml_signup_target" style="display:none;width:0;height:0;border:0;" title="MailerLite submission target"></iframe>
+    <form class="signup-form" id="signup-form" action="https://assets.mailerlite.com/jsonp/2364457/forms/201691017100920369/subscribe" method="post" target="ml_signup_target">
+      <label class="signup-label" for="signup-email">Your email</label>
+      <input type="email" id="signup-email" name="fields[email]" placeholder="you@organization.org" autocomplete="email" required>
+      <input type="hidden" name="ml-submit" value="1">
+      <input type="hidden" name="anticsrf" value="true">
+      <button type="submit">Subscribe</button>
+      <p class="signup-note">Only when something new publishes. Unsubscribe anytime.</p>
+      <p class="signup-msg" id="signup-msg" role="status"></p>
+    </form>
+  </div>
+</section>
+<!-- signup:end -->
 
   <nav class="fn-nextprev"><span></span></nav>
   <div class="fn-toindex"><a href="../field-notes.html">&larr; All Field Notes</a></div>
@@ -511,5 +535,6 @@
     }
   })();
 </script>
+<script defer src="../site-signup.js"></script>
 </body>
 </html>
