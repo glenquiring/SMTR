@@ -438,6 +438,47 @@
     color: var(--afp-blue); border-bottom: 2px solid var(--gold); padding-bottom: 0.1rem; text-decoration: none;
   }
   @media (max-width: 600px) { .fn-article { padding: 2.75rem 1.25rem 1rem; } .fn-article p.fn-accent { font-size: 1.15rem; } }
+  /* ── RECEIPTS (collapsible evidence block) ── */
+  .fn-receipts { margin-top: 3.5rem; border: 1px solid rgba(61,0,164,0.15); border-radius: 8px; background: white; }
+  .fn-receipts summary {
+    cursor: pointer; list-style: none; padding: 1.25rem 1.5rem; display: flex; justify-content: space-between; align-items: center; gap: 1rem;
+    font-family: var(--serif); font-size: 1.25rem; font-weight: 600; color: var(--afp-blue); font-variation-settings: "opsz" 28;
+  }
+  .fn-receipts summary::-webkit-details-marker { display: none; }
+  .fn-receipts summary .rc-hint {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    font-size: 0.7rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); white-space: nowrap;
+  }
+  .fn-receipts[open] summary .rc-hint .rc-open { display: none; }
+  .fn-receipts:not([open]) summary .rc-hint .rc-close { display: none; }
+  .fn-receipts .rc-body { padding: 0 1.5rem 1.5rem; }
+  .fn-article .fn-receipts .rc-body p { font-size: 0.9375rem; line-height: 1.7; margin-bottom: 1rem; }
+  .fn-receipts ul.rc-changes { margin: 0 0 1.5rem 1.25rem; }
+  .fn-receipts ul.rc-changes li { font-size: 0.9375rem; line-height: 1.65; margin-bottom: 0.5rem; }
+  .rc-table { width: 100%; border-collapse: collapse; font-size: 0.875rem; line-height: 1.55; margin: 0.5rem 0 1.25rem; }
+  .rc-table th {
+    text-align: left; font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--soft-gray);
+    font-weight: 700; padding: 0.5rem 0.75rem 0.5rem 0; border-bottom: 2px solid var(--gold);
+  }
+  .rc-table td { vertical-align: top; padding: 0.875rem 0.75rem 0.875rem 0; border-bottom: 1px solid rgba(61,0,164,0.10); color: var(--charcoal); }
+  .rc-table td.rc-claim { font-weight: 600; width: 26%; }
+  .rc-table td.rc-verdict { width: 16%; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.04em; color: var(--afp-blue); }
+  .rc-table a { color: var(--afp-blue); }
+  .fn-receipts h3.rc-sources { font-family: var(--serif); font-size: 1.1rem; margin: 1.5rem 0 0.75rem; color: var(--charcoal); }
+  .fn-receipts ul.rc-sourcelist { margin: 0 0 0 1.25rem; }
+  .fn-receipts ul.rc-sourcelist li { font-size: 0.8125rem; line-height: 1.6; color: var(--soft-gray); margin-bottom: 0.5rem; }
+  .fn-receipts ul.rc-sourcelist a { color: var(--afp-blue); }
+  @media (max-width: 600px) {
+    .fn-receipts summary { padding: 1rem 1.125rem; font-size: 1.1rem; }
+    .fn-receipts .rc-body { padding: 0 1.125rem 1.25rem; }
+    .rc-table thead { display: none; }
+    .rc-table, .rc-table tbody, .rc-table tr, .rc-table td { display: block; width: 100% !important; }
+    .rc-table tr { border-bottom: 1px solid rgba(61,0,164,0.12); padding: 0.875rem 0; }
+    .rc-table td { border: none; padding: 0.2rem 0; }
+    .rc-table td.rc-verdict::before { content: "Verdict: "; color: var(--soft-gray); font-weight: 600; }
+  }
+  .fn-receipts h3.rl-group { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); font-weight: 700; margin: 1.5rem 0 0.75rem; }
+  .fn-receipts ul.rc-sourcelist li .rl-why { display: block; color: var(--charcoal); font-size: 0.8125rem; margin-top: 0.2rem; }
 </style>
 <script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>
 <script defer src="/_vercel/insights/script.js"></script>
@@ -538,9 +579,34 @@
     <p>So the question is for those of us still in the chair, too. If you left tomorrow, where would the delivery go? And who already carries enough of it to keep it going?</p>
     <p>We have to get used to building systems. Not because charisma is wrong, but because it does not transfer.</p>
 
+    <details class="fn-receipts">
+      <summary>Further Reading <span class="rc-hint"><span class="rc-open">Show &darr;</span><span class="rc-close">Hide &uarr;</span></span></summary>
+      <div class="rc-body">
+        <p>For readers who want to go further. The research below tracks the pattern in this note, and in one place complicates it.</p>
+        <h3 class="rl-group">Following a long-serving leader</h3>
+        <ul class="rc-sourcelist">
+          <li>Karlsson, P.-O., Turner, M., &amp; Gassmann, P. (2019). <a href="https://www.strategy-business.com/article/Succeeding-the-long-serving-legend-in-the-corner-office">Succeeding the long-serving legend in the corner office</a>. <em>strategy+business</em>.<span class="rl-why">Fifteen years of CEO turnovers at the world&rsquo;s 2,500 largest companies. Successors of long-serving CEOs were forced out nearly twice as often as their predecessors.</span></li>
+          <li>Colak, G., &amp; Liljeblom, E. (2022). <a href="https://www.sciencedirect.com/science/article/pii/S1572308922000936">Easy cleanups or forbearing improvements: The effect of CEO tenure on successor&rsquo;s performance</a>. <em>Journal of Financial Stability</em>, 63.<span class="rl-why">Successors of long-tenured CEOs inherit cleanups: write-offs, restructuring and slower recovery, worst where governance is weak.</span></li>
+          <li>Quigley, T. J., &amp; Hambrick, D. C. (2012). <a href="https://www.terry.uga.edu/wp-content/uploads/2012-QuigleyHambrickCEORetentionChair.pdf">When the former CEO stays on as board chair: Effects on successor discretion, strategic change, and performance</a>. <em>Strategic Management Journal</em>, 33(7), 834&ndash;859.<span class="rl-why">When the predecessor stays close, the successor&rsquo;s hands are tied until the predecessor finally leaves.</span></li>
+        </ul>
+        <h3 class="rl-group">Charisma and the search for a savior</h3>
+        <ul class="rc-sourcelist">
+          <li>Khurana, R. (2002). <a href="https://press.princeton.edu/titles/7338.html"><em>Searching for a corporate savior: The irrational quest for charismatic CEOs</em></a>. Princeton University Press.<span class="rl-why">Why boards hire for personality rather than fit, and what that costs.</span></li>
+          <li>Agle, B. R., Nagarajan, N. J., Sonnenfeld, J. A., &amp; Srinivasan, D. (2006). Does CEO charisma matter? An empirical analysis of the relationships among organizational performance, environmental uncertainty, and top management team perceptions of CEO charisma. <em>Academy of Management Journal</em>, 49(1), 161&ndash;174.<span class="rl-why">The complication: strong performance predicted later perceptions of charisma, but charisma did not predict later performance.</span></li>
+          <li>Tosi, H. L., Misangyi, V. F., Fanelli, A., Waldman, D. A., &amp; Yammarino, F. J. (2004). <a href="https://doi.org/10.1016/j.leaqua.2004.02.010">CEO charisma, compensation, and firm performance</a>. <em>The Leadership Quarterly</em>, 15(3), 405&ndash;420.<span class="rl-why">Charisma tracked CEO pay, not firm performance.</span></li>
+        </ul>
+        <h3 class="rl-group">Nonprofit and congregational transitions</h3>
+        <ul class="rc-sourcelist">
+          <li>Wolfred, T. (2005). <a href="https://www.compasspoint.org/sites/default/files/documents/Interim%20EDs%20-%20final.pdf"><em>Interim executive directors: The power in the middle</em></a>. CompassPoint Nonprofit Services and the Annie E. Casey Foundation.<span class="rl-why">A practitioner&rsquo;s guide to the interim period, including founder and long-tenure transitions.</span></li>
+          <li>Cornelius, M., Moyers, R., &amp; Bell, J. (2011). <a href="https://www.giarts.org/sites/default/files/Daring-to-Lead-2011.pdf"><em>Daring to lead 2011: A national study of nonprofit executive leadership</em></a>. CompassPoint Nonprofit Services and the Meyer Foundation.<span class="rl-why">About 3,000 executive directors. Only 17 percent of their organizations had a documented succession plan.</span></li>
+          <li>Weese, C., &amp; Crabtree, J. R. (2004). <em>The elephant in the boardroom: Speaking the unspoken about pastoral transitions</em>. Jossey-Bass.<span class="rl-why">Succession planning for congregations, written for the moment before the beloved pastor leaves.</span></li>
+        </ul>
+      </div>
+    </details>
+
     <div class="fn-disclosure">
       <h2>About this Leadership Note</h2>
-      <p>Leadership Notes from Show Me the Receipts are written for executive directors and directors of development about the conditions they control. The scene above is a composite drawn from patterns the author has observed in congregations, corporate departments and construction firms; names and details are fictional. The definition of leadership as a channel, not a source, applies across the series. This note is adapted from the author&rsquo;s paper &ldquo;Leadership as Catalyst.&rdquo; Glen E. Quiring, CFRE, is the developer of the Show Me the Receipts framework. ShowMeReceipts.org.</p>
+      <p>Leadership Notes from Show Me the Receipts are written for executive directors and directors of development about the conditions they control. The scene above is a composite drawn from patterns the author has observed in congregations, corporate departments and construction firms; names and details are fictional. The definition of leadership as a channel, not a source, applies across the series. Further reading is listed above. This note is adapted from the author&rsquo;s paper &ldquo;Leadership as Catalyst.&rdquo; Glen E. Quiring, CFRE, is the developer of the Show Me the Receipts framework. ShowMeReceipts.org.</p>
     </div>
   </article>
   <!-- signup:begin -->
