@@ -69,6 +69,9 @@ const code = (date) => date.slice(5, 7) + date.slice(8, 10) + date.slice(2, 4); 
 
 const url = (n) => STREAMS[n.stream].folder + '/' + n.slug + '.html';
 
+// The stream's journal mark (images/notes/field-note.svg, leadership-note.svg).
+const mark = (n) => '<img class="list-mark" src="/images/notes/' + n.stream + '-note.svg" alt="" width="18" height="18">';
+
 const meta = (n) => STREAMS[n.stream].label + ' ' + code(n.date) + ' &middot; ' + esc(n.type);
 
 /* ---------- list renderers ---------- */
@@ -77,7 +80,7 @@ function renderHome(list, stream) {
   if (!list.length) return emptyState(stream, 'home');
   return list.map((n) => [
     '<a href="' + url(n) + '" class="note-row">',
-    '  <span class="note-row-meta">' + meta(n) + '</span>',
+    '  <span class="note-row-meta">' + mark(n) + meta(n) + '</span>',
     '  <span class="note-row-title">' + esc(n.title) + '</span>',
     '  <span class="note-row-summary">' + esc(n.summary) + '</span>',
     '</a>'
@@ -89,7 +92,7 @@ function renderIndex(list, stream) {
   const read = 'Read the ' + STREAMS[stream].label.toLowerCase() + ' &rarr;';
   return list.map((n) => [
     '<a href="' + url(n) + '" class="fn-entry">',
-    '  <div class="fn-entry-meta">' + meta(n) + '</div>',
+    '  <div class="fn-entry-meta">' + mark(n) + meta(n) + '</div>',
     '  <div class="fn-entry-title">' + esc(n.title) + '</div>',
     n.descriptor ? '  <div class="fn-entry-desc">' + esc(n.descriptor) + '</div>' : '',
     '  <p class="fn-entry-summary">' + esc(n.summary) + '</p>',
@@ -246,7 +249,7 @@ console.log('share   main pages');
 
 /* ---------- RSS feeds ---------- */
 
-function rss(file, title, description, list, linkPage) {
+function rss(file, title, description, list, linkPage, image) {
   const self = SITE_URL + '/' + file;
   const items = list.map((n) => {
     const link = SITE_URL + '/' + url(n);
@@ -259,7 +262,7 @@ function rss(file, title, description, list, linkPage) {
       '      <guid isPermaLink="true">' + link + '</guid>',
       '      <pubDate>' + pub + '</pubDate>',
       '      <category>' + STREAMS[n.stream].label + '</category>',
-      '      <description>' + esc(n.summary) + '</description>',
+      '      <description>' + esc('<img src="' + SITE_URL + '/images/notes/' + n.stream + '-note.png" width="32" height="32" alt="' + STREAMS[n.stream].label + '"> ') + esc(n.summary) + '</description>',
       '    </item>'
     ].join('\n');
   }).join('\n');
@@ -274,6 +277,7 @@ function rss(file, title, description, list, linkPage) {
     '    <atom:link href="' + self + '" rel="self" type="application/rss+xml" />',
     '    <description>' + esc(description) + '</description>',
     '    <language>en-us</language>',
+    '    <image><url>' + SITE_URL + '/images/notes/' + image + '</url><title>' + esc(title) + '</title><link>' + SITE_URL + '/' + linkPage + '</link><width>96</width><height>96</height></image>',
     last ? '    <lastBuildDate>' + last + '</lastBuildDate>' : '',
     items,
     '  </channel>',
@@ -286,12 +290,12 @@ function rss(file, title, description, list, linkPage) {
 
 rss('feed.xml', 'Show Me the Receipts',
   'Field Notes and Leadership Notes on how donor trust actually gets built. By Glen E. Quiring, CFRE.',
-  notes, '');
+  notes, '', 'field-note.png');
 rss('feed-field-notes.xml', 'Show Me the Receipts: Field Notes',
   'What the field repeats, and what the receipts show. By Glen E. Quiring, CFRE.',
-  notes.filter((n) => n.stream === 'field'), 'field-notes.html');
+  notes.filter((n) => n.stream === 'field'), 'field-notes.html', 'field-note.png');
 rss('feed-leadership-notes.xml', 'Show Me the Receipts: Leadership Notes',
   'On building an organization where promises get kept. By Glen E. Quiring, CFRE.',
-  notes.filter((n) => n.stream === 'leadership'), 'leadership-notes.html');
+  notes.filter((n) => n.stream === 'leadership'), 'leadership-notes.html', 'leadership-note.png');
 
 console.log('\nBuild finished: ' + notes.length + ' notes.');

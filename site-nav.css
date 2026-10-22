@@ -53,3 +53,24 @@ nav.topnav .navlinks a.nav-cta.active {
     border-bottom: none;
   }
 }
+
+/* Notes journal marks: gold line version on the purple menu and page
+   headers, full-color version beside notes in the lists. */
+nav.topnav .navpair .nav-mark {
+  width: 16px;
+  height: 16px;
+  vertical-align: -3px;
+  margin-right: 0.45rem;
+}
+.page-hero .note-mark {
+  display: block;
+  width: 52px;
+  height: 52px;
+  margin: 0 auto 1.25rem;
+}
+.list-mark {
+  width: 18px;
+  height: 18px;
+  vertical-align: -4px;
+  margin-right: 0.5rem;
+}
