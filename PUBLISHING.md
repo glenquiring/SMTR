@@ -79,3 +79,17 @@ To check on your own machine first: `node scripts/build.js`
   add `"image": "images/your-file.png"` (1200 x 627) to that note's entry in `notes.json`.
 - If LinkedIn shows an old or blank preview, paste the link into LinkedIn's Post Inspector
   (linkedin.com/post-inspector) to refresh it.
+
+## Search engines
+
+The build also writes `sitemap.xml`, the list of pages Google and Bing should know about. New notes
+are added to it automatically from `notes.json`; nothing to do by hand.
+
+- `robots.txt` points search engines to the sitemap and keeps the two `_TEMPLATE.html` files out.
+- Each page's share block also carries a small hidden label (structured data) saying the page is by
+  Glen E. Quiring, CFRE, so search engines connect the notes to your name.
+- Working files in the repo root (PDFs, PowerPoints, zips) are listed in `.vercelignore` and redirected
+  in `vercel.json`, so they are never served on the website. Add any new working file to both.
+- A new top-level page (for example a speaking page) gets link previews, structured data and a sitemap
+  entry by adding `<!-- share:begin -->` and `<!-- share:end -->` under its description and one line
+  to `MAIN_PAGES` in `scripts/build.js`.

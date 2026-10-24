@@ -175,7 +175,56 @@ function signupCard() {
   ].join('\n');
 }
 
-function shareTags({ title, description, path, image, type, date }) {
+/* ---------- structured data (tells search engines who wrote what) ---------- */
+
+const PERSON = {
+  '@type': 'Person',
+  '@id': SITE_URL + '/about.html#glen',
+  name: 'Glen E. Quiring',
+  honorificSuffix: 'CFRE',
+  url: SITE_URL + '/about.html',
+  description: 'Developer of Show Me the Receipts, a framework on how donor trust gets built through promises kept.',
+  knowsAbout: ['Fundraising', 'Donor trust', 'Philanthropy', 'Nonprofit leadership']
+};
+
+const WEBSITE = {
+  '@type': 'WebSite',
+  '@id': SITE_URL + '/#website',
+  name: 'Show Me the Receipts',
+  alternateName: 'ShowMeReceipts.org',
+  url: SITE_URL + '/',
+  description: 'Durable donor trust is a record of promises made and kept.',
+  publisher: { '@id': PERSON['@id'] }
+};
+
+function structuredData({ kind, title, description, pageUrl, img, date, stream }) {
+  let graph;
+  if (kind === 'home') {
+    graph = [WEBSITE, PERSON];
+  } else if (kind === 'about') {
+    graph = [{ '@type': 'ProfilePage', url: pageUrl, name: title, mainEntity: PERSON, isPartOf: { '@id': WEBSITE['@id'] } }];
+  } else if (kind === 'note') {
+    graph = [{
+      '@type': 'BlogPosting',
+      headline: title,
+      description: description,
+      url: pageUrl,
+      mainEntityOfPage: pageUrl,
+      datePublished: date,
+      image: img,
+      author: PERSON,
+      publisher: { '@type': 'Person', '@id': PERSON['@id'], name: PERSON.name },
+      isPartOf: { '@type': 'Blog', name: STREAMS[stream].plural, url: SITE_URL + '/' + STREAMS[stream].listPage }
+    }];
+  } else {
+    graph = [{ '@type': 'WebPage', name: title, description: description, url: pageUrl,
+      author: { '@id': PERSON['@id'], '@type': 'Person', name: PERSON.name }, isPartOf: { '@id': WEBSITE['@id'] } }];
+  }
+  const json = JSON.stringify({ '@context': 'https://schema.org', '@graph': graph }, null, 2).replace(/</g, '\\u003c');
+  return '<script type="application/ld+json">\n' + json + '\n</script>';
+}
+
+function shareTags({ title, description, path, image, type, date, kind, stream }) {
   const pageUrl = SITE_URL + '/' + path;
   const img = SITE_URL + '/' + (image || DEFAULT_IMAGE);
   return [
@@ -193,7 +242,8 @@ function shareTags({ title, description, path, image, type, date }) {
     '<meta name="twitter:card" content="summary_large_image">',
     '<meta name="twitter:title" content="' + esc(title) + '">',
     '<meta name="twitter:description" content="' + esc(description) + '">',
-    '<meta name="twitter:image" content="' + img + '">'
+    '<meta name="twitter:image" content="' + img + '">',
+    structuredData({ kind: kind || 'page', title, description, pageUrl, img, date, stream })
   ].filter(Boolean).join('\n');
 }
 
@@ -204,7 +254,8 @@ for (const n of notes) {
   let html = fs.readFileSync(file, 'utf8');
   const before = html;
   html = fillBlock(html, 'share', shareTags({
-    title: n.title, description: n.summary, path: rel, image: n.image, type: 'article', date: n.date
+    title: n.title, description: n.summary, path: rel, image: n.image, type: 'article', date: n.date,
+    kind: 'note', stream: n.stream
   }));
   html = fillBlock(html, 'signup-top', signupTop());
   html = fillBlock(html, 'signup', signupCard());
@@ -234,7 +285,7 @@ for (const page of ['field-notes.html', 'leadership-notes.html']) {
 
 // Link previews for the main pages.
 const MAIN_PAGES = [
-  { path: 'index.html', share: '', title: 'Show Me the Receipts: Trust is what the receipts add up to.',
+  { path: 'index.html', share: '', kind: 'home', title: 'Show Me the Receipts: Trust is what the receipts add up to.',
     description: 'Durable donor trust is a record of promises made and kept. Field Notes, Leadership Notes and working tools for Executive Directors and Directors of Development.' },
   { path: 'field-notes.html', title: 'Field Notes | Show Me the Receipts',
     description: 'What the field repeats, and what the receipts show. Field Notes by Glen E. Quiring, CFRE.' },
@@ -242,19 +293,54 @@ const MAIN_PAGES = [
     description: 'On building an organization where promises to donors get kept. Leadership Notes by Glen E. Quiring, CFRE.' },
   { path: 'promise.html', title: 'Make Your Promise | Show Me the Receipts',
     description: 'Make one promise you will keep in the next thirty days. You will hear from us twice along the way, and once on day thirty: the receipt.' },
-  { path: 'about.html', title: 'About | Show Me the Receipts',
-    description: 'The argument behind Show Me the Receipts, and the person accountable for it: Glen E. Quiring, CFRE.' }
+  { path: 'about.html', kind: 'about', title: 'About Glen E. Quiring, CFRE | Show Me the Receipts',
+    description: 'The argument behind Show Me the Receipts, and the person accountable for it: Glen E. Quiring, CFRE.' },
+  { path: 'trace-one-failure.html', title: 'Trace One Failure | Show Me the Receipts',
+    description: 'An interactive tracing instrument for fundraisers. Take one failed receipt and follow it back to the system that produced it.' },
+  { path: 'relationship-report.html', title: 'The Relationship Report | Show Me the Receipts',
+    description: 'Five plain-language numbers that show whether your donors are staying, deepening and trusting, built from data your donor database already holds.' },
+  { path: 'glossary.html', title: 'Glossary | Show Me the Receipts',
+    description: 'Plain-language definitions of the fundraising terms used in Show Me the Receipts.' },
+  { path: 'ai-witness.html', title: 'AI as Witness | Show Me the Receipts',
+    description: 'Using AI with the receipts framework as a Socratic partner that helps you see, not one that gives answers.' }
 ];
 for (const p of MAIN_PAGES) {
   const file = path.join(ROOT, p.path);
   if (!fs.existsSync(file)) continue;
   const html = fs.readFileSync(file, 'utf8');
   const out = fillBlock(html, 'share', shareTags({
-    title: p.title, description: p.description, path: p.share !== undefined ? p.share : p.path
+    title: p.title, description: p.description, path: p.share !== undefined ? p.share : p.path, kind: p.kind
   }));
   if (out !== html) fs.writeFileSync(file, out);
 }
 console.log('share   main pages');
+
+/* ---------- sitemap.xml (the list of pages search engines should know about) ---------- */
+
+{
+  const newest = notes.length ? notes[0].date : null;
+  const newestOf = (stream) => (notes.find((n) => n.stream === stream) || {}).date || newest;
+  const entries = [];
+  for (const p of MAIN_PAGES) {
+    if (!fs.existsSync(path.join(ROOT, p.path))) continue;
+    const loc = SITE_URL + '/' + (p.share !== undefined ? p.share : p.path);
+    let lastmod = null;
+    if (p.path === 'index.html') lastmod = newest;
+    if (p.path === 'field-notes.html') lastmod = newestOf('field');
+    if (p.path === 'leadership-notes.html') lastmod = newestOf('leadership');
+    entries.push({ loc, lastmod });
+  }
+  for (const n of notes) entries.push({ loc: SITE_URL + '/' + url(n), lastmod: n.date });
+  const xml = [
+    '<?xml version="1.0" encoding="UTF-8"?>',
+    '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
+    ...entries.map((e) => '  <url><loc>' + esc(e.loc) + '</loc>' + (e.lastmod ? '<lastmod>' + e.lastmod + '</lastmod>' : '') + '</url>'),
+    '</urlset>',
+    ''
+  ].join('\n');
+  fs.writeFileSync(path.join(ROOT, 'sitemap.xml'), xml);
+  console.log('sitemap sitemap.xml (' + entries.length + ' pages)');
+}
 
 /* ---------- RSS feeds ---------- */
 
