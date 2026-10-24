@@ -223,6 +223,15 @@ for (const stream of Object.values(STREAMS)) {
   if (html !== before) fs.writeFileSync(file, html);
 }
 
+// The two listing pages: sign-up box at the top of the list.
+for (const page of ['field-notes.html', 'leadership-notes.html']) {
+  const file = path.join(ROOT, page);
+  if (!fs.existsSync(file)) continue;
+  const html = fs.readFileSync(file, 'utf8');
+  const out = fillBlock(html, 'signup', signupCard());
+  if (out !== html) fs.writeFileSync(file, out);
+}
+
 // Link previews for the main pages.
 const MAIN_PAGES = [
   { path: 'index.html', share: '', title: 'Show Me the Receipts: Trust is what the receipts add up to.',
