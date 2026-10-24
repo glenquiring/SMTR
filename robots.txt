@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /field-notes/_TEMPLATE.html
+Disallow: /leadership-notes/_TEMPLATE.html
+
+Sitemap: https://www.showmereceipts.org/sitemap.xml

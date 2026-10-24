@@ -1,4 +1,23 @@
 {
   "buildCommand": "node scripts/build.js",
-  "outputDirectory": "."
+  "outputDirectory": ".",
+  "redirects": [
+    { "source": "/index.html", "destination": "/", "permanent": true },
+    { "source": "/Brand Standards Guide.pdf", "destination": "/", "permanent": false },
+    { "source": "/Held but Hollow.pdf", "destination": "/", "permanent": false },
+    { "source": "/Held but Hollow.pptx", "destination": "/", "permanent": false },
+    { "source": "/SMTR_SessionRecord_GivingUSA2026_Pipeline_070326.md.pdf", "destination": "/", "permanent": false },
+    { "source": "/SMTR_with_about.zip", "destination": "/", "permanent": false },
+    { "source": "/PUBLISHING.md", "destination": "/", "permanent": false }
+  ],
+  "headers": [
+    {
+      "source": "/(field-notes|leadership-notes)/_TEMPLATE.html",
+      "headers": [{ "key": "X-Robots-Tag", "value": "noindex, nofollow" }]
+    },
+    {
+      "source": "/(scripts|notes.json)(.*)",
+      "headers": [{ "key": "X-Robots-Tag", "value": "noindex" }]
+    }
+  ]
 }
