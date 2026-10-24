@@ -184,7 +184,8 @@ const PERSON = {
   honorificSuffix: 'CFRE',
   url: SITE_URL + '/about.html',
   description: 'Developer of Show Me the Receipts, a framework on how donor trust gets built through promises kept.',
-  knowsAbout: ['Fundraising', 'Donor trust', 'Philanthropy', 'Nonprofit leadership']
+  knowsAbout: ['Fundraising', 'Donor trust', 'Philanthropy', 'Nonprofit leadership'],
+  sameAs: ['https://www.linkedin.com/in/glenquiring/']
 };
 
 const WEBSITE = {
