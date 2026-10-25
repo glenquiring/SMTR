@@ -353,6 +353,10 @@
   .ledger h2 { color: #fff; }
   .ledger .small { color: #DCD2F2; }
   .ledger-text { display: grid; gap: 0.4rem; min-width: 0; }
+  .ledger-eyebrow { font-size: 0.75rem; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); }
+  ul.ledger-points { list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 0.35rem 1.25rem; }
+  ul.ledger-points li { padding-left: 1.1rem; position: relative; font-size: 0.95rem; }
+  ul.ledger-points li::before { content: "✓"; position: absolute; left: 0; color: var(--gold); font-weight: 700; }
   a.login { background: var(--gold); color: var(--nav-blue); font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; font-size: 0.85rem; padding: 0.8rem 1.1rem; border-radius: 6px; text-decoration: none; white-space: nowrap; }
   a.login:hover { background: #D8B664; }
   a.login:focus-visible, .contact a:focus-visible { outline: 3px solid var(--gold); outline-offset: 3px; }
@@ -375,15 +379,15 @@
   }
 
   /* One Letter page when printed */
-  @page { size: letter; margin: 0.35in 0.45in; }
+  @page { size: letter; margin: 0.25in 0.45in; }
   @media print {
     nav.topnav, footer { display: none !important; }
     body { background: #fff; font-family: Arial, Helvetica, 'Liberation Sans', sans-serif; font-size: 9pt; line-height: 1.32; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-    main.program { max-width: none; padding: 0; gap: 0.38rem; }
+    main.program { max-width: none; padding: 0; gap: 0.3rem; }
     .phase > p.small { display: none; }
     .ledger-text p:first-of-type { font-size: 8.6pt; }
-    .program h1 { font-size: 22pt; }
-    .program h2 { font-size: 13pt; margin-bottom: 0.2rem; }
+    .program h1 { font-size: 20pt; }
+    .program h2 { font-size: 12.5pt; margin-bottom: 0.1rem; }
     .program h3 { font-size: 11pt; margin-bottom: 0.2rem; }
     .hero-sub { font-size: 11.5pt; margin: 0.2rem 0; max-width: none; }
     .hero { padding-bottom: 0.2rem; }
@@ -402,6 +406,10 @@
     ol.cycle li:not(:last-child)::after { font-size: 11pt; top: 0.3rem; right: -0.5rem; }
     .ledger { padding: 0.5rem 0.85rem; gap: 0.8rem; grid-template-columns: 1fr auto; }
     .ledger-text { gap: 0.2rem; }
+    ul.ledger-points { grid-template-columns: 1fr 1fr; gap: 0.1rem 0.8rem; }
+    ul.ledger-points li { font-size: 8.3pt; }
+    .ledger-text > p.small { display: none; }
+    .ledger-eyebrow { font-size: 7pt; }
     .invest, .about { grid-template-columns: 1.25fr 1fr; gap: 0.3rem 1.2rem; }
     .price b { font-size: 17pt; }
     .tiers { gap: 0.45rem; }
@@ -410,15 +418,21 @@
     .print-only { display: block; }
     .screen-only { display: none; }
     .note, .small { font-size: 8pt; }
-    ol.skills { grid-template-columns: 1fr 1fr; gap: 0.35rem 0.5rem; }
+    ol.skills { grid-template-columns: 1fr 1fr 1fr; gap: 0.35rem 0.45rem; }
     ol.skills li { padding: 0.35rem 0.55rem 0.35rem 2rem; gap: 0.1rem; }
     ol.skills li::before { left: 0.5rem; top: 0.4rem; width: 1.15rem; height: 1.15rem; font-size: 7.5pt; }
     ol.skills h3 { font-size: 10pt; }
-    ol.skills p { font-size: 8.4pt; }
+    ol.skills p { font-size: 8.2pt; line-height: 1.28; }
     ol.skills p.proof { font-size: 8pt; padding-top: 0.15rem; }
     ol.skills li.not-promised { padding-left: 0.6rem; }
     .coach-col { gap: 0.2rem; }
-    .coach-col .start-h { margin-top: 0.3rem; }
+    .coach-col .start-h { margin-top: 0.15rem; }
+    .contact a { font-size: 10pt; }
+    .invest > div > .coach-col { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0 0.6rem; margin-top: 0.15rem; }
+    .invest > div > .coach-col .start-h { display: none; }
+    .invest .contact::before { content: 'Start with a conversation: '; font-weight: 700; color: var(--purple, #2d0a5e); font-size: 10pt; }
+    .invest .contact, .invest .print-only { margin: 0; }
+    .hero-sub { font-size: 10.5pt; }
   }
 
 </style>
@@ -524,9 +538,16 @@
 
   <section class="band ledger" aria-labelledby="h-ledger">
     <div class="ledger-text">
-      <h2 id="h-ledger">Your Four Receipts Ledger</h2>
-      <p>A private web app for your promises between sessions. It keeps your history, shows what keeps slipping and whose obstacle it is, tracks your goals, and builds your portfolio of kept promises.</p>
-      <p class="small">Private to you and the coach you invite. Your coach can read but never change it, and you can remove access at any time.</p>
+      <p class="ledger-eyebrow">What sets The Four Receipts apart</p>
+      <h2 id="h-ledger">You keep a ledger, not just a coach</h2>
+      <p>Most coaching lives in conversation and memory; what happens between sessions disappears. Here, every promise you make goes in your Four Receipts Ledger, with its owner, its date and the evidence that will prove it.</p>
+      <ul class="ledger-points">
+        <li><b>Every session starts from the record,</b> not from recall.</li>
+        <li><b>Patterns show up:</b> what keeps slipping, and whose obstacle it really is.</li>
+        <li><b>Confidence has a source:</b> a running total of promises kept.</li>
+        <li><b>You keep the portfolio:</b> kept promises and their evidence, ready for an interview or a review.</li>
+      </ul>
+      <p class="small">The same discipline Show Me the Receipts asks of institutions, practised first by the leader. Private to you and the coach you invite; your coach can read but never change it.</p>
     </div>
     <a class="login" href="ledger.html">Client Login</a>
   </section>
@@ -539,14 +560,16 @@
         <div class="tier best"><p class="tier-name">6 months</p><p class="price"><b>$2,500</b></p><p class="small">12 sessions. Save $500; ends on your six-month review.</p></div>
       </div>
       <p>Sessions twice a month, in person, at a location you choose. The Four Receipts Ledger is included. Your organization can be invoiced.</p>
+      <div class="coach-col">
+        <h2 class="start-h">Start with a conversation</h2>
+        <p class="contact"><a href="mailto:contact@showmereceipts.org">contact@showmereceipts.org</a></p>
+        <p class="small screen-only"><a href="downloads/the-four-receipts-at-a-glance.pdf" download>Download this page as a one-page PDF</a></p>
+        <p class="small print-only">ShowMeReceipts.org/coaching.html</p>
+      </div>
     </div>
     <div class="coach-col">
       <h2>Your coach</h2>
-      <p><b>Glen E. Quiring, CFRE,</b> has led in nonprofits since 1985 and developed the Show Me the Receipts framework: durable trust is a record of promises made and kept.</p>
-      <h2 class="start-h">Start with a conversation</h2>
-      <p class="contact"><a href="mailto:contact@showmereceipts.org">contact@showmereceipts.org</a></p>
-      <p class="small screen-only"><a href="downloads/the-four-receipts-at-a-glance.pdf" download>Download this page as a one-page PDF</a></p>
-      <p class="small print-only">ShowMeReceipts.org/coaching.html</p>
+      <p><b>Glen E. Quiring, CFRE,</b> has led in nonprofits since 1985, across higher education, the arts, and community and faith organizations. He has run advancement services, annual and capital campaigns, and an organization’s finances as its chief administrator and treasurer, and he coached gift officers through a $3 million capital campaign. An AFP Certified Facilitator, he developed Show Me the Receipts, and he coaches the way it works: from the record.</p>
     </div>
   </section>
 </main>
