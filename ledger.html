@@ -1,0 +1,1324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Four Receipts Ledger | Show Me the Receipts</title>
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="description" content="The Four Receipts Ledger: a private, two-week receipts review for leaders and their coaches. Made, Owned, Kept, Proved.">
+<meta name="robots" content="noindex">
+<!-- share:begin -->
+<link rel="canonical" href="https://www.showmereceipts.org/ledger.html">
+<meta property="og:site_name" content="Show Me the Receipts">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Four Receipts Ledger | Show Me the Receipts">
+<meta property="og:description" content="A private, two-week receipts review for leaders and their coaches. Made, Owned, Kept, Proved.">
+<meta property="og:url" content="https://www.showmereceipts.org/ledger.html">
+<meta property="og:image" content="https://www.showmereceipts.org/images/share-default.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="627">
+<meta property="og:image:alt" content="Show Me the Receipts: a receipt of promises kept, with the balance reading Trust">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Four Receipts Ledger | Show Me the Receipts">
+<meta name="twitter:description" content="A private, two-week receipts review for leaders and their coaches. Made, Owned, Kept, Proved.">
+<meta name="twitter:image" content="https://www.showmereceipts.org/images/share-default.png">
+<!-- share:end -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="site-nav.css">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --afp-blue: #3D00A4;
+    --nav-blue: #28006C;
+    --gold: #C9A24A;
+    --cream: #FAF7F0;
+    --charcoal: #2A1F3D;
+    --soft-gray: #6B6378;
+    --light-gold: #F0E4C2;
+    --serif: "Newsreader", Georgia, "Times New Roman", serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background: var(--cream);
+    color: var(--charcoal);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* NAV BAND */
+  nav.topnav {
+    background: var(--nav-blue);
+    padding: 1rem 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  }
+  nav.topnav .brand {
+    color: white;
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    text-decoration: none;
+  }
+  nav.topnav .navlinks {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  nav.topnav .navlinks a {
+    color: white;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 0.25rem 0;
+    border-bottom: 2px solid transparent;
+    transition: border-color 0.2s;
+  }
+  nav.topnav .navlinks a:hover { border-bottom-color: var(--gold); }
+  nav.topnav .navlinks a.active { border-bottom-color: var(--gold); }
+
+  /* RESOURCES DROPDOWN — added for cross-page nav access */
+  nav.topnav .navdropdown {
+    position: relative;
+    display: inline-block;
+    outline: none;
+  }
+  nav.topnav .navdropdown-toggle {
+    color: white;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.25rem 0;
+    border-bottom: 2px solid transparent;
+    transition: border-color 0.2s;
+    cursor: pointer;
+    user-select: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+  nav.topnav .navdropdown:hover .navdropdown-toggle,
+  nav.topnav .navdropdown:focus-within .navdropdown-toggle {
+    border-bottom-color: var(--gold);
+  }
+  nav.topnav .navdropdown .caret {
+    font-size: 0.7em;
+    display: inline-block;
+    transition: transform 0.2s;
+  }
+  nav.topnav .navdropdown:hover .caret,
+  nav.topnav .navdropdown:focus-within .caret {
+    transform: translateY(2px);
+  }
+  nav.topnav .navdropdown-menu {
+    position: absolute;
+    top: calc(100% + 0.75rem);
+    right: 0;
+    background: white;
+    border: 1px solid rgba(0,0,0,0.08);
+    border-radius: 6px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+    min-width: 290px;
+    padding: 0.5rem 0;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-4px);
+    transition: opacity 0.15s, visibility 0.15s, transform 0.15s;
+    z-index: 200;
+  }
+  nav.topnav .navdropdown:hover .navdropdown-menu,
+  nav.topnav .navdropdown:focus-within .navdropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+  nav.topnav .navlinks .navdropdown-menu a {
+    display: block;
+    padding: 0.75rem 1.125rem;
+    color: var(--charcoal);
+    text-decoration: none;
+    border: none;
+    border-bottom: none;
+    letter-spacing: 0;
+    text-transform: none;
+    font-weight: 500;
+    font-size: 0.9375rem;
+    transition: background-color 0.15s;
+  }
+  nav.topnav .navlinks .navdropdown-menu a:hover {
+    background-color: var(--cream);
+    border-bottom: none;
+  }
+  nav.topnav .navdropdown-menu .dropdown-label {
+    display: block;
+    font-weight: 700;
+    color: var(--afp-blue);
+    margin-bottom: 0.1875rem;
+    font-size: 0.9375rem;
+    letter-spacing: 0;
+  }
+  nav.topnav .navdropdown-menu .dropdown-desc {
+    display: block;
+    font-size: 0.75rem;
+    color: var(--soft-gray);
+    font-weight: 400;
+    letter-spacing: 0;
+    line-height: 1.4;
+  }
+  /* MOBILE NAV — pure-CSS hamburger (checkbox toggle, no JS required) */
+  .nav-toggle { display: none; }
+  .nav-toggle-label {
+    display: none;
+    cursor: pointer;
+    width: 28px;
+    height: 22px;
+    position: relative;
+    flex-shrink: 0;
+  }
+  .nav-toggle-label span,
+  .nav-toggle-label span::before,
+  .nav-toggle-label span::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: white;
+    border-radius: 2px;
+    transition: transform 0.25s ease, opacity 0.2s ease, top 0.25s ease;
+  }
+  .nav-toggle-label span { top: 10px; }
+  .nav-toggle-label span::before { top: -8px; }
+  .nav-toggle-label span::after { top: 8px; }
+  .nav-toggle:checked ~ .nav-toggle-label span { background: transparent; }
+  .nav-toggle:checked ~ .nav-toggle-label span::before { top: 0; transform: rotate(45deg); }
+  .nav-toggle:checked ~ .nav-toggle-label span::after { top: 0; transform: rotate(-45deg); }
+
+  @media (max-width: 860px) {
+    nav.topnav {
+      flex-wrap: wrap;
+      padding: 0.875rem 1.25rem;
+    }
+    nav.topnav .brand { white-space: nowrap; }
+    .nav-toggle-label { display: block; }
+
+    /* Collapse the link row into a slide-down panel */
+    nav.topnav .navlinks {
+      display: block;
+      flex-basis: 100%;
+      width: 100%;
+      order: 3;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+    }
+    .nav-toggle:checked ~ .navlinks {
+      max-height: 100vh;
+      overflow-y: auto;
+    }
+    nav.topnav .navlinks > a {
+      display: block;
+      padding: 0.875rem 0;
+      font-size: 0.8125rem;
+      border-bottom: 1px solid rgba(255,255,255,0.12);
+    }
+    nav.topnav .navlinks > a:first-child { margin-top: 0.75rem; }
+    nav.topnav .navlinks > a:hover,
+    nav.topnav .navlinks > a.active { border-bottom-color: var(--gold); }
+
+    /* Flatten the Resources dropdown: always-visible group inside the panel */
+    nav.topnav .navdropdown { display: block; width: 100%; }
+    nav.topnav .navdropdown-toggle {
+      display: block;
+      padding: 0.875rem 0 0.5rem;
+      border-bottom: none;
+      cursor: default;
+      color: var(--gold);
+    }
+    nav.topnav .navdropdown .caret { display: none; }
+    nav.topnav .navdropdown-menu {
+      position: static;
+      opacity: 1;
+      visibility: visible;
+      transform: none;
+      min-width: 0;
+      width: 100%;
+      background: rgba(255,255,255,0.06);
+      border: none;
+      border-radius: 4px;
+      box-shadow: none;
+      margin-bottom: 0.75rem;
+      padding: 0.25rem 0;
+    }
+    nav.topnav .navlinks .navdropdown-menu a {
+      color: white;
+      padding: 0.75rem 1rem;
+    }
+    nav.topnav .navlinks .navdropdown-menu a:hover { background: rgba(255,255,255,0.08); }
+    nav.topnav .navdropdown-menu .dropdown-label { color: white; }
+    nav.topnav .navdropdown-menu .dropdown-desc { color: rgba(255,255,255,0.65); }
+  }
+
+
+  /* FOOTER */
+  footer {
+    background: var(--cream);
+    padding: 2.5rem 1.5rem;
+    text-align: center;
+    color: var(--soft-gray);
+    font-size: 0.8125rem;
+    border-top: 1px solid rgba(0,0,0,0.05);
+  }
+  footer p { margin-bottom: 0.25rem; }
+  footer .footer-url {
+    color: var(--afp-blue);
+    font-weight: 700;
+    letter-spacing: 0.05em;
+  }
+  footer .attribution {
+    margin-top: 0.5rem;
+    font-style: italic;
+  }
+
+
+  @media (hover: none) and (pointer: coarse) {
+    nav.topnav .navlinks a,
+    nav.topnav .navlinks .navdropdown-menu a {
+      -webkit-tap-highlight-color: rgba(201, 162, 74, 0.25);
+    }
+  }
+  @media (max-width: 600px) {
+    nav.topnav { padding: 0.875rem 1rem; }
+    nav.topnav .brand { font-size: 0.8125rem; letter-spacing: 0.15em; }
+  }
+  /* FOUR RECEIPTS LEDGER */
+  :root {
+    --surface: #FFFFFF;
+    --line: #E3DCCD;
+    --muted: #6B6378;
+    --gold-ink: #7A5A12;
+    --kept: #1F7A4D; --kept-bg: #E3F3EA;
+    --slip: #A3561A; --slip-bg: #FBEBDD;
+    --let: #6B6378; --let-bg: #EEEAF3;
+  }
+  [hidden] { display: none !important; }
+  main.ledger-app { max-width: 880px; margin: 0 auto; padding: 2.5rem max(16px, env(safe-area-inset-right, 0px)) 4rem max(16px, env(safe-area-inset-left, 0px)); display: grid; gap: 1.4rem; }
+  .ledger-app h1, .ledger-app h2, .ledger-app h3 { font-family: var(--serif); font-weight: 600; color: var(--charcoal); text-wrap: balance; }
+  .ledger-app h1 { font-size: clamp(2rem, 5vw, 2.6rem); line-height: 1.1; }
+  .ledger-app h2 { font-size: 1.6rem; line-height: 1.2; }
+  .ledger-app h3 { font-size: 1.3rem; }
+  .eyebrow { font-size: 0.75rem; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold-ink); }
+  .lede { max-width: 62ch; color: var(--muted); }
+  .muted { color: var(--muted); }
+  .small { font-size: 0.875rem; }
+  .card { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 1.25rem; display: grid; gap: 0.9rem; }
+  .ledger-app label { display: grid; gap: 0.25rem; font-size: 0.8125rem; font-weight: 700; color: var(--muted); }
+  .ledger-app input, .ledger-app select, .ledger-app textarea { font: inherit; font-size: 0.95rem; color: var(--charcoal); background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 0.55rem 0.7rem; width: 100%; min-width: 0; }
+  .ledger-app textarea { resize: vertical; min-height: 64px; }
+  .ledger-app input:focus-visible, .ledger-app select:focus-visible, .ledger-app textarea:focus-visible, .ledger-app button:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
+  .ledger-app input[readonly], .ledger-app textarea[readonly] { background: var(--cream); }
+  .btn { font: inherit; font-weight: 800; font-size: 0.95rem; padding: 0.6rem 1rem; border-radius: 9px; border: 1px solid var(--afp-blue); background: var(--afp-blue); color: #fff; cursor: pointer; }
+  .btn.ghost { background: transparent; color: var(--afp-blue); }
+  .btn:disabled { opacity: 0.6; cursor: default; }
+  .link { font: inherit; font-size: 0.8125rem; font-weight: 700; background: none; border: 0; color: var(--muted); cursor: pointer; padding: 0; text-decoration: underline; }
+  .actions { display: flex; flex-wrap: wrap; gap: 0.6rem; align-items: center; }
+  .grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 0.7rem; }
+  .status-line { font-size: 0.875rem; font-weight: 700; min-height: 1.4em; color: var(--kept); }
+  .status-line.err { color: #A3261A; }
+
+  .tabs { display: flex; flex-wrap: wrap; gap: 0.4rem; border-bottom: 1px solid var(--line); }
+  .tabs button { font: inherit; font-weight: 700; font-size: 0.95rem; background: none; border: 0; border-bottom: 3px solid transparent; padding: 0.55rem 0.8rem; color: var(--muted); cursor: pointer; }
+  .tabs button[aria-selected="true"] { color: var(--afp-blue); border-bottom-color: var(--gold); }
+  .who { display: flex; flex-wrap: wrap; gap: 0.5rem 1rem; align-items: center; justify-content: space-between; font-size: 0.875rem; color: var(--muted); }
+
+  .ledger-strip { background: var(--nav-blue); color: #fff; border-radius: 14px; padding: 1.1rem 1.25rem; display: grid; gap: 0.9rem; }
+  .ledger-strip .eyebrow { color: var(--gold); }
+  .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 0.75rem; }
+  .stat b { display: block; font-family: var(--serif); font-size: 2rem; line-height: 1.1; font-variant-numeric: tabular-nums; }
+  .stat span { font-size: 0.8125rem; color: #DCD2F2; }
+  .bars { display: flex; gap: 6px; align-items: flex-end; min-height: 60px; overflow-x: auto; padding-bottom: 2px; }
+  .bar { display: grid; gap: 4px; justify-items: center; font-size: 0.6875rem; color: #DCD2F2; flex: 0 0 auto; background: none; border: 0; cursor: pointer; padding: 0 2px; font-family: inherit; }
+  .bar i { display: block; width: 26px; border-radius: 4px 4px 0 0; background: var(--gold); }
+  .bar.cur span { color: #fff; font-weight: 800; }
+  .bar.cur i { outline: 2px solid #fff; outline-offset: 1px; }
+
+  .cyclebar { display: flex; flex-wrap: wrap; gap: 0.6rem 1rem; align-items: center; justify-content: space-between; }
+  .cyclebar .dates { font-family: var(--serif); font-size: 1.3rem; font-weight: 600; }
+  .pill { display: inline-block; font-size: 0.75rem; font-weight: 800; letter-spacing: 0.04em; padding: 0.15rem 0.6rem; border-radius: 99px; background: var(--let-bg); color: var(--let); }
+  .pill.kept { background: var(--kept-bg); color: var(--kept); }
+  .pill.slipped { background: var(--slip-bg); color: var(--slip); }
+  .pill.carried { background: var(--surface); color: var(--gold-ink); border: 1px solid var(--gold); }
+  .pill.now { background: var(--light-gold); color: var(--gold-ink); }
+  .pill.goal { background: #EDE6FA; color: var(--afp-blue); }
+  .pill.goal.challenge { background: var(--light-gold); color: var(--gold-ink); }
+
+  .receipt-step { display: grid; gap: 0.9rem; }
+  .rhead { display: flex; gap: 0.85rem; align-items: flex-start; }
+  .rnum { flex: 0 0 auto; width: 40px; height: 40px; border-radius: 50%; background: var(--afp-blue); color: #fff; display: grid; place-items: center; font-family: var(--serif); font-size: 1.35rem; font-weight: 600; }
+  .rhead > div { min-width: 0; display: grid; gap: 0.1rem; }
+  .q { font-size: 0.95rem; color: var(--muted); }
+  .plist { display: grid; gap: 0.6rem; }
+  .prow { border: 1px solid var(--line); border-radius: 10px; padding: 0.75rem 0.9rem; display: grid; gap: 0.6rem; background: var(--cream); }
+  .ptext { font-weight: 700; overflow-wrap: anywhere; }
+  .meta { display: flex; flex-wrap: wrap; gap: 0.35rem 0.85rem; font-size: 0.8125rem; color: var(--muted); }
+  .seg { display: flex; flex-wrap: wrap; gap: 0.35rem; }
+  .seg button { font: inherit; font-size: 0.875rem; font-weight: 700; padding: 0.4rem 0.75rem; border-radius: 99px; border: 1px solid var(--line); background: var(--surface); color: var(--charcoal); cursor: pointer; }
+  .seg button[aria-pressed="true"] { background: var(--afp-blue); border-color: var(--afp-blue); color: #fff; }
+  .seg.status button[data-v="kept"][aria-pressed="true"] { background: var(--kept); border-color: var(--kept); }
+  .seg.status button[data-v="slipped"][aria-pressed="true"] { background: var(--slip); border-color: var(--slip); }
+  .seg.status button[data-v="let go"][aria-pressed="true"] { background: var(--let); border-color: var(--let); }
+  .seg button:disabled { cursor: default; }
+  .addform { border-top: 1px solid var(--line); padding-top: 0.9rem; display: grid; gap: 0.6rem; }
+  .empty { font-size: 0.95rem; color: var(--muted); font-style: italic; }
+  .standing { background: var(--cream); border: 1px solid var(--gold); border-radius: 14px; padding: 1.1rem 1.25rem; display: grid; gap: 0.6rem; }
+  .out { border: 2px solid var(--nav-blue); }
+  pre.slip { margin: 0; white-space: pre-wrap; word-break: break-word; font-family: inherit; font-size: 0.875rem; line-height: 1.6; background: var(--cream); border: 1px solid var(--line); border-radius: 10px; padding: 1rem; max-height: 440px; overflow: auto; }
+
+  .table-wrap { overflow-x: auto; }
+  table.hist { width: 100%; border-collapse: collapse; font-size: 0.875rem; font-variant-numeric: tabular-nums; }
+  table.hist th, table.hist td { text-align: left; padding: 0.5rem 0.6rem; border-bottom: 1px solid var(--line); white-space: nowrap; }
+  table.hist th { font-size: 0.75rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
+  table.hist tr.clickable { cursor: pointer; }
+  table.hist tr.clickable:hover td { background: var(--cream); }
+  .tally { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 0.6rem; }
+  .tally div { background: var(--cream); border: 1px solid var(--line); border-radius: 10px; padding: 0.6rem 0.8rem; }
+  .tally b { font-family: var(--serif); font-size: 1.5rem; display: block; font-variant-numeric: tabular-nums; }
+  ul.plain { list-style: none; display: grid; gap: 0.5rem; }
+  ul.plain li { border-left: 3px solid var(--gold); padding: 0.2rem 0 0.2rem 0.75rem; overflow-wrap: anywhere; }
+  .coach-guide ul { padding-left: 1.2rem; display: grid; gap: 0.35rem; }
+  details.coach-guide summary { cursor: pointer; font-weight: 800; color: var(--afp-blue); }
+  .signin { max-width: 520px; }
+  .readonly-note { background: var(--light-gold); color: var(--gold-ink); border-radius: 10px; padding: 0.6rem 0.9rem; font-size: 0.875rem; font-weight: 700; }
+
+</style>
+<script defer src="/_vercel/insights/script.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+</head>
+<body>
+
+<nav class="topnav">
+  <a href="index.html" class="brand">Show Me the Receipts</a>
+  <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-hidden="true">
+  <label for="nav-toggle" class="nav-toggle-label" aria-label="Open menu"><span></span></label>
+  <div class="navlinks">
+    <a href="about.html">About</a>
+    <a href="about.html#speaking">Speaking &amp; Coaching</a>
+    <div class="navpair">
+      <a href="leadership-notes.html"><img class="nav-mark" src="/images/notes/leadership-note-gold.svg" alt="" width="16" height="16">Leadership Notes</a>
+      <span class="navpair-divider" aria-hidden="true"></span>
+      <a href="field-notes.html"><img class="nav-mark" src="/images/notes/field-note-gold.svg" alt="" width="16" height="16">Field Notes</a>
+    </div>
+    <div class="navdropdown" tabindex="0">
+      <span class="navdropdown-toggle">Tools <span class="caret">&#9662;</span></span>
+      <div class="navdropdown-menu">
+        <a href="promise.html">
+          <span class="dropdown-label">Make My Promise</span>
+          <span class="dropdown-desc">One promise &middot; thirty days</span>
+        </a>
+        <a href="trace-one-failure.html">
+          <span class="dropdown-label">Trace One Failure</span>
+          <span class="dropdown-desc">Interactive tracing instrument</span>
+        </a>
+        <a href="downloads/show-me-the-receipts-reference-card.pdf" download>
+          <span class="dropdown-label">Reference Card</span>
+          <span class="dropdown-desc">190 receipts &middot; PDF download</span>
+        </a>
+        <a href="downloads/show-me-the-receipts-trust-audit.pdf" download>
+          <span class="dropdown-label">Trust Audit Worksheet</span>
+          <span class="dropdown-desc">19-page audit &middot; PDF download</span>
+        </a>
+        <a href="relationship-report.html">
+          <span class="dropdown-label">The Relationship Report</span>
+          <span class="dropdown-desc">5 metrics &middot; build it yourself</span>
+        </a>
+        <a href="glossary.html">
+          <span class="dropdown-label">Glossary</span>
+          <span class="dropdown-desc">40 working terms</span>
+        </a>
+        <a href="ai-witness.html">
+          <span class="dropdown-label">AI as Witness</span>
+          <span class="dropdown-desc">Six prompts &middot; method</span>
+        </a>
+        <a href="downloads/relationships-in-fundraising.pdf" download>
+          <span class="dropdown-label">Further Reading</span>
+          <span class="dropdown-desc">Relationships in Fundraising &middot; PDF download</span>
+        </a>
+      </div>
+    </div>
+    <a href="ledger.html" class="nav-cta active" aria-current="page">Client Login</a>
+  </div>
+</nav>
+
+<main class="ledger-app">
+  <header style="display:grid;gap:0.6rem">
+    <p class="eyebrow">The Four Receipts</p>
+    <h1>Four Receipts Ledger</h1>
+    <p class="lede">Your receipts review, every two weeks. Work through the four receipts, then meet with your coach. Your ledger keeps every cycle, so the pattern behind a slip shows up over time.</p>
+  </header>
+
+  <p class="status-line" id="bootMsg">Loading your ledger…</p>
+
+  <!-- Signed out -->
+  <section class="card signin" id="signedOut" hidden aria-labelledby="signinH">
+    <h2 id="signinH">Sign in</h2>
+    <p class="small muted">Enter your email and we’ll send you a sign-in link. No password to remember. Your ledger is private: only you, and a coach you invite, can read it.</p>
+    <form id="signinForm" class="actions" style="align-items:flex-end">
+      <label for="signinEmail" style="flex:1 1 240px">Email<input id="signinEmail" type="email" autocomplete="email" required></label>
+      <button class="btn" type="submit" id="signinBtn">Email me a sign-in link</button>
+    </form>
+    <p class="status-line" id="signinMsg" role="status"></p>
+  </section>
+
+  <!-- First visit: profile -->
+  <section class="card signin" id="needsProfile" hidden aria-labelledby="profileH">
+    <h2 id="profileH">Welcome. Tell us who you are.</h2>
+    <form id="profileForm" style="display:grid;gap:0.7rem">
+      <label for="pfName">Your name<input id="pfName" autocomplete="name" required></label>
+      <label for="pfRole">Your role<input id="pfRole" placeholder="Executive director, director of development…"></label>
+      <div class="actions"><button class="btn" type="submit">Start my ledger</button></div>
+    </form>
+    <p class="status-line" id="profileMsg" role="status"></p>
+  </section>
+
+  <!-- The app -->
+  <div id="app" hidden style="display:grid;gap:1.2rem">
+    <div class="who"><span id="whoLine"></span><button class="link" id="signOutBtn" type="button">Sign out</button></div>
+
+    <div class="readonly-note" id="viewingNote" hidden>
+      <span id="viewingText"></span>
+      <button class="link" id="backToMine" type="button" style="margin-left:0.5rem">Back to my ledger</button>
+    </div>
+
+    <div class="tabs" role="tablist">
+      <button role="tab" id="tab-ledger" aria-selected="true" aria-controls="panel-ledger" type="button">Ledger</button>
+      <button role="tab" id="tab-goals" aria-selected="false" aria-controls="panel-goals" type="button">Goals</button>
+      <button role="tab" id="tab-history" aria-selected="false" aria-controls="panel-history" type="button">History</button>
+      <button role="tab" id="tab-portfolio" aria-selected="false" aria-controls="panel-portfolio" type="button">Portfolio</button>
+      <button role="tab" id="tab-coaching" aria-selected="false" aria-controls="panel-coaching" type="button">Coaching</button>
+    </div>
+    <p class="status-line" id="saveMsg" role="status"></p>
+
+    <!-- LEDGER -->
+    <section id="panel-ledger" role="tabpanel" aria-labelledby="tab-ledger" style="display:grid;gap:1.2rem">
+      <div class="ledger-strip" aria-label="Running ledger">
+        <p class="eyebrow">The running ledger</p>
+        <div class="stats">
+          <div class="stat"><b id="sKept">0</b><span>promises kept, all cycles</span></div>
+          <div class="stat"><b id="sRate">–</b><span>kept, of promises resolved</span></div>
+          <div class="stat"><b id="sOpen">0</b><span>open this cycle</span></div>
+          <div class="stat"><b id="sCycles">0</b><span>cycles on the record</span></div>
+        </div>
+        <div class="bars" id="bars" aria-label="Kept promises by cycle"></div>
+      </div>
+
+      <div class="card">
+        <div class="cyclebar">
+          <div style="display:grid;gap:0.2rem">
+            <span class="dates" id="cycleDates"></span>
+            <span class="small muted" id="cycleSub"></span>
+          </div>
+          <div class="actions">
+            <button class="btn ghost" id="prevCycle" type="button">← Earlier</button>
+            <button class="btn ghost" id="nextCycle" type="button">Later →</button>
+          </div>
+        </div>
+      </div>
+
+      <section class="card receipt-step" aria-labelledby="hMade">
+        <div class="rhead"><div class="rnum">1</div><div><h2 id="hMade">Made</h2><p class="q">What promises are active this cycle, and what will keeping them cost?</p></div></div>
+        <div class="plist" id="madeList"></div>
+        <form class="addform" id="addForm">
+          <p class="small muted">A promise without evidence is aspirational, not verifiable. Write each one so someone else could check it.</p>
+          <label for="nText">The promise<input id="nText" required maxlength="1000" placeholder="Send the impact report to the scholarship donors"></label>
+          <div class="grid2">
+            <label for="nTo">To whom<input id="nTo" placeholder="Donor, board, team, myself"></label>
+            <label for="nDue">By when<input id="nDue" type="date"></label>
+          </div>
+          <label for="nEvidence">You will know it was kept because…<input id="nEvidence" placeholder="The report is in their inbox and logged in the CRM"></label>
+          <div class="grid2">
+            <label for="nClock">Which clock<select id="nClock"><option value="cycle">This cycle</option><option value="year">This year</option><option value="horizon">The long horizon</option></select></label>
+            <label for="nCost">What will it cost me?<input id="nCost" placeholder="Two evenings; saying no to the gala committee"></label>
+          </div>
+          <label for="nGoal">Serves which goal?<select id="nGoal"><option value="">Not linked to a goal</option></select></label>
+          <div class="actions"><button class="btn" type="submit">Add promise</button></div>
+        </form>
+      </section>
+
+      <section class="card receipt-step" aria-labelledby="hOwned">
+        <div class="rhead"><div class="rnum">2</div><div><h2 id="hOwned">Owned</h2><p class="q">Sort each promise. Is it mine to carry, the institution’s, or shared? Hand back what is not mine.</p></div></div>
+        <div class="plist" id="ownedList"></div>
+      </section>
+
+      <section class="card receipt-step" aria-labelledby="hKept">
+        <div class="rhead"><div class="rnum">3</div><div><h2 id="hKept">Kept</h2><p class="q">What did you finish? What slipped, and by when will it be done?</p></div></div>
+        <div class="plist" id="keptList"></div>
+      </section>
+
+      <section class="card receipt-step" aria-labelledby="hProved">
+        <div class="rhead"><div class="rnum">4</div><div><h2 id="hProved">Proved</h2><p class="q">What shows it was kept? If it was not, what produced the slip, and whose obstacle was it?</p></div></div>
+        <div class="plist" id="provedList"></div>
+      </section>
+
+      <div class="standing">
+        <p class="eyebrow">The standing question</p>
+        <h3>Who have I turned into a character this cycle?</h3>
+        <p class="small muted">Name the role you have given them in a few words. Then: what would they say my decisions look like from their side of the desk?</p>
+        <label for="character">Your answer<textarea id="character" maxlength="2000" placeholder="The board treasurer has become “the one who blocks everything.”"></textarea></label>
+      </div>
+
+      <section class="card out" aria-labelledby="hOut">
+        <div class="rhead"><div class="rnum" style="background:var(--gold);color:var(--nav-blue)">✓</div><div><h2 id="hOut">The receipt for this cycle</h2><p class="q" id="outSub">Your coach can read it in the ledger. You can also copy it into an email.</p></div></div>
+        <pre class="slip" id="slip"></pre>
+        <div class="actions"><button class="btn" id="copyBtn" type="button">Copy receipt</button><span class="status-line" id="copyMsg" role="status"></span></div>
+      </section>
+    </section>
+
+    <!-- GOALS -->
+    <section id="panel-goals" role="tabpanel" aria-labelledby="tab-goals" hidden style="display:grid;gap:1.2rem">
+      <div class="card">
+        <h2>Engagement goals</h2>
+        <p class="small muted">Name one or two skills to build and one or two persistent challenges to solve. Write each so its evidence could be checked. Link promises to a goal as you make them; the reviews at three and six months read from the record.</p>
+        <p class="small" id="goalDates"></p>
+        <form id="goalForm" style="display:grid;gap:0.6rem;border-top:1px solid var(--line);padding-top:0.9rem">
+          <div class="grid2">
+            <label for="gKind">Kind<select id="gKind"><option value="skill">A skill to build</option><option value="challenge">A persistent challenge</option></select></label>
+            <label for="gTitle">The goal<input id="gTitle" required maxlength="300" placeholder="Managing up to the board"></label>
+          </div>
+          <label for="gKept">What kept looks like, and what will prove it<input id="gKept" placeholder="Three board reports written as specifications, each approved"></label>
+          <div class="actions"><button class="btn" type="submit">Add goal</button></div>
+        </form>
+      </div>
+      <div class="card"><h2>Skills to build</h2><div class="plist" id="skillGoals"></div></div>
+      <div class="card"><h2>Persistent challenges</h2><p class="small muted">Each one ends in one of two ways: resolved, or traced to the assumption behind it and handed to the role that owns it. Both count.</p><div class="plist" id="challengeGoals"></div></div>
+    </section>
+
+    <!-- HISTORY -->
+    <section id="panel-history" role="tabpanel" aria-labelledby="tab-history" hidden style="display:grid;gap:1.2rem">
+      <div class="card">
+        <h2>Every cycle</h2>
+        <p class="small muted">Select a cycle to open its receipts.</p>
+        <div class="table-wrap"><table class="hist">
+          <thead><tr><th>Cycle</th><th>Promises</th><th>Kept</th><th>Slipped</th><th>Let go</th><th>Open</th><th>Kept rate</th></tr></thead>
+          <tbody id="histBody"></tbody>
+        </table></div>
+      </div>
+      <div class="card">
+        <h2>Whose obstacles?</h2>
+        <p class="small muted">Every slip, sorted by whose obstacle it was. Ask what produced it, not who.</p>
+        <div class="tally" id="obstacleTally"></div>
+      </div>
+      <div class="card">
+        <h2>Promises that keep slipping</h2>
+        <p class="small muted">Carried forward two or more times. One slip is an event; the same slip again points to an assumption worth examining.</p>
+        <ul class="plain" id="repeatList"></ul>
+      </div>
+      <div class="card">
+        <h2>Characters named</h2>
+        <p class="small muted">Answers to the standing question, cycle by cycle.</p>
+        <ul class="plain" id="characterList"></ul>
+      </div>
+    </section>
+
+    <!-- PORTFOLIO -->
+    <section id="panel-portfolio" role="tabpanel" aria-labelledby="tab-portfolio" hidden style="display:grid;gap:1.2rem">
+      <div class="card">
+        <h2>Your receipts portfolio</h2>
+        <p class="small muted">Every kept promise, with its evidence, grouped by the goal it served. Use it for interviews, résumés and performance reviews: here is what I promised, and here is what shows I kept it.</p>
+        <div class="actions"><button class="btn" id="copyPortfolio" type="button">Copy portfolio</button><span class="status-line" id="portfolioMsg" role="status"></span></div>
+      </div>
+      <div id="portfolioList" style="display:grid;gap:1rem"></div>
+    </section>
+
+    <!-- COACHING -->
+    <section id="panel-coaching" role="tabpanel" aria-labelledby="tab-coaching" hidden style="display:grid;gap:1.2rem">
+      <div class="card" id="myCoachCard">
+        <h2>Your coach</h2>
+        <p class="small muted">Invite your coach by email. When they sign in with that address, they can read your ledger and history. They cannot change anything. You can remove access at any time.</p>
+        <form id="inviteForm" class="actions" style="align-items:flex-end">
+          <label for="inviteEmail" style="flex:1 1 240px">Coach’s email<input id="inviteEmail" type="email" required></label>
+          <button class="btn" type="submit">Give access</button>
+        </form>
+        <ul class="plain" id="coachList"></ul>
+      </div>
+      <div class="card" id="clientsCard" hidden>
+        <h2>Your clients</h2>
+        <p class="small muted">Leaders who have given you access to their ledger. Read only.</p>
+        <ul class="plain" id="clientList"></ul>
+      </div>
+      <details class="card coach-guide">
+        <summary>For the coach: running the check-in</summary>
+        <ul class="small">
+          <li>Read the receipt before the session. Start from the record, not from “how’s it going?”</li>
+          <li>Understand, then challenge. Hear the story behind a slip before pressing on it.</li>
+          <li>Ask what produced the slip, not who caused it. That includes when the “who” is the leader.</li>
+          <li>Watch the Owned sort. Is the leader carrying the institution’s promises, or handing back their own?</li>
+          <li>Use the History tab every few cycles: repeat slips and the obstacle tally show the pattern.</li>
+          <li>At cycles 6 and 13, review each goal in the Goals tab against its evidence. For a persistent challenge, “traced and handed back” counts as success.</li>
+          <li>Take the standing question seriously. Ask what the person they named would see.</li>
+          <li>Close with the next cycle’s promises, each written so you could check it.</li>
+        </ul>
+      </details>
+    </section>
+  </div>
+</main>
+
+<footer>
+  <p class="footer-url">ShowMeReceipts.org</p>
+  <p class="attribution">&copy; 2026 Glen E. Quiring, CFRE. All rights reserved.</p>
+</footer>
+
+<script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>
+<script>
+(function () {
+  'use strict';
+  var SUPABASE_URL = 'https://usxljzacxpekqnmkuham.supabase.co';
+  var SUPABASE_KEY = 'sb_publishable_-zcEDhCThnT-A027nR_XTA_N4I4v0Jx';
+  var CYCLE_DAYS = 14;
+
+  var $ = function (id) { return document.getElementById(id); };
+  if (!window.supabase || !window.supabase.createClient) {
+    var bm = $('bootMsg'); bm.textContent = 'The ledger couldn’t load its sign-in service. Check your connection and refresh the page.'; bm.classList.add('err');
+    return;
+  }
+  var sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+  // ---------- dates (local, ISO yyyy-mm-dd) ----------
+  function pad(n) { return String(n).padStart(2, '0'); }
+  function iso(d) { return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate()); }
+  function parse(s) { var a = s.split('-').map(Number); return new Date(a[0], a[1] - 1, a[2]); }
+  function addDays(s, n) { var d = parse(s); d.setDate(d.getDate() + n); return iso(d); }
+  function daysBetween(a, b) { return Math.round((parse(b) - parse(a)) / 86400000); }
+  function todayIso() { return iso(new Date()); }
+  function mondayOf(s) { var d = parse(s); var wd = (d.getDay() + 6) % 7; d.setDate(d.getDate() - wd); return iso(d); }
+  function fmt(s, withYear) { if (!s) return ''; return parse(s).toLocaleDateString(undefined, withYear ? { month: 'short', day: 'numeric', year: 'numeric' } : { month: 'short', day: 'numeric' }); }
+  function cycleLabel(c) { return fmt(c.start_date) + ' – ' + fmt(c.end_date, true); }
+
+  // ---------- state ----------
+  var S = {
+    me: null, profile: null,
+    subject: null, subjectName: '', readOnly: false,
+    cycles: [], promises: [], goals: [], currentId: null, tab: 'ledger'
+  };
+  var clockLabel = { cycle: 'This cycle', year: 'This year', horizon: 'Long horizon' };
+  var ownerLabel = { mine: 'Mine', institution: 'The institution’s', shared: 'Shared' };
+  var obstacleLabel = { mine: 'Mine', institution: 'The institution’s', donor: 'The donor’s', other: 'Someone else’s' };
+
+  function show(id, on) { $(id).hidden = !on; }
+  function msg(id, text, isErr) { var e = $(id); e.textContent = text || ''; e.classList.toggle('err', !!isErr); }
+  var msgTimer;
+  function saved(text, isErr) { msg('saveMsg', text, isErr); clearTimeout(msgTimer); if (!isErr) msgTimer = setTimeout(function () { msg('saveMsg', ''); }, 2500); }
+  function fail(err) { console.error(err); saved('That didn’t save. Check your connection and try again. (' + (err && err.message ? err.message : 'error') + ')', true); }
+
+  function el(tag, attrs) {
+    var n = document.createElement(tag);
+    if (attrs) Object.keys(attrs).forEach(function (k) {
+      var v = attrs[k];
+      if (v === null || v === undefined || v === false) return;
+      if (k === 'class') n.className = v;
+      else if (k === 'text') n.textContent = v;
+      else if (k.indexOf('on') === 0) n.addEventListener(k.slice(2), v);
+      else n.setAttribute(k, v === true ? '' : v);
+    });
+    for (var i = 2; i < arguments.length; i++) {
+      var c = arguments[i];
+      if (c === null || c === undefined || c === false) continue;
+      if (Array.isArray(c)) c.forEach(function (x) { if (x) n.append(x.nodeType ? x : document.createTextNode(x)); });
+      else n.append(c.nodeType ? c : document.createTextNode(c));
+    }
+    return n;
+  }
+
+  // ---------- data ----------
+  function cur() { return S.cycles.find(function (c) { return c.id === S.currentId; }); }
+  function promisesOf(cycleId) { return S.promises.filter(function (p) { return p.cycle_id === cycleId; }); }
+
+  async function loadSubject(userId) {
+    var r1 = await sb.from('cycles').select('*').eq('user_id', userId).order('start_date');
+    if (r1.error) throw r1.error;
+    var r2 = await sb.from('promises').select('*').eq('user_id', userId).order('created_at');
+    if (r2.error) throw r2.error;
+    var r3 = await sb.from('goals').select('*').eq('user_id', userId).order('created_at');
+    if (r3.error) throw r3.error;
+    S.cycles = r1.data; S.promises = r2.data; S.goals = r3.data;
+  }
+
+  // Find or create the cycle containing today, carrying unresolved promises forward.
+  async function ensureCurrentCycle() {
+    var today = todayIso();
+    var anchor = S.cycles.length ? S.cycles[0].start_date : mondayOf(today);
+    var n = Math.max(0, Math.floor(daysBetween(anchor, today) / CYCLE_DAYS));
+    var start = addDays(anchor, n * CYCLE_DAYS);
+    var existing = S.cycles.find(function (c) { return c.start_date === start; });
+    if (existing) return existing;
+    var ins = await sb.from('cycles').insert({ start_date: start }).select().single();
+    if (ins.error) {
+      // Another tab may have created it first.
+      var again = await sb.from('cycles').select('*').eq('user_id', S.me.id).eq('start_date', start).maybeSingle();
+      if (again.error || !again.data) throw ins.error;
+      ins = again;
+    }
+    var cycle = ins.data;
+    var prev = S.cycles.filter(function (c) { return c.start_date < start; }).pop();
+    S.cycles.push(cycle);
+    S.cycles.sort(function (a, b) { return a.start_date < b.start_date ? -1 : 1; });
+    if (prev) {
+      var carry = promisesOf(prev.id).filter(function (p) { return p.status === '' || p.status === 'slipped'; }).map(function (p) {
+        return {
+          cycle_id: cycle.id, text: p.text, to_whom: p.to_whom, due: p.new_due || p.due, evidence: p.evidence,
+          clock: p.clock, cost: p.cost, owner: p.owner, hand_back: p.hand_back, carried_from: p.id, goal_id: p.goal_id
+        };
+      });
+      if (carry.length) {
+        var r = await sb.from('promises').insert(carry).select();
+        if (r.error) throw r.error;
+        S.promises = S.promises.concat(r.data);
+      }
+    }
+    return cycle;
+  }
+
+  var pending = {};
+  function queueSave(p, fields) {
+    Object.assign(p, fields);
+    var key = p.id;
+    pending[key] = Object.assign(pending[key] || {}, fields);
+    clearTimeout(pending[key + ':t']);
+    pending[key + ':t'] = setTimeout(async function () {
+      var f = pending[key]; delete pending[key];
+      var r = await sb.from('promises').update(f).eq('id', key);
+      if (r.error) fail(r.error); else saved('Saved');
+    }, 600);
+  }
+  var charTimer;
+  function saveCharacter(c, v) {
+    c.character = v;
+    clearTimeout(charTimer);
+    charTimer = setTimeout(async function () {
+      var r = await sb.from('cycles').update({ character: v }).eq('id', c.id);
+      if (r.error) fail(r.error); else saved('Saved');
+    }, 600);
+  }
+
+  // ---------- rendering: ledger ----------
+  function statusPill(p) {
+    if (p.status === 'kept') return el('span', { class: 'pill kept', text: 'Kept' });
+    if (p.status === 'slipped') return el('span', { class: 'pill slipped', text: 'Slipped' });
+    if (p.status === 'let go') return el('span', { class: 'pill', text: 'Let go' });
+    var past = p.due && p.due < todayIso();
+    return el('span', { class: 'pill', text: past ? 'Due date passed, no entry' : 'Open' });
+  }
+  function seg(options, value, onPick, extra) {
+    return el('div', { class: 'seg' + (extra ? ' ' + extra : ''), role: 'group' }, options.map(function (o) {
+      return el('button', { type: 'button', 'data-v': o[0], 'aria-pressed': String(value === o[0]), disabled: S.readOnly,
+        onclick: function () { onPick(value === o[0] ? '' : o[0]); } }, o[1]);
+    }));
+  }
+  function field(label, id, value, onInput, placeholder, type) {
+    var input = el(type === 'textarea' ? 'textarea' : 'input', { id: id, placeholder: placeholder || '', type: type && type !== 'textarea' ? type : null, readonly: S.readOnly });
+    input.value = value || '';
+    if (!S.readOnly) input.addEventListener('input', function () { onInput(input.value); renderReceipt(); });
+    return el('label', { for: id }, label, input);
+  }
+
+  function renderMade(ps) {
+    var list = $('madeList'); list.replaceChildren();
+    if (!ps.length) { list.append(el('p', { class: 'empty', text: S.readOnly ? 'No promises recorded this cycle.' : 'No promises yet this cycle. Add the first one below.' })); return; }
+    ps.forEach(function (p) {
+      list.append(el('div', { class: 'prow' },
+        el('div', { class: 'meta' }, p.carried_from ? el('span', { class: 'pill carried', text: 'Carried forward' }) : null,
+          el('span', { text: clockLabel[p.clock] || 'This cycle' }), p.due ? el('span', { text: 'Due ' + fmt(p.due) }) : null, p.to_whom ? el('span', { text: 'To ' + p.to_whom }) : null),
+        el('p', { class: 'ptext', text: p.text }),
+        goalChip(p),
+        el('p', { class: 'small muted', text: p.evidence ? 'Evidence: ' + p.evidence : 'No evidence written yet.' }),
+        p.cost ? el('p', { class: 'small muted', text: 'Cost: ' + p.cost }) : null,
+        (S.readOnly || !S.goals.length) ? null : el('label', { for: 'mg-' + p.id }, 'Serves which goal?', goalSelect('mg-' + p.id, p.goal_id, function (v) { queueSave(p, { goal_id: v }); renderLedger(); })),
+        S.readOnly ? null : el('div', { class: 'actions' }, el('button', { class: 'link', type: 'button', text: 'Remove', onclick: function () { removePromise(p); } }))
+      ));
+    });
+  }
+  function renderOwned(ps) {
+    var list = $('ownedList'); list.replaceChildren();
+    if (!ps.length) { list.append(el('p', { class: 'empty', text: 'Promises added under Made appear here to sort.' })); return; }
+    ps.forEach(function (p) {
+      var row = el('div', { class: 'prow' }, el('p', { class: 'ptext', text: p.text }),
+        seg([['mine', 'Mine'], ['institution', 'The institution’s'], ['shared', 'Shared']], p.owner, function (v) { queueSave(p, { owner: v }); renderLedger(); }));
+      if (p.owner === 'institution' || p.owner === 'shared') {
+        row.append(field(p.owner === 'institution' ? 'Hand it back to which role?' : 'Which role shares it?', 'hb-' + p.id, p.hand_back, function (v) { queueSave(p, { hand_back: v }); }, 'Board chair, program director, facilities…'));
+      }
+      list.append(row);
+    });
+  }
+  function renderKept(ps) {
+    var list = $('keptList'); list.replaceChildren();
+    if (!ps.length) { list.append(el('p', { class: 'empty', text: 'Mark each promise as the cycle goes.' })); return; }
+    ps.forEach(function (p) {
+      var row = el('div', { class: 'prow' },
+        el('div', { class: 'meta' }, statusPill(p), p.due ? el('span', { text: 'Due ' + fmt(p.due) }) : null),
+        el('p', { class: 'ptext', text: p.text }),
+        seg([['kept', 'Kept'], ['slipped', 'Slipped'], ['let go', 'Let go']], p.status, function (v) { queueSave(p, { status: v }); renderLedger(); }, 'status'));
+      if (p.status === 'slipped') row.append(field('New date', 'nd-' + p.id, p.new_due, function (v) { queueSave(p, { new_due: v || null }); }, '', 'date'));
+      list.append(row);
+    });
+  }
+  function renderProved(ps) {
+    var list = $('provedList'); list.replaceChildren();
+    var rs = ps.filter(function (p) { return p.status === 'kept' || p.status === 'slipped'; });
+    if (!rs.length) { list.append(el('p', { class: 'empty', text: 'Once a promise is marked Kept or Slipped, record the evidence or what produced the slip here.' })); return; }
+    rs.forEach(function (p) {
+      var row = el('div', { class: 'prow' }, el('div', { class: 'meta' }, statusPill(p)), el('p', { class: 'ptext', text: p.text }));
+      if (p.status === 'kept') {
+        row.append(field('What shows it was kept?', 'pf-' + p.id, p.proof, function (v) { queueSave(p, { proof: v }); }, p.evidence || 'A record someone else could check'));
+      } else {
+        row.append(field('What produced the slip?', 'pr-' + p.id, p.produced, function (v) { queueSave(p, { produced: v }); }, 'The process or assumption, not the person', 'textarea'));
+        row.append(el('div', { class: 'small muted', text: 'Whose obstacle was it?' }));
+        row.append(seg([['mine', 'Mine'], ['institution', 'The institution’s'], ['donor', 'The donor’s'], ['other', 'Someone else’s']], p.obstacle, function (v) { queueSave(p, { obstacle: v }); renderLedger(); }));
+      }
+      list.append(row);
+    });
+  }
+
+  function receiptText() {
+    var c = cur(); if (!c) return '';
+    var ps = promisesOf(c.id), L = [];
+    L.push('FOUR RECEIPTS · CYCLE REVIEW');
+    L.push(cycleLabel(c) + (S.subjectName ? ' · ' + S.subjectName : ''));
+    L.push('');
+    if (!ps.length) L.push('No promises recorded this cycle.');
+    [['kept', 'KEPT'], ['slipped', 'SLIPPED'], ['let go', 'LET GO'], ['', 'STILL OPEN']].forEach(function (g) {
+      var group = ps.filter(function (p) { return p.status === g[0]; });
+      if (!group.length) return;
+      L.push(g[1]);
+      group.forEach(function (p) {
+        L.push('• ' + p.text + (p.to_whom ? ' (to ' + p.to_whom + ')' : '') + (p.due ? ', due ' + fmt(p.due) : ''));
+        var gg = p.goal_id && goalById(p.goal_id); if (gg) L.push('   Goal: ' + kindLabel[gg.kind] + ', ' + gg.title);
+        if (p.owner) L.push('   Owned: ' + ownerLabel[p.owner] + (p.hand_back ? (p.owner === 'institution' ? ', handed back to ' : ', shared with ') + p.hand_back : ''));
+        if (g[0] === 'kept' && p.proof) L.push('   Proof: ' + p.proof);
+        if (g[0] === 'slipped') {
+          if (p.produced) L.push('   What produced it: ' + p.produced);
+          if (p.obstacle) L.push('   Whose obstacle: ' + obstacleLabel[p.obstacle]);
+          if (p.new_due) L.push('   New date: ' + fmt(p.new_due));
+        }
+        if (g[0] === '' && p.evidence) L.push('   Will be proved by: ' + p.evidence);
+      });
+      L.push('');
+    });
+    L.push('WHO HAVE I TURNED INTO A CHARACTER THIS CYCLE?');
+    L.push(c.character || '(not answered)');
+    L.push('');
+    var k = ps.filter(function (p) { return p.status === 'kept'; }).length;
+    L.push('This cycle: ' + k + ' kept of ' + ps.length + ' promises.');
+    L.push('Show Me the Receipts · ShowMeReceipts.org');
+    return L.join('\n');
+  }
+  function renderReceipt() { $('slip').textContent = receiptText(); }
+
+  function renderStrip() {
+    var kept = 0, resolved = 0;
+    S.promises.forEach(function (p) {
+      if (p.status === 'kept') { kept++; resolved++; } else if (p.status === 'slipped' || p.status === 'let go') resolved++;
+    });
+    $('sKept').textContent = kept;
+    $('sRate').textContent = resolved ? Math.round(kept / resolved * 100) + '%' : '–';
+    var c = cur();
+    $('sOpen').textContent = c ? promisesOf(c.id).filter(function (p) { return !p.status; }).length : 0;
+    $('sCycles').textContent = S.cycles.length;
+    var bars = $('bars'); bars.replaceChildren();
+    var recent = S.cycles.slice(-16);
+    var counts = recent.map(function (cy) { return promisesOf(cy.id).filter(function (p) { return p.status === 'kept'; }).length; });
+    var max = Math.max.apply(null, [1].concat(counts));
+    recent.forEach(function (cy, i) {
+      var h = Math.max(4, Math.round(counts[i] / max * 44));
+      bars.append(el('button', { type: 'button', class: 'bar' + (cy.id === S.currentId ? ' cur' : ''), title: cycleLabel(cy) + ': ' + counts[i] + ' kept',
+        'aria-label': cycleLabel(cy) + ', ' + counts[i] + ' kept. Open this cycle.', onclick: function () { S.currentId = cy.id; renderLedger(); } },
+        el('i', { style: 'height:' + h + 'px' }), el('span', { text: fmt(cy.start_date) })));
+    });
+  }
+
+  function renderCycleBar() {
+    var c = cur(); if (!c) return;
+    var t = todayIso();
+    var isNow = c.start_date <= t && t <= c.end_date;
+    $('cycleDates').textContent = cycleLabel(c);
+    var sub = isNow ? 'Current cycle. Check-in with your coach at the end: ' + fmt(c.end_date) + '.' : (c.end_date < t ? 'Past cycle.' : 'Upcoming cycle.');
+    if (S.readOnly) sub = isNow ? 'Current cycle. Check-in due ' + fmt(c.end_date) + '.' : sub;
+    $('cycleSub').textContent = sub;
+    var i = S.cycles.indexOf(c);
+    $('prevCycle').disabled = i <= 0;
+    $('nextCycle').disabled = i >= S.cycles.length - 1;
+  }
+
+  function renderLedger() {
+    var c = cur();
+    var ps = c ? promisesOf(c.id) : [];
+    renderCycleBar(); renderStrip();
+    renderMade(ps); renderOwned(ps); renderKept(ps); renderProved(ps);
+    var ch = $('character'); ch.readOnly = S.readOnly; if (document.activeElement !== ch) ch.value = c ? c.character || '' : '';
+    show('addForm', !S.readOnly);
+    var ng = $('nGoal'), keep = ng.value; ng.replaceChildren(el('option', { value: '', text: 'Not linked to a goal' }));
+    S.goals.forEach(function (g) { ng.append(el('option', { value: g.id, text: kindLabel[g.kind] + ': ' + g.title })); });
+    ng.value = goalById(keep) ? keep : '';
+    $('outSub').textContent = S.readOnly ? 'This is the leader’s receipt for the cycle.' : 'Your coach can read it in the ledger. You can also copy it into an email.';
+    renderReceipt();
+  }
+
+  // ---------- rendering: history ----------
+  function rootOf(p, byId) { var seen = 0; while (p.carried_from && byId[p.carried_from] && seen++ < 100) p = byId[p.carried_from]; return p; }
+  function renderHistory() {
+    var body = $('histBody'); body.replaceChildren();
+    S.cycles.slice().reverse().forEach(function (c) {
+      var ps = promisesOf(c.id);
+      var n = function (st) { return ps.filter(function (p) { return p.status === st; }).length; };
+      var k = n('kept'), s = n('slipped'), l = n('let go'), o = n('');
+      var res = k + s + l;
+      var row = el('tr', { class: 'clickable', tabindex: '0', onclick: function () { S.currentId = c.id; setTab('ledger'); },
+        onkeydown: function (e) { if (e.key === 'Enter') { S.currentId = c.id; setTab('ledger'); } } },
+        el('td', { text: cycleLabel(c) }), el('td', { text: String(ps.length) }), el('td', { text: String(k) }), el('td', { text: String(s) }),
+        el('td', { text: String(l) }), el('td', { text: String(o) }), el('td', { text: res ? Math.round(k / res * 100) + '%' : '–' }));
+      body.append(row);
+    });
+    if (!S.cycles.length) body.append(el('tr', null, el('td', { colspan: '7', class: 'empty', text: 'No cycles yet.' })));
+
+    var tally = $('obstacleTally'); tally.replaceChildren();
+    var slips = S.promises.filter(function (p) { return p.status === 'slipped'; });
+    ['mine', 'institution', 'donor', 'other', ''].forEach(function (k) {
+      var count = slips.filter(function (p) { return p.obstacle === k; }).length;
+      if (k === '' && !count) return;
+      tally.append(el('div', null, el('b', { text: String(count) }), el('span', { class: 'small muted', text: k ? obstacleLabel[k] : 'Not yet sorted' })));
+    });
+
+    var byId = {}; S.promises.forEach(function (p) { byId[p.id] = p; });
+    var chains = {};
+    S.promises.forEach(function (p) { var r = rootOf(p, byId); (chains[r.id] = chains[r.id] || []).push(p); });
+    var repeats = Object.keys(chains).map(function (k) { return chains[k]; }).filter(function (ch) { return ch.length >= 3; });
+    var rl = $('repeatList'); rl.replaceChildren();
+    if (!repeats.length) rl.append(el('li', { class: 'empty', text: 'Nothing has been carried forward twice yet.' }));
+    repeats.forEach(function (ch) {
+      var latest = ch[ch.length - 1];
+      rl.append(el('li', null, el('b', { text: latest.text }), el('div', { class: 'small muted', text: 'Carried ' + (ch.length - 1) + ' times. Latest status: ' + (latest.status || 'open') + (latest.produced ? '. What produced it: ' + latest.produced : '') })));
+    });
+
+    var cl = $('characterList'); cl.replaceChildren();
+    var named = S.cycles.filter(function (c) { return c.character && c.character.trim(); }).reverse();
+    if (!named.length) cl.append(el('li', { class: 'empty', text: 'No answers yet.' }));
+    named.forEach(function (c) { cl.append(el('li', null, el('div', { class: 'small muted', text: cycleLabel(c) }), el('div', { text: c.character }))); });
+  }
+
+  // ---------- coaching ----------
+  async function renderCoaching() {
+    show('myCoachCard', !S.readOnly);
+    var mine = await sb.from('coach_links').select('*').eq('client_id', S.me.id).order('created_at');
+    var list = $('coachList'); list.replaceChildren();
+    if (mine.error) { fail(mine.error); return; }
+    var active = mine.data.filter(function (l) { return !l.revoked_at; });
+    if (!active.length) list.append(el('li', { class: 'empty', text: 'No coach has access yet.' }));
+    active.forEach(function (l) {
+      list.append(el('li', null, el('span', { text: l.coach_email + ' ' }),
+        el('button', { class: 'link', type: 'button', text: 'Remove access', onclick: async function () {
+          var r = await sb.from('coach_links').update({ revoked_at: new Date().toISOString() }).eq('id', l.id);
+          if (r.error) fail(r.error); else { saved('Access removed'); renderCoaching(); }
+        } })));
+    });
+
+    var email = (S.me.email || '').toLowerCase();
+    var mineAsCoach = await sb.from('coach_links').select('client_id, created_at').eq('coach_email', email).is('revoked_at', null).neq('client_id', S.me.id);
+    if (mineAsCoach.error) { fail(mineAsCoach.error); return; }
+    var ids = mineAsCoach.data.map(function (r) { return r.client_id; });
+    show('clientsCard', ids.length > 0);
+    var cl = $('clientList'); cl.replaceChildren();
+    if (!ids.length) return;
+    var profs = await sb.from('profiles').select('id, full_name, role_title').in('id', ids);
+    if (profs.error) { fail(profs.error); return; }
+    profs.data.sort(function (a, b) { return a.full_name.localeCompare(b.full_name); }).forEach(function (p) {
+      cl.append(el('li', null, el('b', { text: p.full_name || 'Unnamed client' }), p.role_title ? el('span', { class: 'small muted', text: ' · ' + p.role_title }) : null, ' ',
+        el('button', { class: 'btn ghost', type: 'button', text: 'Open ledger', style: 'margin-left:0.5rem;padding:0.3rem 0.7rem;font-size:0.85rem', onclick: function () { openClient(p); } })));
+    });
+  }
+
+  async function openClient(p) {
+    try {
+      await loadSubject(p.id);
+      S.subject = p.id; S.subjectName = p.full_name; S.readOnly = true;
+      var t = todayIso();
+      var now = S.cycles.find(function (c) { return c.start_date <= t && t <= c.end_date; });
+      S.currentId = now ? now.id : (S.cycles.length ? S.cycles[S.cycles.length - 1].id : null);
+      $('viewingText').textContent = 'You are viewing ' + (p.full_name || 'a client') + '’s ledger. Read only.';
+      show('viewingNote', true);
+      setTab('ledger');
+    } catch (e) { fail(e); }
+  }
+  async function openMine() {
+    await loadSubject(S.me.id);
+    S.subject = S.me.id; S.subjectName = S.profile.full_name; S.readOnly = false;
+    var c = await ensureCurrentCycle();
+    S.currentId = c.id;
+    show('viewingNote', false);
+  }
+
+  // ---------- goals ----------
+  var kindLabel = { skill: 'Skill', challenge: 'Challenge' };
+  var goalStatusLabel = { open: 'In progress', demonstrated: 'Demonstrated', resolved: 'Resolved', 'handed back': 'Traced and handed back' };
+  function goalById(id) { return S.goals.find(function (g) { return g.id === id; }); }
+  function goalChip(p) { var g = p.goal_id && goalById(p.goal_id); return g ? el('span', { class: 'pill goal ' + g.kind, text: kindLabel[g.kind] + ': ' + g.title }) : null; }
+  function goalSelect(id, value, onChange) {
+    var sel = el('select', { id: id, disabled: S.readOnly });
+    sel.append(el('option', { value: '', text: 'Not linked to a goal' }));
+    S.goals.forEach(function (g) { sel.append(el('option', { value: g.id, text: kindLabel[g.kind] + ': ' + g.title })); });
+    sel.value = value || '';
+    if (onChange) sel.addEventListener('change', function () { onChange(sel.value || null); });
+    return sel;
+  }
+  var goalTimers = {};
+  function saveGoal(g, fields, rerender) {
+    Object.assign(g, fields);
+    clearTimeout(goalTimers[g.id]);
+    goalTimers[g.id] = setTimeout(async function () {
+      var r = await sb.from('goals').update(fields).eq('id', g.id);
+      if (r.error) fail(r.error); else saved('Saved');
+    }, rerender ? 0 : 600);
+    if (rerender) renderGoals();
+  }
+  function reviewDates() {
+    if (!S.cycles.length) return null;
+    var start = S.cycles[0].start_date;
+    return { start: start, r3: addDays(start, 6 * CYCLE_DAYS - 1), r6: addDays(start, 13 * CYCLE_DAYS - 1) };
+  }
+  function goalField(label, id, value, onInput, placeholder, type) {
+    var input = el(type === 'textarea' ? 'textarea' : 'input', { id: id, placeholder: placeholder || '', readonly: S.readOnly });
+    input.value = value || '';
+    if (!S.readOnly) input.addEventListener('input', function () { onInput(input.value); });
+    return el('label', { for: id }, label, input);
+  }
+  function renderGoals() {
+    var rd = reviewDates();
+    $('goalDates').textContent = rd ? 'Engagement began ' + fmt(rd.start, true) + '. Three-month review: end of cycle 6, ' + fmt(rd.r3, true) + '. Six-month review: end of cycle 13, ' + fmt(rd.r6, true) + '.' : '';
+    show('goalForm', !S.readOnly);
+    ['skill', 'challenge'].forEach(function (kind) {
+      var box = $(kind === 'skill' ? 'skillGoals' : 'challengeGoals'); box.replaceChildren();
+      var gs = S.goals.filter(function (g) { return g.kind === kind; });
+      if (!gs.length) box.append(el('p', { class: 'empty', text: kind === 'skill' ? 'No skills named yet.' : 'No persistent challenges named yet.' }));
+      gs.forEach(function (g) {
+        var linked = S.promises.filter(function (p) { return p.goal_id === g.id; });
+        var kept = linked.filter(function (p) { return p.status === 'kept'; });
+        var opts = kind === 'skill' ? [['open', 'In progress'], ['demonstrated', 'Demonstrated']] : [['open', 'In progress'], ['resolved', 'Resolved'], ['handed back', 'Traced and handed back']];
+        var card = el('div', { class: 'prow' },
+          el('div', { class: 'meta' }, el('span', { class: 'pill goal ' + kind, text: goalStatusLabel[g.status] }), el('span', { text: kept.length + ' kept of ' + linked.length + ' linked promises' })),
+          el('p', { class: 'ptext', text: g.title }),
+          goalField('What kept looks like, and what will prove it', 'gk-' + g.id, g.kept_looks_like, function (v) { saveGoal(g, { kept_looks_like: v }); }, kind === 'skill' ? 'Three board reports written as specifications, each approved' : 'The policy is approved, or it sits with the role that owns it', 'textarea'),
+          seg(opts, g.status, function (v) { saveGoal(g, { status: v || 'open' }, true); }));
+        if (kind === 'challenge' && g.status === 'handed back') {
+          card.append(goalField('The governing assumption behind it', 'ga-' + g.id, g.assumption, function (v) { saveGoal(g, { assumption: v }); }, 'We assumed development owned site visits; no one did', 'textarea'));
+          card.append(goalField('Handed to which role?', 'gh-' + g.id, g.handed_to, function (v) { saveGoal(g, { handed_to: v }); }, 'Program director'));
+        }
+        card.append(el('div', { class: 'grid2' },
+          goalField('Three-month review', 'g3-' + g.id, g.review_3, function (v) { saveGoal(g, { review_3: v }); }, 'What the record shows at cycle 6', 'textarea'),
+          goalField('Six-month review', 'g6-' + g.id, g.review_6, function (v) { saveGoal(g, { review_6: v }); }, 'What the record shows at cycle 13', 'textarea')));
+        if (!S.readOnly) card.append(el('div', { class: 'actions' }, el('button', { class: 'link', type: 'button', text: 'Remove goal', onclick: function () { removeGoal(g); } })));
+        box.append(card);
+      });
+    });
+  }
+  async function removeGoal(g) {
+    var r = await sb.from('goals').delete().eq('id', g.id);
+    if (r.error) return fail(r.error);
+    S.goals = S.goals.filter(function (x) { return x.id !== g.id; });
+    S.promises.forEach(function (p) { if (p.goal_id === g.id) p.goal_id = null; });
+    saved('Goal removed'); renderGoals();
+  }
+
+  // ---------- portfolio ----------
+  function cycleOf(p) { return S.cycles.find(function (c) { return c.id === p.cycle_id; }); }
+  function portfolioGroups() {
+    var kept = S.promises.filter(function (p) { return p.status === 'kept'; });
+    var groups = [];
+    S.goals.forEach(function (g) {
+      var items = kept.filter(function (p) { return p.goal_id === g.id; });
+      if (items.length || (g.kind === 'challenge' && g.status !== 'open') || (g.kind === 'skill' && g.status === 'demonstrated')) groups.push({ goal: g, items: items });
+    });
+    var other = kept.filter(function (p) { return !p.goal_id || !goalById(p.goal_id); });
+    if (other.length) groups.push({ goal: null, items: other });
+    return groups;
+  }
+  function itemLine(p) {
+    var c = cycleOf(p);
+    return p.text + (p.to_whom ? ' (to ' + p.to_whom + ')' : '') + (c ? ', ' + fmt(c.end_date, true) : '');
+  }
+  function renderPortfolio() {
+    var box = $('portfolioList'); box.replaceChildren();
+    var groups = portfolioGroups();
+    if (!groups.length) { box.append(el('p', { class: 'empty', text: 'Kept promises appear here, with their evidence, as the cycles go.' })); }
+    groups.forEach(function (gr) {
+      var g = gr.goal;
+      var card = el('div', { class: 'card' },
+        el('p', { class: 'eyebrow', text: g ? kindLabel[g.kind] + ' · ' + goalStatusLabel[g.status] : 'Other kept promises' }),
+        el('h3', { text: g ? g.title : 'Kept promises not linked to a goal' }));
+      if (g && g.kind === 'challenge' && g.status === 'handed back') {
+        card.append(el('p', { class: 'small', text: 'Traced to: ' + (g.assumption || '(assumption not yet written)') + (g.handed_to ? '. Handed to: ' + g.handed_to + '.' : '') }));
+      }
+      var ul = el('ul', { class: 'plain' });
+      gr.items.forEach(function (p) {
+        ul.append(el('li', null, el('div', { text: itemLine(p) }), el('div', { class: 'small muted', text: p.proof ? 'Evidence: ' + p.proof : 'No evidence recorded yet. Add it under Proved.' })));
+      });
+      if (!gr.items.length) ul.append(el('li', { class: 'empty', text: 'No linked promises kept yet.' }));
+      card.append(ul);
+      box.append(card);
+    });
+  }
+  function portfolioText() {
+    var L = ['FOUR RECEIPTS PORTFOLIO' + (S.subjectName ? ' · ' + S.subjectName : ''), 'Kept promises, with the evidence for each.', ''];
+    portfolioGroups().forEach(function (gr) {
+      var g = gr.goal;
+      L.push((g ? kindLabel[g.kind].toUpperCase() + ': ' + g.title + ' (' + goalStatusLabel[g.status] + ')' : 'OTHER KEPT PROMISES'));
+      if (g && g.kind === 'challenge' && g.status === 'handed back') L.push('   Traced to: ' + (g.assumption || '-') + (g.handed_to ? '. Handed to: ' + g.handed_to : ''));
+      gr.items.forEach(function (p) { L.push('• ' + itemLine(p)); if (p.proof) L.push('   Evidence: ' + p.proof); });
+      L.push('');
+    });
+    L.push('Recorded in the Four Receipts Ledger · ShowMeReceipts.org');
+    return L.join('\n');
+  }
+
+  // ---------- tabs ----------
+  function setTab(t) {
+    S.tab = t;
+    ['ledger', 'goals', 'history', 'portfolio', 'coaching'].forEach(function (x) {
+      $('tab-' + x).setAttribute('aria-selected', String(x === t));
+      $('panel-' + x).hidden = x !== t;
+    });
+    if (t === 'ledger') renderLedger();
+    if (t === 'history') renderHistory();
+    if (t === 'goals') renderGoals();
+    if (t === 'portfolio') renderPortfolio();
+    if (t === 'coaching') renderCoaching();
+  }
+
+  // ---------- actions ----------
+  async function removePromise(p) {
+    var r = await sb.from('promises').delete().eq('id', p.id);
+    if (r.error) return fail(r.error);
+    S.promises = S.promises.filter(function (x) { return x.id !== p.id; });
+    saved('Removed'); renderLedger();
+  }
+
+  $('addForm').addEventListener('submit', async function (e) {
+    e.preventDefault();
+    var c = cur(); var text = $('nText').value.trim(); if (!c || !text) return;
+    var row = { cycle_id: c.id, text: text, to_whom: $('nTo').value.trim(), due: $('nDue').value || null, evidence: $('nEvidence').value.trim(), clock: $('nClock').value, cost: $('nCost').value.trim(), goal_id: $('nGoal').value || null };
+    var r = await sb.from('promises').insert(row).select().single();
+    if (r.error) return fail(r.error);
+    S.promises.push(r.data);
+    ['nText', 'nTo', 'nDue', 'nEvidence', 'nCost'].forEach(function (id) { $(id).value = ''; });
+    $('nClock').value = 'cycle';
+    saved('Promise added'); renderLedger(); $('nText').focus();
+  });
+  $('character').addEventListener('input', function (e) { var c = cur(); if (c && !S.readOnly) { saveCharacter(c, e.target.value); renderReceipt(); } });
+  $('prevCycle').addEventListener('click', function () { var i = S.cycles.indexOf(cur()); if (i > 0) { S.currentId = S.cycles[i - 1].id; renderLedger(); } });
+  $('nextCycle').addEventListener('click', function () { var i = S.cycles.indexOf(cur()); if (i < S.cycles.length - 1) { S.currentId = S.cycles[i + 1].id; renderLedger(); } });
+  ['ledger', 'goals', 'history', 'portfolio', 'coaching'].forEach(function (t) { $('tab-' + t).addEventListener('click', function () { setTab(t); }); });
+  $('goalForm').addEventListener('submit', async function (e) {
+    e.preventDefault();
+    var title = $('gTitle').value.trim(); if (!title) return;
+    var r = await sb.from('goals').insert({ kind: $('gKind').value, title: title, kept_looks_like: $('gKept').value.trim() }).select().single();
+    if (r.error) return fail(r.error);
+    S.goals.push(r.data); $('gTitle').value = ''; $('gKept').value = '';
+    saved('Goal added'); renderGoals();
+  });
+  $('copyPortfolio').addEventListener('click', function () {
+    var txt = portfolioText();
+    try { navigator.clipboard.writeText(txt).then(function () { msg('portfolioMsg', 'Copied.'); }, function () { msg('portfolioMsg', 'Copy didn\u2019t work here. Select the text below instead.'); }); } catch (e) { msg('portfolioMsg', 'Copy didn\u2019t work here.'); }
+  });
+  $('backToMine').addEventListener('click', async function () { try { await openMine(); setTab('ledger'); } catch (e) { fail(e); } });
+
+  $('copyBtn').addEventListener('click', function () {
+    var txt = receiptText();
+    var fallback = function () { var r = document.createRange(); r.selectNodeContents($('slip')); var s = getSelection(); s.removeAllRanges(); s.addRange(r); msg('copyMsg', 'Selected. Copy it with your keyboard.'); };
+    try { navigator.clipboard.writeText(txt).then(function () { msg('copyMsg', 'Copied.'); }, fallback); } catch (e) { fallback(); }
+  });
+
+  $('inviteForm').addEventListener('submit', async function (e) {
+    e.preventDefault();
+    var email = $('inviteEmail').value.trim().toLowerCase(); if (!email) return;
+    if (email === (S.me.email || '').toLowerCase()) { saved('That’s your own email. Enter your coach’s address.', true); return; }
+    var existing = await sb.from('coach_links').select('id').eq('client_id', S.me.id).eq('coach_email', email).maybeSingle();
+    var r = existing.data
+      ? await sb.from('coach_links').update({ revoked_at: null }).eq('id', existing.data.id)
+      : await sb.from('coach_links').insert({ coach_email: email });
+    if (r.error) return fail(r.error);
+    $('inviteEmail').value = '';
+    saved('Access given. Tell your coach to sign in here with ' + email + '.');
+    renderCoaching();
+  });
+
+  $('signinForm').addEventListener('submit', async function (e) {
+    e.preventDefault();
+    var email = $('signinEmail').value.trim(); if (!email) return;
+    $('signinBtn').disabled = true;
+    var r = await sb.auth.signInWithOtp({ email: email, options: { emailRedirectTo: location.origin + location.pathname } });
+    $('signinBtn').disabled = false;
+    if (r.error) msg('signinMsg', 'We couldn’t send the link: ' + r.error.message, true);
+    else msg('signinMsg', 'Check your email for the sign-in link. You can close this tab.');
+  });
+
+  $('profileForm').addEventListener('submit', async function (e) {
+    e.preventDefault();
+    var name = $('pfName').value.trim(); if (!name) return;
+    var r = await sb.from('profiles').upsert({ id: S.me.id, full_name: name, role_title: $('pfRole').value.trim() }).select().single();
+    if (r.error) { msg('profileMsg', 'That didn’t save: ' + r.error.message, true); return; }
+    S.profile = r.data;
+    boot();
+  });
+
+  $('signOutBtn').addEventListener('click', async function () { await sb.auth.signOut(); location.reload(); });
+
+  // ---------- boot ----------
+  var booting = false;
+  async function boot() {
+    if (booting) return; booting = true;
+    try {
+      var sess = (await sb.auth.getSession()).data.session;
+      show('bootMsg', false);
+      if (!sess) { show('signedOut', true); show('needsProfile', false); show('app', false); return; }
+      S.me = { id: sess.user.id, email: sess.user.email };
+      show('signedOut', false);
+      if (!S.profile) {
+        var pr = await sb.from('profiles').select('*').eq('id', S.me.id).maybeSingle();
+        if (pr.error) throw pr.error;
+        S.profile = pr.data;
+      }
+      if (!S.profile) { show('needsProfile', true); show('app', false); return; }
+      show('needsProfile', false);
+      $('whoLine').textContent = 'Signed in as ' + (S.profile.full_name || S.me.email) + ' · ' + S.me.email;
+      await openMine();
+      show('app', true);
+      setTab('ledger');
+    } catch (e) {
+      show('bootMsg', true); msg('bootMsg', 'Your ledger didn’t load. Refresh the page to try again. (' + (e.message || e) + ')', true);
+    } finally { booting = false; }
+  }
+
+  sb.auth.onAuthStateChange(function (event) {
+    if (event === 'SIGNED_IN' && !S.me) setTimeout(boot, 0);
+  });
+  boot();
+})();
+</script>
+</body>
+</html>
