@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Four Receipts Coaching | Show Me the Receipts</title>
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="description" content="The Four Receipts: coaching for executive directors and directors of development. Skills you can show, persistent challenges resolved, a private ledger of kept promises. $250 a session.">
+<!-- share:begin -->
+<link rel="canonical" href="https://www.showmereceipts.org/coaching.html">
+<meta property="og:site_name" content="Show Me the Receipts">
+<meta property="og:type" content="website">
+<meta property="og:title" content="The Four Receipts Coaching | Show Me the Receipts">
+<meta property="og:description" content="Coaching for executive directors and directors of development: skills you can show, persistent challenges resolved, a private ledger of kept promises. $250 a session.">
+<meta property="og:url" content="https://www.showmereceipts.org/coaching.html">
+<meta property="og:image" content="https://www.showmereceipts.org/images/share-default.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="627">
+<meta property="og:image:alt" content="Show Me the Receipts: a receipt of promises kept, with the balance reading Trust">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="The Four Receipts Coaching | Show Me the Receipts">
+<meta name="twitter:description" content="Coaching for executive directors and directors of development: skills you can show, persistent challenges resolved, a private ledger of kept promises. $250 a session.">
+<meta name="twitter:image" content="https://www.showmereceipts.org/images/share-default.png">
+<!-- share:end -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="site-nav.css">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --afp-blue: #3D00A4;
+    --nav-blue: #28006C;
+    --gold: #C9A24A;
+    --cream: #FAF7F0;
+    --charcoal: #2A1F3D;
+    --soft-gray: #6B6378;
+    --light-gold: #F0E4C2;
+    --serif: "Newsreader", Georgia, "Times New Roman", serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background: var(--cream);
+    color: var(--charcoal);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* NAV BAND */
+  nav.topnav {
+    background: var(--nav-blue);
+    padding: 1rem 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  }
+  nav.topnav .brand {
+    color: white;
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    text-decoration: none;
+  }
+  nav.topnav .navlinks {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  nav.topnav .navlinks a {
+    color: white;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 0.25rem 0;
+    border-bottom: 2px solid transparent;
+    transition: border-color 0.2s;
+  }
+  nav.topnav .navlinks a:hover { border-bottom-color: var(--gold); }
+  nav.topnav .navlinks a.active { border-bottom-color: var(--gold); }
+
+  /* RESOURCES DROPDOWN — added for cross-page nav access */
+  nav.topnav .navdropdown {
+    position: relative;
+    display: inline-block;
+    outline: none;
+  }
+  nav.topnav .navdropdown-toggle {
+    color: white;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.25rem 0;
+    border-bottom: 2px solid transparent;
+    transition: border-color 0.2s;
+    cursor: pointer;
+    user-select: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+  nav.topnav .navdropdown:hover .navdropdown-toggle,
+  nav.topnav .navdropdown:focus-within .navdropdown-toggle {
+    border-bottom-color: var(--gold);
+  }
+  nav.topnav .navdropdown .caret {
+    font-size: 0.7em;
+    display: inline-block;
+    transition: transform 0.2s;
+  }
+  nav.topnav .navdropdown:hover .caret,
+  nav.topnav .navdropdown:focus-within .caret {
+    transform: translateY(2px);
+  }
+  nav.topnav .navdropdown-menu {
+    position: absolute;
+    top: calc(100% + 0.75rem);
+    right: 0;
+    background: white;
+    border: 1px solid rgba(0,0,0,0.08);
+    border-radius: 6px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+    min-width: 290px;
+    padding: 0.5rem 0;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-4px);
+    transition: opacity 0.15s, visibility 0.15s, transform 0.15s;
+    z-index: 200;
+  }
+  nav.topnav .navdropdown:hover .navdropdown-menu,
+  nav.topnav .navdropdown:focus-within .navdropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+  nav.topnav .navlinks .navdropdown-menu a {
+    display: block;
+    padding: 0.75rem 1.125rem;
+    color: var(--charcoal);
+    text-decoration: none;
+    border: none;
+    border-bottom: none;
+    letter-spacing: 0;
+    text-transform: none;
+    font-weight: 500;
+    font-size: 0.9375rem;
+    transition: background-color 0.15s;
+  }
+  nav.topnav .navlinks .navdropdown-menu a:hover {
+    background-color: var(--cream);
+    border-bottom: none;
+  }
+  nav.topnav .navdropdown-menu .dropdown-label {
+    display: block;
+    font-weight: 700;
+    color: var(--afp-blue);
+    margin-bottom: 0.1875rem;
+    font-size: 0.9375rem;
+    letter-spacing: 0;
+  }
+  nav.topnav .navdropdown-menu .dropdown-desc {
+    display: block;
+    font-size: 0.75rem;
+    color: var(--soft-gray);
+    font-weight: 400;
+    letter-spacing: 0;
+    line-height: 1.4;
+  }
+  /* MOBILE NAV — pure-CSS hamburger (checkbox toggle, no JS required) */
+  .nav-toggle { display: none; }
+  .nav-toggle-label {
+    display: none;
+    cursor: pointer;
+    width: 28px;
+    height: 22px;
+    position: relative;
+    flex-shrink: 0;
+  }
+  .nav-toggle-label span,
+  .nav-toggle-label span::before,
+  .nav-toggle-label span::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: white;
+    border-radius: 2px;
+    transition: transform 0.25s ease, opacity 0.2s ease, top 0.25s ease;
+  }
+  .nav-toggle-label span { top: 10px; }
+  .nav-toggle-label span::before { top: -8px; }
+  .nav-toggle-label span::after { top: 8px; }
+  .nav-toggle:checked ~ .nav-toggle-label span { background: transparent; }
+  .nav-toggle:checked ~ .nav-toggle-label span::before { top: 0; transform: rotate(45deg); }
+  .nav-toggle:checked ~ .nav-toggle-label span::after { top: 0; transform: rotate(-45deg); }
+
+  @media (max-width: 860px) {
+    nav.topnav {
+      flex-wrap: wrap;
+      padding: 0.875rem 1.25rem;
+    }
+    nav.topnav .brand { white-space: nowrap; }
+    .nav-toggle-label { display: block; }
+
+    /* Collapse the link row into a slide-down panel */
+    nav.topnav .navlinks {
+      display: block;
+      flex-basis: 100%;
+      width: 100%;
+      order: 3;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+    }
+    .nav-toggle:checked ~ .navlinks {
+      max-height: 100vh;
+      overflow-y: auto;
+    }
+    nav.topnav .navlinks > a {
+      display: block;
+      padding: 0.875rem 0;
+      font-size: 0.8125rem;
+      border-bottom: 1px solid rgba(255,255,255,0.12);
+    }
+    nav.topnav .navlinks > a:first-child { margin-top: 0.75rem; }
+    nav.topnav .navlinks > a:hover,
+    nav.topnav .navlinks > a.active { border-bottom-color: var(--gold); }
+
+    /* Flatten the Resources dropdown: always-visible group inside the panel */
+    nav.topnav .navdropdown { display: block; width: 100%; }
+    nav.topnav .navdropdown-toggle {
+      display: block;
+      padding: 0.875rem 0 0.5rem;
+      border-bottom: none;
+      cursor: default;
+      color: var(--gold);
+    }
+    nav.topnav .navdropdown .caret { display: none; }
+    nav.topnav .navdropdown-menu {
+      position: static;
+      opacity: 1;
+      visibility: visible;
+      transform: none;
+      min-width: 0;
+      width: 100%;
+      background: rgba(255,255,255,0.06);
+      border: none;
+      border-radius: 4px;
+      box-shadow: none;
+      margin-bottom: 0.75rem;
+      padding: 0.25rem 0;
+    }
+    nav.topnav .navlinks .navdropdown-menu a {
+      color: white;
+      padding: 0.75rem 1rem;
+    }
+    nav.topnav .navlinks .navdropdown-menu a:hover { background: rgba(255,255,255,0.08); }
+    nav.topnav .navdropdown-menu .dropdown-label { color: white; }
+    nav.topnav .navdropdown-menu .dropdown-desc { color: rgba(255,255,255,0.65); }
+  }
+
+
+  /* FOOTER */
+  footer {
+    background: var(--cream);
+    padding: 2.5rem 1.5rem;
+    text-align: center;
+    color: var(--soft-gray);
+    font-size: 0.8125rem;
+    border-top: 1px solid rgba(0,0,0,0.05);
+  }
+  footer p { margin-bottom: 0.25rem; }
+  footer .footer-url {
+    color: var(--afp-blue);
+    font-weight: 700;
+    letter-spacing: 0.05em;
+  }
+  footer .attribution {
+    margin-top: 0.5rem;
+    font-style: italic;
+  }
+
+
+  @media (hover: none) and (pointer: coarse) {
+    nav.topnav .navlinks a,
+    nav.topnav .navlinks .navdropdown-menu a {
+      -webkit-tap-highlight-color: rgba(201, 162, 74, 0.25);
+    }
+  }
+  @media (max-width: 600px) {
+    nav.topnav { padding: 0.875rem 1rem; }
+    nav.topnav .brand { font-size: 0.8125rem; letter-spacing: 0.15em; }
+  }
+  /* COACHING PROGRAM PAGE */
+  :root { --surface: #FFFFFF; --line: #E3DCCD; --gold-ink: #7A5A12; }
+  main.program { max-width: 960px; margin: 0 auto; padding: 2.5rem max(16px, env(safe-area-inset-right, 0px)) 3.5rem max(16px, env(safe-area-inset-left, 0px)); display: grid; gap: 1.25rem; }
+  .program h1, .program h2, .program h3 { font-family: var(--serif); color: var(--nav-blue); font-weight: 600; text-wrap: balance; }
+  .program h1 { font-size: clamp(2.4rem, 6vw, 3.4rem); line-height: 1.05; }
+  .program h2 { font-size: 1.45rem; line-height: 1.2; margin-bottom: 0.5rem; }
+  .program h3 { font-size: 1.15rem; margin-bottom: 0.5rem; }
+  .program .eyebrow { font-size: 0.75rem; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold-ink); margin-bottom: 0.6rem; }
+  .hero { padding-bottom: 0.5rem; border-bottom: 2px solid var(--gold); }
+  .hero-sub { font-family: var(--serif); font-size: 1.3rem; line-height: 1.4; margin: 0.75rem 0 0.6rem; max-width: 46ch; color: var(--charcoal); }
+  .hero-line { color: var(--soft-gray); max-width: 60ch; margin-bottom: 1rem; }
+  .band { display: grid; gap: 0.75rem; }
+  .two { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; }
+  .card { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 1.1rem 1.25rem; display: grid; gap: 0.5rem; align-content: start; }
+  .card ul { padding-left: 1.1rem; display: grid; gap: 0.35rem; }
+  .note { font-size: 0.9rem; color: var(--soft-gray); }
+  .small { font-size: 0.9rem; color: var(--soft-gray); }
+  .phase { display: grid; gap: 0.5rem; }
+  .phase-label { font-size: 0.75rem; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold-ink); }
+  ol.steps { list-style: none; counter-reset: s; display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 0.6rem; }
+  ol.steps li { counter-increment: s; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 0.7rem 0.85rem 0.7rem 2.6rem; position: relative; font-size: 0.95rem; }
+  ol.steps li::before { content: counter(s); position: absolute; left: 0.75rem; top: 0.65rem; width: 1.4rem; height: 1.4rem; border-radius: 50%; background: var(--afp-blue); color: #fff; font-weight: 700; font-size: 0.8rem; display: grid; place-items: center; }
+  ol.cycle { list-style: none; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0; border: 1px solid var(--line); border-radius: 12px; overflow: hidden; background: var(--surface); }
+  ol.cycle li { padding: 0.75rem 0.9rem; display: grid; gap: 0.15rem; border-right: 1px solid var(--line); position: relative; }
+  ol.cycle li:last-child { border-right: 0; }
+  ol.cycle li b { font-family: var(--serif); font-size: 1.15rem; color: var(--afp-blue); }
+  ol.cycle li span { font-size: 0.85rem; color: var(--soft-gray); }
+  ol.cycle li:not(:last-child)::after { content: "→"; position: absolute; right: -0.55rem; top: 0.85rem; background: var(--surface); color: var(--gold); font-weight: 700; z-index: 1; }
+  .ledger { background: var(--nav-blue); color: #fff; border-radius: 14px; padding: 1.25rem 1.4rem; grid-template-columns: 1fr auto; align-items: center; gap: 1.25rem; }
+  .ledger h2 { color: #fff; }
+  .ledger .small { color: #DCD2F2; }
+  .ledger-text { display: grid; gap: 0.4rem; min-width: 0; }
+  a.login { background: var(--gold); color: var(--nav-blue); font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; font-size: 0.85rem; padding: 0.8rem 1.1rem; border-radius: 6px; text-decoration: none; white-space: nowrap; }
+  a.login:hover { background: #D8B664; }
+  a.login:focus-visible, .contact a:focus-visible { outline: 3px solid var(--gold); outline-offset: 3px; }
+  .invest, .about { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem 2rem; }
+  .invest > div, .about > div { display: grid; gap: 0.4rem; align-content: start; }
+  .price { font-family: var(--serif); font-size: 1.2rem; color: var(--charcoal); }
+  .price b { font-size: 2.4rem; color: var(--afp-blue); }
+  .contact a { color: var(--afp-blue); font-weight: 700; font-size: 1.1rem; }
+  .print-only { display: none; }
+  @media (max-width: 640px) {
+    ol.cycle { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    ol.cycle li:nth-child(2) { border-right: 0; }
+    ol.cycle li:nth-child(-n+2) { border-bottom: 1px solid var(--line); }
+    ol.cycle li::after { display: none; }
+    .ledger { grid-template-columns: 1fr; }
+  }
+
+  /* One Letter page when printed */
+  @page { size: letter; margin: 0.45in 0.5in; }
+  @media print {
+    nav.topnav, footer { display: none !important; }
+    body { background: #fff; font-family: Arial, Helvetica, 'Liberation Sans', sans-serif; font-size: 9pt; line-height: 1.32; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    main.program { max-width: none; padding: 0; gap: 0.6rem; }
+    .program h1 { font-size: 24pt; }
+    .program h2 { font-size: 13pt; margin-bottom: 0.2rem; }
+    .program h3 { font-size: 11pt; margin-bottom: 0.2rem; }
+    .hero-sub { font-size: 11.5pt; margin: 0.2rem 0; max-width: none; }
+    .hero { padding-bottom: 0.2rem; }
+    .hero-line { margin-bottom: 0.25rem; }
+    .band { gap: 0.3rem; }
+    .phase { gap: 0.25rem; }
+    .two { grid-template-columns: 1fr 1fr; gap: 0.6rem; }
+    .card { padding: 0.45rem 0.65rem; gap: 0.2rem; }
+    .card ul { gap: 0.15rem; }
+    ol.steps { grid-template-columns: repeat(4, 1fr); gap: 0.4rem; }
+    ol.steps li { padding: 0.4rem 0.5rem 0.4rem 2.15rem; font-size: 8.6pt; }
+    ol.steps li::before { left: 0.5rem; top: 0.45rem; width: 1.15rem; height: 1.15rem; }
+    ol.cycle li { padding: 0.3rem 0.6rem; align-content: start; }
+    ol.cycle li b { font-size: 11pt; }
+    ol.cycle li span { font-size: 8.4pt; }
+    ol.cycle li:not(:last-child)::after { font-size: 11pt; top: 0.3rem; right: -0.5rem; }
+    .ledger { padding: 0.5rem 0.85rem; gap: 0.8rem; grid-template-columns: 1fr auto; }
+    .ledger-text { gap: 0.2rem; }
+    .invest, .about { grid-template-columns: 1fr 1fr; gap: 0.4rem 1.2rem; }
+    .price b { font-size: 18pt; }
+    .invest > div, .about > div { gap: 0.2rem; }
+    .print-only { display: block; }
+    .screen-only { display: none; }
+    .note, .small { font-size: 8pt; }
+  }
+
+</style>
+<script defer src="/_vercel/insights/script.js"></script>
+</head>
+<body>
+
+<nav class="topnav">
+  <a href="index.html" class="brand">Show Me the Receipts</a>
+  <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-hidden="true">
+  <label for="nav-toggle" class="nav-toggle-label" aria-label="Open menu"><span></span></label>
+  <div class="navlinks">
+    <a href="about.html">About</a>
+    <a href="about.html#speaking">Speaking &amp; Coaching</a>
+    <div class="navpair">
+      <a href="leadership-notes.html"><img class="nav-mark" src="/images/notes/leadership-note-gold.svg" alt="" width="16" height="16">Leadership Notes</a>
+      <span class="navpair-divider" aria-hidden="true"></span>
+      <a href="field-notes.html"><img class="nav-mark" src="/images/notes/field-note-gold.svg" alt="" width="16" height="16">Field Notes</a>
+    </div>
+    <div class="navdropdown" tabindex="0">
+      <span class="navdropdown-toggle">Tools <span class="caret">&#9662;</span></span>
+      <div class="navdropdown-menu">
+        <a href="promise.html">
+          <span class="dropdown-label">Make My Promise</span>
+          <span class="dropdown-desc">One promise &middot; thirty days</span>
+        </a>
+        <a href="trace-one-failure.html">
+          <span class="dropdown-label">Trace One Failure</span>
+          <span class="dropdown-desc">Interactive tracing instrument</span>
+        </a>
+        <a href="downloads/show-me-the-receipts-reference-card.pdf" download>
+          <span class="dropdown-label">Reference Card</span>
+          <span class="dropdown-desc">190 receipts &middot; PDF download</span>
+        </a>
+        <a href="downloads/show-me-the-receipts-trust-audit.pdf" download>
+          <span class="dropdown-label">Trust Audit Worksheet</span>
+          <span class="dropdown-desc">19-page audit &middot; PDF download</span>
+        </a>
+        <a href="relationship-report.html">
+          <span class="dropdown-label">The Relationship Report</span>
+          <span class="dropdown-desc">5 metrics &middot; build it yourself</span>
+        </a>
+        <a href="glossary.html">
+          <span class="dropdown-label">Glossary</span>
+          <span class="dropdown-desc">40 working terms</span>
+        </a>
+        <a href="ai-witness.html">
+          <span class="dropdown-label">AI as Witness</span>
+          <span class="dropdown-desc">Six prompts &middot; method</span>
+        </a>
+        <a href="downloads/relationships-in-fundraising.pdf" download>
+          <span class="dropdown-label">Further Reading</span>
+          <span class="dropdown-desc">Relationships in Fundraising &middot; PDF download</span>
+        </a>
+      </div>
+    </div>
+    <a href="ledger.html" class="nav-cta">Client Login</a>
+  </div>
+</nav>
+
+<main class="program">
+  <header class="hero">
+    <p class="eyebrow">Coaching for executive directors and directors of development</p>
+    <h1>The Four Receipts</h1>
+    <p class="hero-sub">Coaching that leaves you with receipts: commitments anyone can check, persistent problems resolved or handed back, and a record of what you kept.</p>
+    <p class="hero-line">Not superman. Leverage. Coaching starts with you as the point where your organization, and the profession, can change.</p>
+  </header>
+
+  <section class="band outcomes" aria-labelledby="h-outcomes">
+    <h2 id="h-outcomes">What you leave with</h2>
+    <div class="two">
+      <div class="card">
+        <h3>Skills you can show, not just claim</h3>
+        <ul>
+          <li><b>Making checkable commitments:</b> a standard, a deadline, an owner and evidence.</li>
+          <li><b>Tracing a failure to its cause:</b> what produced it, not who.</li>
+          <li><b>Managing up and across:</b> handing back, in writing, what belongs to the board or another department.</li>
+          <li><b>Building systems that outlast you:</b> a report, a standard, a handoff that no longer depends on memory.</li>
+        </ul>
+        <p class="note">After six months, your portfolio holds every kept promise and its evidence: interview stories with proof attached.</p>
+      </div>
+      <div class="card">
+        <h3>A persistent challenge, finally ended</h3>
+        <p>Bring the problem that keeps coming back. Within six months, it reaches one of two endings:</p>
+        <ul>
+          <li><b>Resolved,</b> with evidence that it was kept.</li>
+          <li><b>Traced and handed back:</b> the assumption behind it named, and the problem sent to the role that owns it.</li>
+        </ul>
+        <p class="note">Both count. The second is often the bigger win: you stop carrying what was never yours to fix.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="band how" aria-labelledby="h-how">
+    <h2 id="h-how">How it works</h2>
+    <div class="phase">
+      <p class="phase-label">Getting started</p>
+      <ol class="steps">
+        <li><b>A conversation.</b> We decide whether coaching fits.</li>
+        <li><b>Enrol.</b> Agreement and invoice; you sign in to your ledger.</li>
+        <li><b>Three questions</b> before we meet, about your story and your promises.</li>
+        <li><b>First session.</b> The story first; we set your goals.</li>
+      </ol>
+    </div>
+    <div class="phase">
+      <p class="phase-label">Every two weeks</p>
+      <ol class="cycle">
+        <li><b>Made</b><span>A promise worth paying for</span></li>
+        <li><b>Owned</b><span>Mine, not the institution’s</span></li>
+        <li><b>Kept</b><span>Action, not just planning</span></li>
+        <li><b>Proved</b><span>Evidence it was kept</span></li>
+      </ol>
+      <p class="small">You work the cycle in your ledger; we meet at the end of each cycle, starting from the record, not from memory. Goals are reviewed at three and six months.</p>
+    </div>
+  </section>
+
+  <section class="band ledger" aria-labelledby="h-ledger">
+    <div class="ledger-text">
+      <h2 id="h-ledger">Your Four Receipts Ledger</h2>
+      <p>A private web app for your promises, every two weeks. It keeps your history, shows what keeps slipping and whose obstacle it is, tracks your goals, and builds your portfolio of kept promises.</p>
+      <p class="small">Private to you and the coach you invite. Your coach can read but never change it, and you can remove access at any time.</p>
+    </div>
+    <a class="login" href="ledger.html">Client Login</a>
+  </section>
+
+  <section class="band invest" aria-labelledby="h-invest">
+    <div>
+      <h2 id="h-invest">Investment</h2>
+      <p class="price"><b>$250</b> a session</p>
+      <p>Sessions every two weeks. The Four Receipts Ledger is included. Packages available on request; your organization can be invoiced.</p>
+    </div>
+    <div>
+      <h2>What coaching won’t promise</h2>
+      <p>A promotion, a new job, or results for your organization. Too much else decides those. What the coaching promises is the evidence.</p>
+    </div>
+  </section>
+
+  <section class="band about" aria-labelledby="h-about">
+    <div>
+      <h2 id="h-about">Your coach</h2>
+      <p><b>Glen E. Quiring, CFRE,</b> has led in nonprofits since 1985 and developed the Show Me the Receipts framework: durable trust is a record of promises made and kept.</p>
+    </div>
+    <div class="start">
+      <h2>Start with a conversation</h2>
+      <p class="contact"><a href="mailto:contact@showmereceipts.org">contact@showmereceipts.org</a></p>
+      <p class="small screen-only"><a href="downloads/the-four-receipts-at-a-glance.pdf" download>Download this page as a one-page PDF</a></p>
+      <p class="small print-only">ShowMeReceipts.org/coaching.html</p>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <p class="footer-url">ShowMeReceipts.org</p>
+  <p class="attribution">&copy; 2026 Glen E. Quiring, CFRE. All rights reserved.</p>
+</footer>
+
+<script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>
+<script>
+  (function () {
+    var t = document.getElementById('nav-toggle');
+    if (t) document.querySelectorAll('nav.topnav .navlinks a').forEach(function (l) { l.addEventListener('click', function () { t.checked = false; }); });
+  })();
+</script>
+</body>
+</html>

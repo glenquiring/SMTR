@@ -242,6 +242,8 @@ const MAIN_PAGES = [
     description: 'On building an organization where promises to donors get kept. Leadership Notes by Glen E. Quiring, CFRE.' },
   { path: 'promise.html', title: 'Make Your Promise | Show Me the Receipts',
     description: 'Make one promise you will keep in the next thirty days. You will hear from us twice along the way, and once on day thirty: the receipt.' },
+  { path: 'coaching.html', title: 'The Four Receipts Coaching | Show Me the Receipts',
+    description: 'Coaching for executive directors and directors of development: skills you can show, persistent challenges resolved, a private ledger of kept promises. $250 a session.' },
   { path: 'ledger.html', title: 'Four Receipts Ledger | Show Me the Receipts',
     description: 'A private, two-week receipts review for leaders and their coaches. Made, Owned, Kept, Proved.' },
   { path: 'about.html', title: 'About | Show Me the Receipts',
