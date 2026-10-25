@@ -456,6 +456,15 @@
   }
   .mantra .btn { margin-top: 2rem; }
 
+  /* COACHING BRIDGE */
+  .leader-band { background: var(--cream); border-top: 1px solid rgba(61,0,164,0.1); border-bottom: 1px solid rgba(61,0,164,0.1); padding: 3.5rem 1.5rem; }
+  .leader-band .wrap { max-width: 980px; margin: 0 auto; display: grid; grid-template-columns: 1fr auto; gap: 1.5rem 3rem; align-items: center; }
+  .leader-band .eyebrow-sm { color: var(--afp-blue); margin-bottom: 0.75rem; }
+  .leader-band h2 { font-family: var(--serif); font-weight: 500; font-size: clamp(1.6rem, 3vw, 2.1rem); line-height: 1.2; color: var(--nav-blue); margin-bottom: 0.75rem; }
+  .leader-band p { font-size: 1.0625rem; line-height: 1.7; max-width: 60ch; }
+  .leader-band .btn { white-space: nowrap; }
+  @media (max-width: 720px) { .leader-band .wrap { grid-template-columns: 1fr; } .leader-band { padding: 3rem 1.25rem; } }
+
   /* TOOLS + SPEAKING */
   .tools-speak { padding: 5rem 1.5rem; }
   .tools-speak .wrap { display: flex; flex-wrap: wrap; gap: 3rem; }
@@ -503,7 +512,19 @@
   <label for="nav-toggle" class="nav-toggle-label" aria-label="Open menu"><span></span></label>
   <div class="navlinks">
     <a href="about.html">About</a>
-    <a href="about.html#speaking">Speaking &amp; Coaching</a>
+    <div class="navdropdown" tabindex="0">
+      <span class="navdropdown-toggle">Speaking &amp; Coaching <span class="caret">&#9662;</span></span>
+      <div class="navdropdown-menu">
+        <a href="about.html#speaking">
+          <span class="dropdown-label">Speaking</span>
+          <span class="dropdown-desc">Keynotes &middot; chapters &middot; conferences</span>
+        </a>
+        <a href="coaching.html">
+          <span class="dropdown-label">The Four Receipts</span>
+          <span class="dropdown-desc">Coaching &middot; twice a month, in person</span>
+        </a>
+      </div>
+    </div>
     <div class="navpair">
       <a href="leadership-notes.html"><img class="nav-mark" src="/images/notes/leadership-note-gold.svg" alt="" width="16" height="16">Leadership Notes</a>
       <span class="navpair-divider" aria-hidden="true"></span>
@@ -637,6 +658,17 @@
     </div>
   </section>
 
+  <section class="leader-band" aria-labelledby="h-leader">
+    <div class="wrap">
+      <div>
+        <p class="eyebrow-sm">The Four Receipts &middot; Coaching</p>
+        <h2 id="h-leader">The same discipline, practised by one leader.</h2>
+        <p>An organization keeps its promises when the people who lead it keep theirs. The Four Receipts coaches executive directors and directors of development twice a month, in person, with a private ledger of every promise made, owned, kept and proved.</p>
+      </div>
+      <a href="coaching.html" class="btn btn-navy">See the program &rarr;</a>
+    </div>
+  </section>
+
   <section class="notes" aria-label="Latest notes">
     <div class="wrap">
       <div class="notes-cols">
@@ -699,7 +731,7 @@
       <div class="speak-card">
         <p class="eyebrow-sm">Speaking, teaching and coaching</p>
         <p class="speak-head">For conferences, boards and leadership teams that want the receipts in the room.</p>
-        <p class="speak-coach">One-on-one coaching for Executive Directors and Directors of Development.</p>
+        <p class="speak-coach">One-on-one coaching for Executive Directors and Directors of Development: <a href="coaching.html" style="color:var(--light-gold)">The Four Receipts</a>.</p>
         <p class="speak-cred">Glen E. Quiring, CFRE &middot; in nonprofit leadership since 1985</p>
         <a href="about.html#speaking" class="btn btn-gold">Work with Glen &rarr;</a>
       </div>

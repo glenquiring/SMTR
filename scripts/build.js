@@ -175,7 +175,7 @@ function signupCard() {
   ].join('\n');
 }
 
-function shareTags({ title, description, path, image, type, date }) {
+function shareTags({ title, description, path, image, alt, type, date }) {
   const pageUrl = SITE_URL + '/' + path;
   const img = SITE_URL + '/' + (image || DEFAULT_IMAGE);
   return [
@@ -188,7 +188,7 @@ function shareTags({ title, description, path, image, type, date }) {
     '<meta property="og:image" content="' + img + '">',
     '<meta property="og:image:width" content="1200">',
     '<meta property="og:image:height" content="627">',
-    '<meta property="og:image:alt" content="Show Me the Receipts: a receipt of promises kept, with the balance reading Trust">',
+    '<meta property="og:image:alt" content="' + esc(alt || 'Show Me the Receipts: a receipt of promises kept, with the balance reading Trust') + '">',
     date ? '<meta property="article:published_time" content="' + date + '">' : '',
     '<meta name="twitter:card" content="summary_large_image">',
     '<meta name="twitter:title" content="' + esc(title) + '">',
@@ -242,6 +242,10 @@ const MAIN_PAGES = [
     description: 'On building an organization where promises to donors get kept. Leadership Notes by Glen E. Quiring, CFRE.' },
   { path: 'promise.html', title: 'Make Your Promise | Show Me the Receipts',
     description: 'Make one promise you will keep in the next thirty days. You will hear from us twice along the way, and once on day thirty: the receipt.' },
+  { path: 'coaching.html', share: 'coaching', image: 'images/share-coaching.png',
+    alt: 'The Four Receipts coaching: You keep a ledger, not just a coach. A ledger card reading Made, Owned, Kept, Proved, with the balance reading Confidence',
+    title: 'The Four Receipts Coaching | Show Me the Receipts',
+    description: 'Coaching for executive directors and directors of development: skills you can show, persistent challenges resolved, a private ledger of kept promises. Three months from $1,500.' },
   { path: 'ledger.html', title: 'Four Receipts Ledger | Show Me the Receipts',
     description: 'A private, two-week receipts review for leaders and their coaches. Made, Owned, Kept, Proved.' },
   { path: 'about.html', title: 'About | Show Me the Receipts',
@@ -252,7 +256,7 @@ for (const p of MAIN_PAGES) {
   if (!fs.existsSync(file)) continue;
   const html = fs.readFileSync(file, 'utf8');
   const out = fillBlock(html, 'share', shareTags({
-    title: p.title, description: p.description, path: p.share !== undefined ? p.share : p.path
+    title: p.title, description: p.description, image: p.image, alt: p.alt, path: p.share !== undefined ? p.share : p.path
   }));
   if (out !== html) fs.writeFileSync(file, out);
 }
