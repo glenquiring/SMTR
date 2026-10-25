@@ -369,6 +369,8 @@
   .pill.slipped { background: var(--slip-bg); color: var(--slip); }
   .pill.carried { background: var(--surface); color: var(--gold-ink); border: 1px solid var(--gold); }
   .pill.now { background: var(--light-gold); color: var(--gold-ink); }
+  .pill.goal { background: #EDE6FA; color: var(--afp-blue); }
+  .pill.goal.challenge { background: var(--light-gold); color: var(--gold-ink); }
 
   .receipt-step { display: grid; gap: 0.9rem; }
   .rhead { display: flex; gap: 0.85rem; align-items: flex-start; }
@@ -509,7 +511,9 @@
 
     <div class="tabs" role="tablist">
       <button role="tab" id="tab-ledger" aria-selected="true" aria-controls="panel-ledger" type="button">Ledger</button>
+      <button role="tab" id="tab-goals" aria-selected="false" aria-controls="panel-goals" type="button">Goals</button>
       <button role="tab" id="tab-history" aria-selected="false" aria-controls="panel-history" type="button">History</button>
+      <button role="tab" id="tab-portfolio" aria-selected="false" aria-controls="panel-portfolio" type="button">Portfolio</button>
       <button role="tab" id="tab-coaching" aria-selected="false" aria-controls="panel-coaching" type="button">Coaching</button>
     </div>
     <p class="status-line" id="saveMsg" role="status"></p>
@@ -555,6 +559,7 @@
             <label for="nClock">Which clock<select id="nClock"><option value="cycle">This cycle</option><option value="year">This year</option><option value="horizon">The long horizon</option></select></label>
             <label for="nCost">What will it cost me?<input id="nCost" placeholder="Two evenings; saying no to the gala committee"></label>
           </div>
+          <label for="nGoal">Serves which goal?<select id="nGoal"><option value="">Not linked to a goal</option></select></label>
           <div class="actions"><button class="btn" type="submit">Add promise</button></div>
         </form>
       </section>
@@ -588,6 +593,25 @@
       </section>
     </section>
 
+    <!-- GOALS -->
+    <section id="panel-goals" role="tabpanel" aria-labelledby="tab-goals" hidden style="display:grid;gap:1.2rem">
+      <div class="card">
+        <h2>Engagement goals</h2>
+        <p class="small muted">Name one or two skills to build and one or two persistent challenges to solve. Write each so its evidence could be checked. Link promises to a goal as you make them; the reviews at three and six months read from the record.</p>
+        <p class="small" id="goalDates"></p>
+        <form id="goalForm" style="display:grid;gap:0.6rem;border-top:1px solid var(--line);padding-top:0.9rem">
+          <div class="grid2">
+            <label for="gKind">Kind<select id="gKind"><option value="skill">A skill to build</option><option value="challenge">A persistent challenge</option></select></label>
+            <label for="gTitle">The goal<input id="gTitle" required maxlength="300" placeholder="Managing up to the board"></label>
+          </div>
+          <label for="gKept">What kept looks like, and what will prove it<input id="gKept" placeholder="Three board reports written as specifications, each approved"></label>
+          <div class="actions"><button class="btn" type="submit">Add goal</button></div>
+        </form>
+      </div>
+      <div class="card"><h2>Skills to build</h2><div class="plist" id="skillGoals"></div></div>
+      <div class="card"><h2>Persistent challenges</h2><p class="small muted">Each one ends in one of two ways: resolved, or traced to the assumption behind it and handed to the role that owns it. Both count.</p><div class="plist" id="challengeGoals"></div></div>
+    </section>
+
     <!-- HISTORY -->
     <section id="panel-history" role="tabpanel" aria-labelledby="tab-history" hidden style="display:grid;gap:1.2rem">
       <div class="card">
@@ -615,6 +639,16 @@
       </div>
     </section>
 
+    <!-- PORTFOLIO -->
+    <section id="panel-portfolio" role="tabpanel" aria-labelledby="tab-portfolio" hidden style="display:grid;gap:1.2rem">
+      <div class="card">
+        <h2>Your receipts portfolio</h2>
+        <p class="small muted">Every kept promise, with its evidence, grouped by the goal it served. Use it for interviews, résumés and performance reviews: here is what I promised, and here is what shows I kept it.</p>
+        <div class="actions"><button class="btn" id="copyPortfolio" type="button">Copy portfolio</button><span class="status-line" id="portfolioMsg" role="status"></span></div>
+      </div>
+      <div id="portfolioList" style="display:grid;gap:1rem"></div>
+    </section>
+
     <!-- COACHING -->
     <section id="panel-coaching" role="tabpanel" aria-labelledby="tab-coaching" hidden style="display:grid;gap:1.2rem">
       <div class="card" id="myCoachCard">
@@ -639,6 +673,7 @@
           <li>Ask what produced the slip, not who caused it. That includes when the “who” is the leader.</li>
           <li>Watch the Owned sort. Is the leader carrying the institution’s promises, or handing back their own?</li>
           <li>Use the History tab every few cycles: repeat slips and the obstacle tally show the pattern.</li>
+          <li>At cycles 6 and 13, review each goal in the Goals tab against its evidence. For a persistent challenge, “traced and handed back” counts as success.</li>
           <li>Take the standing question seriously. Ask what the person they named would see.</li>
           <li>Close with the next cycle’s promises, each written so you could check it.</li>
         </ul>
@@ -682,7 +717,7 @@
   var S = {
     me: null, profile: null,
     subject: null, subjectName: '', readOnly: false,
-    cycles: [], promises: [], currentId: null, tab: 'ledger'
+    cycles: [], promises: [], goals: [], currentId: null, tab: 'ledger'
   };
   var clockLabel = { cycle: 'This cycle', year: 'This year', horizon: 'Long horizon' };
   var ownerLabel = { mine: 'Mine', institution: 'The institution’s', shared: 'Shared' };
@@ -722,7 +757,9 @@
     if (r1.error) throw r1.error;
     var r2 = await sb.from('promises').select('*').eq('user_id', userId).order('created_at');
     if (r2.error) throw r2.error;
-    S.cycles = r1.data; S.promises = r2.data;
+    var r3 = await sb.from('goals').select('*').eq('user_id', userId).order('created_at');
+    if (r3.error) throw r3.error;
+    S.cycles = r1.data; S.promises = r2.data; S.goals = r3.data;
   }
 
   // Find or create the cycle containing today, carrying unresolved promises forward.
@@ -748,7 +785,7 @@
       var carry = promisesOf(prev.id).filter(function (p) { return p.status === '' || p.status === 'slipped'; }).map(function (p) {
         return {
           cycle_id: cycle.id, text: p.text, to_whom: p.to_whom, due: p.new_due || p.due, evidence: p.evidence,
-          clock: p.clock, cost: p.cost, owner: p.owner, hand_back: p.hand_back, carried_from: p.id
+          clock: p.clock, cost: p.cost, owner: p.owner, hand_back: p.hand_back, carried_from: p.id, goal_id: p.goal_id
         };
       });
       if (carry.length) {
@@ -811,8 +848,10 @@
         el('div', { class: 'meta' }, p.carried_from ? el('span', { class: 'pill carried', text: 'Carried forward' }) : null,
           el('span', { text: clockLabel[p.clock] || 'This cycle' }), p.due ? el('span', { text: 'Due ' + fmt(p.due) }) : null, p.to_whom ? el('span', { text: 'To ' + p.to_whom }) : null),
         el('p', { class: 'ptext', text: p.text }),
+        goalChip(p),
         el('p', { class: 'small muted', text: p.evidence ? 'Evidence: ' + p.evidence : 'No evidence written yet.' }),
         p.cost ? el('p', { class: 'small muted', text: 'Cost: ' + p.cost }) : null,
+        (S.readOnly || !S.goals.length) ? null : el('label', { for: 'mg-' + p.id }, 'Serves which goal?', goalSelect('mg-' + p.id, p.goal_id, function (v) { queueSave(p, { goal_id: v }); renderLedger(); })),
         S.readOnly ? null : el('div', { class: 'actions' }, el('button', { class: 'link', type: 'button', text: 'Remove', onclick: function () { removePromise(p); } }))
       ));
     });
@@ -871,6 +910,7 @@
       L.push(g[1]);
       group.forEach(function (p) {
         L.push('• ' + p.text + (p.to_whom ? ' (to ' + p.to_whom + ')' : '') + (p.due ? ', due ' + fmt(p.due) : ''));
+        var gg = p.goal_id && goalById(p.goal_id); if (gg) L.push('   Goal: ' + kindLabel[gg.kind] + ', ' + gg.title);
         if (p.owner) L.push('   Owned: ' + ownerLabel[p.owner] + (p.hand_back ? (p.owner === 'institution' ? ', handed back to ' : ', shared with ') + p.hand_back : ''));
         if (g[0] === 'kept' && p.proof) L.push('   Proof: ' + p.proof);
         if (g[0] === 'slipped') {
@@ -934,6 +974,9 @@
     renderMade(ps); renderOwned(ps); renderKept(ps); renderProved(ps);
     var ch = $('character'); ch.readOnly = S.readOnly; if (document.activeElement !== ch) ch.value = c ? c.character || '' : '';
     show('addForm', !S.readOnly);
+    var ng = $('nGoal'), keep = ng.value; ng.replaceChildren(el('option', { value: '', text: 'Not linked to a goal' }));
+    S.goals.forEach(function (g) { ng.append(el('option', { value: g.id, text: kindLabel[g.kind] + ': ' + g.title })); });
+    ng.value = goalById(keep) ? keep : '';
     $('outSub').textContent = S.readOnly ? 'This is the leader’s receipt for the cycle.' : 'Your coach can read it in the ledger. You can also copy it into an email.';
     renderReceipt();
   }
@@ -1031,15 +1074,139 @@
     show('viewingNote', false);
   }
 
+  // ---------- goals ----------
+  var kindLabel = { skill: 'Skill', challenge: 'Challenge' };
+  var goalStatusLabel = { open: 'In progress', demonstrated: 'Demonstrated', resolved: 'Resolved', 'handed back': 'Traced and handed back' };
+  function goalById(id) { return S.goals.find(function (g) { return g.id === id; }); }
+  function goalChip(p) { var g = p.goal_id && goalById(p.goal_id); return g ? el('span', { class: 'pill goal ' + g.kind, text: kindLabel[g.kind] + ': ' + g.title }) : null; }
+  function goalSelect(id, value, onChange) {
+    var sel = el('select', { id: id, disabled: S.readOnly });
+    sel.append(el('option', { value: '', text: 'Not linked to a goal' }));
+    S.goals.forEach(function (g) { sel.append(el('option', { value: g.id, text: kindLabel[g.kind] + ': ' + g.title })); });
+    sel.value = value || '';
+    if (onChange) sel.addEventListener('change', function () { onChange(sel.value || null); });
+    return sel;
+  }
+  var goalTimers = {};
+  function saveGoal(g, fields, rerender) {
+    Object.assign(g, fields);
+    clearTimeout(goalTimers[g.id]);
+    goalTimers[g.id] = setTimeout(async function () {
+      var r = await sb.from('goals').update(fields).eq('id', g.id);
+      if (r.error) fail(r.error); else saved('Saved');
+    }, rerender ? 0 : 600);
+    if (rerender) renderGoals();
+  }
+  function reviewDates() {
+    if (!S.cycles.length) return null;
+    var start = S.cycles[0].start_date;
+    return { start: start, r3: addDays(start, 6 * CYCLE_DAYS - 1), r6: addDays(start, 13 * CYCLE_DAYS - 1) };
+  }
+  function goalField(label, id, value, onInput, placeholder, type) {
+    var input = el(type === 'textarea' ? 'textarea' : 'input', { id: id, placeholder: placeholder || '', readonly: S.readOnly });
+    input.value = value || '';
+    if (!S.readOnly) input.addEventListener('input', function () { onInput(input.value); });
+    return el('label', { for: id }, label, input);
+  }
+  function renderGoals() {
+    var rd = reviewDates();
+    $('goalDates').textContent = rd ? 'Engagement began ' + fmt(rd.start, true) + '. Three-month review: end of cycle 6, ' + fmt(rd.r3, true) + '. Six-month review: end of cycle 13, ' + fmt(rd.r6, true) + '.' : '';
+    show('goalForm', !S.readOnly);
+    ['skill', 'challenge'].forEach(function (kind) {
+      var box = $(kind === 'skill' ? 'skillGoals' : 'challengeGoals'); box.replaceChildren();
+      var gs = S.goals.filter(function (g) { return g.kind === kind; });
+      if (!gs.length) box.append(el('p', { class: 'empty', text: kind === 'skill' ? 'No skills named yet.' : 'No persistent challenges named yet.' }));
+      gs.forEach(function (g) {
+        var linked = S.promises.filter(function (p) { return p.goal_id === g.id; });
+        var kept = linked.filter(function (p) { return p.status === 'kept'; });
+        var opts = kind === 'skill' ? [['open', 'In progress'], ['demonstrated', 'Demonstrated']] : [['open', 'In progress'], ['resolved', 'Resolved'], ['handed back', 'Traced and handed back']];
+        var card = el('div', { class: 'prow' },
+          el('div', { class: 'meta' }, el('span', { class: 'pill goal ' + kind, text: goalStatusLabel[g.status] }), el('span', { text: kept.length + ' kept of ' + linked.length + ' linked promises' })),
+          el('p', { class: 'ptext', text: g.title }),
+          goalField('What kept looks like, and what will prove it', 'gk-' + g.id, g.kept_looks_like, function (v) { saveGoal(g, { kept_looks_like: v }); }, kind === 'skill' ? 'Three board reports written as specifications, each approved' : 'The policy is approved, or it sits with the role that owns it', 'textarea'),
+          seg(opts, g.status, function (v) { saveGoal(g, { status: v || 'open' }, true); }));
+        if (kind === 'challenge' && g.status === 'handed back') {
+          card.append(goalField('The governing assumption behind it', 'ga-' + g.id, g.assumption, function (v) { saveGoal(g, { assumption: v }); }, 'We assumed development owned site visits; no one did', 'textarea'));
+          card.append(goalField('Handed to which role?', 'gh-' + g.id, g.handed_to, function (v) { saveGoal(g, { handed_to: v }); }, 'Program director'));
+        }
+        card.append(el('div', { class: 'grid2' },
+          goalField('Three-month review', 'g3-' + g.id, g.review_3, function (v) { saveGoal(g, { review_3: v }); }, 'What the record shows at cycle 6', 'textarea'),
+          goalField('Six-month review', 'g6-' + g.id, g.review_6, function (v) { saveGoal(g, { review_6: v }); }, 'What the record shows at cycle 13', 'textarea')));
+        if (!S.readOnly) card.append(el('div', { class: 'actions' }, el('button', { class: 'link', type: 'button', text: 'Remove goal', onclick: function () { removeGoal(g); } })));
+        box.append(card);
+      });
+    });
+  }
+  async function removeGoal(g) {
+    var r = await sb.from('goals').delete().eq('id', g.id);
+    if (r.error) return fail(r.error);
+    S.goals = S.goals.filter(function (x) { return x.id !== g.id; });
+    S.promises.forEach(function (p) { if (p.goal_id === g.id) p.goal_id = null; });
+    saved('Goal removed'); renderGoals();
+  }
+
+  // ---------- portfolio ----------
+  function cycleOf(p) { return S.cycles.find(function (c) { return c.id === p.cycle_id; }); }
+  function portfolioGroups() {
+    var kept = S.promises.filter(function (p) { return p.status === 'kept'; });
+    var groups = [];
+    S.goals.forEach(function (g) {
+      var items = kept.filter(function (p) { return p.goal_id === g.id; });
+      if (items.length || (g.kind === 'challenge' && g.status !== 'open') || (g.kind === 'skill' && g.status === 'demonstrated')) groups.push({ goal: g, items: items });
+    });
+    var other = kept.filter(function (p) { return !p.goal_id || !goalById(p.goal_id); });
+    if (other.length) groups.push({ goal: null, items: other });
+    return groups;
+  }
+  function itemLine(p) {
+    var c = cycleOf(p);
+    return p.text + (p.to_whom ? ' (to ' + p.to_whom + ')' : '') + (c ? ', ' + fmt(c.end_date, true) : '');
+  }
+  function renderPortfolio() {
+    var box = $('portfolioList'); box.replaceChildren();
+    var groups = portfolioGroups();
+    if (!groups.length) { box.append(el('p', { class: 'empty', text: 'Kept promises appear here, with their evidence, as the cycles go.' })); }
+    groups.forEach(function (gr) {
+      var g = gr.goal;
+      var card = el('div', { class: 'card' },
+        el('p', { class: 'eyebrow', text: g ? kindLabel[g.kind] + ' · ' + goalStatusLabel[g.status] : 'Other kept promises' }),
+        el('h3', { text: g ? g.title : 'Kept promises not linked to a goal' }));
+      if (g && g.kind === 'challenge' && g.status === 'handed back') {
+        card.append(el('p', { class: 'small', text: 'Traced to: ' + (g.assumption || '(assumption not yet written)') + (g.handed_to ? '. Handed to: ' + g.handed_to + '.' : '') }));
+      }
+      var ul = el('ul', { class: 'plain' });
+      gr.items.forEach(function (p) {
+        ul.append(el('li', null, el('div', { text: itemLine(p) }), el('div', { class: 'small muted', text: p.proof ? 'Evidence: ' + p.proof : 'No evidence recorded yet. Add it under Proved.' })));
+      });
+      if (!gr.items.length) ul.append(el('li', { class: 'empty', text: 'No linked promises kept yet.' }));
+      card.append(ul);
+      box.append(card);
+    });
+  }
+  function portfolioText() {
+    var L = ['FOUR RECEIPTS PORTFOLIO' + (S.subjectName ? ' · ' + S.subjectName : ''), 'Kept promises, with the evidence for each.', ''];
+    portfolioGroups().forEach(function (gr) {
+      var g = gr.goal;
+      L.push((g ? kindLabel[g.kind].toUpperCase() + ': ' + g.title + ' (' + goalStatusLabel[g.status] + ')' : 'OTHER KEPT PROMISES'));
+      if (g && g.kind === 'challenge' && g.status === 'handed back') L.push('   Traced to: ' + (g.assumption || '-') + (g.handed_to ? '. Handed to: ' + g.handed_to : ''));
+      gr.items.forEach(function (p) { L.push('• ' + itemLine(p)); if (p.proof) L.push('   Evidence: ' + p.proof); });
+      L.push('');
+    });
+    L.push('Recorded in the Four Receipts Ledger · ShowMeReceipts.org');
+    return L.join('\n');
+  }
+
   // ---------- tabs ----------
   function setTab(t) {
     S.tab = t;
-    ['ledger', 'history', 'coaching'].forEach(function (x) {
+    ['ledger', 'goals', 'history', 'portfolio', 'coaching'].forEach(function (x) {
       $('tab-' + x).setAttribute('aria-selected', String(x === t));
       $('panel-' + x).hidden = x !== t;
     });
     if (t === 'ledger') renderLedger();
     if (t === 'history') renderHistory();
+    if (t === 'goals') renderGoals();
+    if (t === 'portfolio') renderPortfolio();
     if (t === 'coaching') renderCoaching();
   }
 
@@ -1054,7 +1221,7 @@
   $('addForm').addEventListener('submit', async function (e) {
     e.preventDefault();
     var c = cur(); var text = $('nText').value.trim(); if (!c || !text) return;
-    var row = { cycle_id: c.id, text: text, to_whom: $('nTo').value.trim(), due: $('nDue').value || null, evidence: $('nEvidence').value.trim(), clock: $('nClock').value, cost: $('nCost').value.trim() };
+    var row = { cycle_id: c.id, text: text, to_whom: $('nTo').value.trim(), due: $('nDue').value || null, evidence: $('nEvidence').value.trim(), clock: $('nClock').value, cost: $('nCost').value.trim(), goal_id: $('nGoal').value || null };
     var r = await sb.from('promises').insert(row).select().single();
     if (r.error) return fail(r.error);
     S.promises.push(r.data);
@@ -1065,7 +1232,19 @@
   $('character').addEventListener('input', function (e) { var c = cur(); if (c && !S.readOnly) { saveCharacter(c, e.target.value); renderReceipt(); } });
   $('prevCycle').addEventListener('click', function () { var i = S.cycles.indexOf(cur()); if (i > 0) { S.currentId = S.cycles[i - 1].id; renderLedger(); } });
   $('nextCycle').addEventListener('click', function () { var i = S.cycles.indexOf(cur()); if (i < S.cycles.length - 1) { S.currentId = S.cycles[i + 1].id; renderLedger(); } });
-  ['ledger', 'history', 'coaching'].forEach(function (t) { $('tab-' + t).addEventListener('click', function () { setTab(t); }); });
+  ['ledger', 'goals', 'history', 'portfolio', 'coaching'].forEach(function (t) { $('tab-' + t).addEventListener('click', function () { setTab(t); }); });
+  $('goalForm').addEventListener('submit', async function (e) {
+    e.preventDefault();
+    var title = $('gTitle').value.trim(); if (!title) return;
+    var r = await sb.from('goals').insert({ kind: $('gKind').value, title: title, kept_looks_like: $('gKept').value.trim() }).select().single();
+    if (r.error) return fail(r.error);
+    S.goals.push(r.data); $('gTitle').value = ''; $('gKept').value = '';
+    saved('Goal added'); renderGoals();
+  });
+  $('copyPortfolio').addEventListener('click', function () {
+    var txt = portfolioText();
+    try { navigator.clipboard.writeText(txt).then(function () { msg('portfolioMsg', 'Copied.'); }, function () { msg('portfolioMsg', 'Copy didn\u2019t work here. Select the text below instead.'); }); } catch (e) { msg('portfolioMsg', 'Copy didn\u2019t work here.'); }
+  });
   $('backToMine').addEventListener('click', async function () { try { await openMine(); setTab('ledger'); } catch (e) { fail(e); } });
 
   $('copyBtn').addEventListener('click', function () {
