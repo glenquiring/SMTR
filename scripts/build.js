@@ -204,7 +204,7 @@ for (const n of notes) {
   let html = fs.readFileSync(file, 'utf8');
   const before = html;
   html = fillBlock(html, 'share', shareTags({
-    title: n.title, description: n.summary, path: rel, image: n.image, type: 'article', date: n.date
+    title: n.title, description: n.summary, path: rel, image: n.image, alt: n.imageAlt, type: 'article', date: n.date
   }));
   html = fillBlock(html, 'signup-top', signupTop());
   html = fillBlock(html, 'signup', signupCard());
