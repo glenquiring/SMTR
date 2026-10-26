@@ -2,6 +2,7 @@
   "buildCommand": "node scripts/build.js",
   "outputDirectory": ".",
   "rewrites": [
-    { "source": "/coaching", "destination": "/coaching.html" }
+    { "source": "/coaching", "destination": "/coaching.html" },
+    { "source": "/speaking", "destination": "/speaking.html" }
   ]
 }
