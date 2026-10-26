@@ -7,13 +7,13 @@
 <link rel="icon" href="/favicon.ico" sizes="32x32">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<meta name="description" content="Glen E. Quiring, CFRE, on the thesis behind Show Me the Receipts: that durable donor trust is the institutional record of kept promises, not a product of the fundraiser-donor relationship. The claim, its grounding in the field, and the person accountable for it.">
+<meta name="description" content="Glen E. Quiring, CFRE, works for the executive directors and development directors who carry a nonprofit's promises to its donors. What being on their side means, the promises this site keeps, and three ways to start.">
 <!-- share:begin -->
 <link rel="canonical" href="https://www.showmereceipts.org/about.html">
 <meta property="og:site_name" content="Show Me the Receipts">
 <meta property="og:type" content="website">
 <meta property="og:title" content="About | Show Me the Receipts">
-<meta property="og:description" content="The argument behind Show Me the Receipts, and the person accountable for it: Glen E. Quiring, CFRE.">
+<meta property="og:description" content="On the side of the people who keep the promises: Glen E. Quiring, CFRE, for executive directors and development directors.">
 <meta property="og:url" content="https://www.showmereceipts.org/about.html">
 <meta property="og:image" content="https://www.showmereceipts.org/images/share-default.png">
 <meta property="og:image:width" content="1200">
@@ -21,7 +21,7 @@
 <meta property="og:image:alt" content="Show Me the Receipts: a receipt of promises kept, with the balance reading Trust">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="About | Show Me the Receipts">
-<meta name="twitter:description" content="The argument behind Show Me the Receipts, and the person accountable for it: Glen E. Quiring, CFRE.">
+<meta name="twitter:description" content="On the side of the people who keep the promises: Glen E. Quiring, CFRE, for executive directors and development directors.">
 <meta name="twitter:image" content="https://www.showmereceipts.org/images/share-default.png">
 <!-- share:end -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -432,6 +432,35 @@
   .author-contact { font-size:1rem; margin:0 0 1.75rem; text-align:center; color:var(--charcoal); }
   .author-contact a.bio-email { border-bottom:2px solid var(--gold); text-decoration:none; color:var(--afp-blue); font-weight:700; }
   .author-top { padding-top:3.5rem; }
+
+  /* ADVOCATE ABOUT (102526) */
+  .page-hero--about h1 { font-size: clamp(2.25rem, 5.5vw, 3.75rem); line-height: 1.05; max-width: 900px; margin: 0 auto 1.25rem; }
+  .page-hero--about .subtitle { max-width: 720px; margin-left: auto; margin-right: auto; line-height: 1.5; }
+  .stance-list, .bg-list { list-style: none; margin: 0; padding: 0; }
+  .stance-list li { font-size: 1.0625rem; line-height: 1.75; padding: 1rem 0 1rem 1.25rem; border-left: 3px solid var(--gold); margin-bottom: 1rem; background: rgba(255,255,255,0.55); border-radius: 0 8px 8px 0; padding-right: 1rem; }
+  .stance-list strong { color: var(--afp-blue); display: block; font-size: 1.0625rem; margin-bottom: 0.15rem; }
+  .promise-box { background: #fff; border: 1px solid rgba(61,0,164,0.16); border-top: 4px solid var(--afp-blue); border-radius: 12px; padding: 2rem 2rem 1.5rem; }
+  .promise-box h2 { margin-top: 0; }
+  .promise-list { margin: 0; padding: 0; list-style: none; counter-reset: pr; }
+  .promise-list li { counter-increment: pr; position: relative; padding: 0.85rem 0 0.85rem 2.75rem; border-top: 1px dashed rgba(61,0,164,0.22); font-size: 1rem; line-height: 1.7; }
+  .promise-list li::before { content: counter(pr, decimal-leading-zero); position: absolute; left: 0; top: 0.85rem; font-weight: 700; color: var(--gold); letter-spacing: 0.05em; }
+  .promise-list strong { color: var(--charcoal); }
+  .start-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+  .start-card { display: flex; flex-direction: column; text-decoration: none; color: var(--charcoal); background: #fff; border: 1px solid rgba(61,0,164,0.14); border-radius: 12px; padding: 1.5rem 1.25rem; transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s; }
+  .start-card:hover { border-color: var(--gold); box-shadow: 0 8px 24px rgba(40,0,108,0.12); transform: translateY(-2px); }
+  .start-kicker { font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); font-weight: 700; margin-bottom: 0.5rem; }
+  .start-title { font-family: var(--serif); font-size: 1.35rem; font-weight: 600; color: var(--afp-blue); line-height: 1.2; margin-bottom: 0.6rem; }
+  .start-desc { font-size: 0.9375rem; line-height: 1.6; flex: 1; margin-bottom: 1rem; }
+  .start-go { white-space: nowrap; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--afp-blue); border-bottom: 2px solid var(--gold); align-self: flex-start; padding-bottom: 0.1rem; }
+  .bg-list li { font-size: 1rem; line-height: 1.6; padding: 0.6rem 0; border-bottom: 1px solid rgba(61,0,164,0.1); }
+  .field-details { margin-top: 2rem; border-top: 2px solid var(--gold); padding-top: 1.25rem; }
+  .field-details summary { cursor: pointer; font-family: var(--serif); font-size: 1.15rem; font-weight: 600; color: var(--afp-blue); }
+  .field-details p { font-size: 0.975rem; line-height: 1.75; margin: 1rem 0; }
+  .field-details .details-sub { font-weight: 700; color: var(--charcoal); margin-bottom: 0.5rem; }
+  .field-details ol { padding-left: 1.4rem; }
+  .field-details li { font-size: 0.9375rem; line-height: 1.7; color: var(--soft-gray); margin-bottom: 0.9rem; }
+  .field-details li strong { color: var(--charcoal); }
+  @media (max-width: 760px) { .start-cards { grid-template-columns: 1fr; } .promise-box { padding: 1.5rem 1.25rem 1rem; } }
 </style>
 <script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>
 <script defer src="/_vercel/insights/script.js"></script>
@@ -503,10 +532,10 @@
   </div>
 </nav>
 
-<header class="page-hero">
+<header class="page-hero page-hero--about">
   <p class="eyebrow">About</p>
-  <h1>The argument, and the person accountable for it</h1>
-  <p class="subtitle">Show Me the Receipts is a thesis about how donor trust actually gets built. Here is the person behind it, the claim, and where it stands in the field.</p>
+  <h1>I&rsquo;m on the side of the people who keep the promises.</h1>
+  <p class="subtitle">Executive directors and development directors carry the promises a nonprofit makes to its donors. When one breaks, you are usually the first person asked to explain it, and the last person asked what caused it. I work for you.</p>
 </header>
 
 <main>
@@ -517,67 +546,102 @@
         <img class="author-hero-img" src="images/glen-keynote.jpg" alt="Glen E. Quiring, CFRE, presenting Show Me the Receipts">
         <figcaption class="author-hero-cap">Presenting Show Me the Receipts</figcaption>
       </figure>
-      <p class="author-contact"><strong>Glen E. Quiring, CFRE</strong> &middot; <a class="bio-email" href="mailto:contact@showmereceipts.org">contact@showmereceipts.org</a></p>
-      <p>I&rsquo;m Glen Quiring, CFRE, and I am responsible for Show Me the Receipts. I&rsquo;m a Certified Fund Raising Executive, and I came to this argument the long way: through the Lilly Family School of Philanthropy and years spent creating development solutions, during which I watched development departments suffer from a lack of effectiveness that nobody could really name despite upholding the very popular mantra &ldquo;fundraising is about relationships.&rdquo; That unexplained loss is where this framework comes from. My work at the Pacific Conservatory Theatre and the Allan Hancock College Foundation and my own practice at Clearview Philanthropy is where it gets put to use.</p>
-      <p>I want to be careful about my own place in it, because it bears on how you should read a page like this. If trust is institutional rather than personal, then you shouldn&rsquo;t trust this framework, since I&rsquo;m the one making the case. You should trust it because it holds up. My job isn&rsquo;t to be the charismatic source of a good idea. It&rsquo;s to be the person accountable for the claim: the one who put his name on it, who will defend the parts that are defensible and correct the parts that aren&rsquo;t. Author and steward, not guru.</p>
-    </section>
-
-    <section class="about-section">
-      <h2>How I read the field</h2>
-      <p>When someone credits a fundraiser&rsquo;s warmth for a major gift, or blames a departed staffer for a donor who left, I ask a different question: was that person the source of the outcome, or the channel that carried it? Most of what we call the relationship is a channel. It makes an institution&rsquo;s integrity legible to the donor. It does not create it. The gift the warm officer landed was usually planted years earlier by promises the institution kept, or lost years earlier by promises it broke.</p>
+      <p class="author-contact"><strong>Glen E. Quiring, CFRE</strong> &middot; in nonprofit leadership since 1985 &middot; <a class="bio-email" href="mailto:contact@showmereceipts.org">contact@showmereceipts.org</a></p>
     </section>
 
     <section class="about-section about-lede">
-      <h2>The claim</h2>
-      <p>Show Me the Receipts makes one argument. Durable donor trust is not manufactured inside the relationship between a fundraiser and a donor. It is the accumulated record of promises an institution made and kept.<sup class="fn-ref"><a href="#note-1" id="ref-1">1</a></sup> The fundraiser carries those promises. The fundraiser is not the source of the trust they earn.</p>
-      <p>Warmth is real and worth having, but no major gift has ever arrived because of it, and none has left for lack of it. What moves trust rightward, year over year, is receipts.<sup class="fn-ref"><a href="#note-2" id="ref-2">2</a></sup></p>
+      <h2>What I&rsquo;ve watched happen to good people</h2>
+      <p>A long-time donor stops giving. Nobody can say exactly why, so the question becomes <em>who</em>: who let it slip, who should have called, who wasn&rsquo;t warm enough. The development director takes it home. Sometimes the development director leaves, and the next one inherits the same gap.</p>
+      <p>An executive director gets a board that wants more revenue and a staff too small to hold every thread. The data still carries a donor&rsquo;s name wrong. A handoff fails when someone goes on leave. The board asks for a better fundraiser.</p>
+      <p>None of that is a character flaw. It is what happens when a profession explains its losses by looking at people instead of at the work between them. We have all been taught to do it. I did it too.</p>
     </section>
 
     <section class="about-section">
-      <h2>What this site is</h2>
-      <p>This is the permanent home of that argument. The <a class="inline" href="field-notes.html">Field Notes</a> work it out in public, one observation at a time, honest about what the research establishes and what is still hypothesis. The instruments let practitioners act on it inside their own shops. The short version travels in rooms and on LinkedIn. The full case lives here.</p>
+      <h2>What being on your side means</h2>
+      <ul class="stance-list">
+        <li><strong>I look past you to the handoff.</strong> When something breaks, I want to know what let it break, not who to hold responsible. That question protects you, and it is also the one that fixes next year.</li>
+        <li><strong>I won&rsquo;t help you find someone else to blame.</strong> Not your executive director, not your development director, not your board, and not yourself. Blame moves the problem; it never closes it.</li>
+        <li><strong>I will tell you the truth.</strong> An advocate who only agrees with you is not much use. If the record shows a promise of yours slipping, you will hear it from me first, privately, with a way to repair it.</li>
+        <li><strong>I make your case in the rooms you&rsquo;re not in.</strong> At chapter meetings and conferences I argue that the people who carry the promises deserve systems that let them keep them.</li>
+      </ul>
     </section>
 
     <section class="about-section">
-      <h2>Where it stands in the field</h2>
-      <p>None of this replaces good fundraising practice. It adds a layer underneath it.<sup class="fn-ref"><a href="#note-5" id="ref-5">5</a></sup> The argument stands on established shoulders: Adrian Sargeant on trust, commitment, and satisfaction as the drivers of donor loyalty; Ken Burnett on relationship fundraising; Chris Argyris on how organizations learn, or fail to, when something breaks.<sup class="fn-ref"><a href="#note-3" id="ref-3">3</a></sup></p>
-      <p>It takes those threads and asks a question the field never quite operationalized: when a donor leaves, can you trace the broken promise that lost them? Most shops cannot. That gap is the work.<sup class="fn-ref"><a href="#note-4" id="ref-4">4</a></sup></p>
+      <h2>I&rsquo;ve sat in your chair</h2>
+      <p>I have worked in nonprofit leadership since 1985. I was Director of Development at the Pacific Conservatory Theatre and am now Director of Philanthropy at the Allan Hancock College Foundation. For most of that time I watched development departments lose donors for reasons nobody could name, while everyone repeated that fundraising is about relationships. Show Me the Receipts came out of trying to name what was actually going wrong, so the next person would not have to carry it alone.</p>
     </section>
 
     <section class="about-section">
-      <h2>How this site handles claims</h2>
-      <p>Show Me the Receipts distinguishes what is documented from what is inferred, and it flags its own hypotheses as hypotheses. Where a number is softer than it sounds, it says so. This is a place to think about the problem rigorously, not a funnel. If the argument is wrong somewhere, this site would rather find out than defend it.</p>
-    </section>
-
-    <section class="about-section">
-      <div class="speak-callout" id="speaking">
-        <h2>Bring it to your chapter or conference</h2>
-        <p>Show Me the Receipts is also a keynote for AFP chapters, conferences and development teams: three acts, Naming, Tracing and Repairing, in which every member names a broken receipt of their own, traces it to the handoff, and leaves with one repair to make in thirty days. It is designed for CFRE continuing-education credit. <a href="speaking.html">See the keynote</a>.</p>
-        <p><strong>Coaching.</strong> I also coach executive directors and directors of development, twice a month and in person, with a private ledger of the promises you keep. <a href="coaching.html">See The Four Receipts program at a glance</a>.</p>
-        <a class="speak-email" href="mailto:contact@showmereceipts.org">contact@showmereceipts.org</a>
+      <div class="promise-box">
+        <h2>My promises to you</h2>
+        <p>If this site argues that trust is a record of kept promises, it should keep some of its own. Here are mine, and you can hold me to them.</p>
+        <ol class="promise-list">
+          <li><strong>Claims labelled by evidence.</strong> What the research shows, what I infer, and what is still a hypothesis, said plainly.</li>
+          <li><strong>A day-thirty check-in.</strong> If you hear the keynote and opt in, I follow up on day thirty to ask whether your repair held.</li>
+          <li><strong>Your record is yours.</strong> Coaching clients keep a private ledger. I can read it; I never change it.</li>
+          <li><strong>No promises I can&rsquo;t keep.</strong> Coaching won&rsquo;t promise you a promotion or your organization&rsquo;s results. It promises the evidence of what you did.</li>
+          <li><strong>Corrections in public.</strong> If part of this argument turns out to be wrong, I will say so here.</li>
+        </ol>
       </div>
     </section>
 
+    <section class="about-section">
+      <h2>Three ways to start</h2>
+      <div class="start-cards">
+        <a class="start-card" href="speaking.html">
+          <span class="start-kicker">For program chairs</span>
+          <span class="start-title">Bring it to your members</span>
+          <span class="start-desc">A 45 to 60 minute keynote for AFP chapters, conferences and development teams, designed for CFRE continuing-education credit. Every person names a broken receipt of their own and leaves with one repair to make in thirty days.</span>
+          <span class="start-go">Bring the keynote &rarr;</span>
+        </a>
+        <a class="start-card" href="coaching.html">
+          <span class="start-kicker">For EDs and development directors</span>
+          <span class="start-title">Work on your own record</span>
+          <span class="start-desc">The Four Receipts: coaching twice a month, in person, with a private ledger of the promises you keep.</span>
+          <span class="start-go">Start a conversation &rarr;</span>
+        </a>
+        <a class="start-card" href="field-notes.html">
+          <span class="start-kicker">For anyone, free</span>
+          <span class="start-title">Start on your own</span>
+          <span class="start-desc">Field Notes and Leadership Notes by email, plus the tracing instrument, Reference Card and Trust Audit.</span>
+          <span class="start-go">Read the notes &rarr;</span>
+        </a>
+      </div>
+    </section>
+
+    <section class="about-section">
+      <h2>Advocate, not guru</h2>
+      <p>One more thing, because it bears on how you should read a page like this. You shouldn&rsquo;t trust this framework because I&rsquo;m the one making the case. You should trust it because it holds up. My job is to stand with you and to stay accountable for the argument: to defend what is defensible and correct what isn&rsquo;t.</p>
+    </section>
+
+    <section class="about-section">
+      <h2>Background</h2>
+      <ul class="bg-list">
+        <li>Certified Fund Raising Executive (CFRE)</li>
+        <li>AFP Certified Facilitator; board member, AFP San Luis Obispo County chapter</li>
+        <li>Director of Philanthropy, Allan Hancock College Foundation</li>
+        <li>Former Director of Development, Pacific Conservatory Theatre (PCPA)</li>
+        <li>Principal, Clearview Philanthropy</li>
+        <li>Master&rsquo;s thesis: &ldquo;An Ecology of Mutuality: A Proposed Metaphor for Communities of Faith,&rdquo; Mennonite Brethren Biblical Seminary, 2003</li>
+      </ul>
+
+      <details class="field-details">
+        <summary>Where Show Me the Receipts sits in the field</summary>
+        <p>None of this replaces good fundraising practice. It adds a layer underneath it. The argument stands on established shoulders: Adrian Sargeant on trust, commitment, and satisfaction as the drivers of donor loyalty; Ken Burnett on relationship fundraising; Chris Argyris on how organizations learn, or fail to, when something breaks. It asks a question the field never quite operationalized: when a donor leaves, can you trace the broken promise that lost them?</p>
+        <p class="details-sub">Grounding in the field&rsquo;s foundational curriculum</p>
+        <ol>
+          <li><strong>Modules 4 and 7, AFP Fundamentals of Fundraising Course.</strong> Module 4, Building &amp; Sustaining Relationships, teaches that relationships are the foundation of fundraising and begin with knowing the donor. Module 7, Management &amp; Accountability, covers records management, gift processing, program evaluation, and accountability. This framework locates the trust the field places in Module 4 within the machinery of Module 7. It relocates the source of that trust; it does not reject the relationship.</li>
+          <li><strong>Module 5, Securing the Gift.</strong> The curriculum&rsquo;s solicitation module covers the ask for annual and major gifts. The warmth-versus-trust distinction is a claim about what secures the <em>next</em> gift and the one after: not the solicitation moment, but the record of promises kept between asks.</li>
+          <li><strong>Module 1, Overview of Fundraising.</strong> The opening module introduces why people give and the foundations of the field, including the donor-retention research the profession now teaches. This framework draws its retention premise from that same ground; the named scholars are its intellectual lineage.</li>
+          <li><strong>Modules 4 and 7, extended.</strong> Module 4 addresses sustaining relationships and Module 7 addresses program evaluation, but neither the introductory curriculum nor its advanced counterparts teach causal tracing: following a lapse back to the specific process failure that produced it. This is the capacity the framework proposes to add above the existing competencies, not a correction to them.</li>
+          <li><strong>The seven modules, as a whole.</strong> Modules 1 through 7 describe the field&rsquo;s foundational competencies. Show Me the Receipts adds a capacity beneath them rather than substituting for any. Locating the argument against this curriculum situates it relative to the field&rsquo;s own teaching; it does not imply endorsement by AFP.</li>
+        </ol>
+      </details>
+    </section>
+
   </div>
 
-  <div class="about-cta">
-    <a href="field-notes.html">Read a Field Note</a>
-    <a href="trace-one-failure.html">Use an instrument</a>
-    <a href="mailto:contact@showmereceipts.org">Get in touch</a>
-  </div>
-
-  <section class="about-notes" aria-label="Notes">
-    <h2>Notes: grounding in the field&rsquo;s foundational curriculum</h2>
-    <ol>
-      <li id="note-1"><strong>Modules 4 and 7, AFP Fundamentals of Fundraising Course.</strong> Module 4, Building &amp; Sustaining Relationships, teaches that relationships are the foundation of fundraising and begin with knowing the donor. Module 7, Management &amp; Accountability, covers records management, gift processing, program evaluation, and accountability. This framework locates the trust the field places in Module 4 within the machinery of Module 7. It relocates the source of that trust; it does not reject the relationship. <a href="#ref-1">&#8617;</a></li>
-      <li id="note-2"><strong>Module 5, Securing the Gift.</strong> The curriculum&rsquo;s solicitation module covers the ask for annual and major gifts. The warmth-versus-trust distinction is a claim about what secures the <em>next</em> gift and the one after: not the solicitation moment, but the record of promises kept between asks. <a href="#ref-2">&#8617;</a></li>
-      <li id="note-3"><strong>Module 1, Overview of Fundraising.</strong> The opening module introduces why people give and the foundations of the field, including the donor-retention research the profession now teaches. This framework draws its retention premise from that same ground; the named scholars are its intellectual lineage. <a href="#ref-3">&#8617;</a></li>
-      <li id="note-4"><strong>Modules 4 and 7, extended.</strong> Module 4 addresses sustaining relationships and Module 7 addresses program evaluation, but neither the introductory curriculum nor its advanced counterparts teach causal tracing: following a lapse back to the specific process failure that produced it. This is the capacity the framework proposes to add above the existing competencies, not a correction to them. <a href="#ref-4">&#8617;</a></li>
-      <li id="note-5"><strong>The seven modules, as a whole.</strong> Modules 1 through 7 describe the field&rsquo;s foundational competencies. Show Me the Receipts adds a capacity beneath them rather than substituting for any. Locating the argument against this curriculum situates it relative to the field&rsquo;s own teaching; it does not imply endorsement by AFP. <a href="#ref-5">&#8617;</a></li>
-    </ol>
-  </section>
-
-  <p class="about-byline">Glen E. Quiring, CFRE &mdash; developer of the Show Me the Receipts framework.</p>
+  <p class="about-byline">Glen E. Quiring, CFRE &middot; <a class="bio-email" href="mailto:contact@showmereceipts.org">contact@showmereceipts.org</a></p>
 </main>
 
 <footer>
