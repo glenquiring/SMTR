@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Warmth Opens the Door. It Doesn't Keep It Open. | Show Me the Receipts</title>
+<meta name="description" content="The working alliance research is clear: warmth creates the opening. But warmth alone doesn't hold donor trust over time. A field note on what keeps it open.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --afp-blue: #3D00A4;
+    --nav-blue: #28006C;
+    --gold: #C9A24A;
+    --cream: #FAF7F0;
+    --charcoal: #2A1F3D;
+    --soft-gray: #6B6378;
+    --light-gold: #F0E4C2;
+    --light-purple: #F0EBF8;
+    --serif: "Newsreader", Georgia, "Times New Roman", serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background: var(--cream);
+    color: var(--charcoal);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* ── NAV ── */
+  nav.topnav {
+    background: var(--nav-blue);
+    padding: 1rem 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  }
+  nav.topnav .brand {
+    color: white;
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    text-decoration: none;
+  }
+  nav.topnav .navlinks {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  nav.topnav .navlinks a {
+    color: white;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 0.25rem 0;
+    border-bottom: 2px solid transparent;
+    transition: border-color 0.2s;
+  }
+  nav.topnav .navlinks a:hover { border-bottom-color: var(--gold); }
+  nav.topnav .navlinks a.active { border-bottom-color: var(--gold); }
+
+  nav.topnav .navdropdown {
+    position: relative;
+    display: inline-block;
+    outline: none;
+  }
+  nav.topnav .navdropdown-toggle {
+    color: white;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.25rem 0;
+    border-bottom: 2px solid transparent;
+    transition: border-color 0.2s;
+    cursor: pointer;
+    user-select: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+  nav.topnav .navdropdown:hover .navdropdown-toggle,
+  nav.topnav .navdropdown:focus-within .navdropdown-toggle { border-bottom-color: var(--gold); }
+  nav.topnav .navdropdown .caret {
+    font-size: 0.7em;
+    display: inline-block;
+    transition: transform 0.2s;
+  }
+  nav.topnav .navdropdown:hover .caret,
+  nav.topnav .navdropdown:focus-within .caret { transform: translateY(2px); }
+  nav.topnav .navdropdown-menu {
+    position: absolute;
+    top: calc(100% + 0.75rem);
+    right: 0;
+    background: white;
+    border: 1px solid rgba(0,0,0,0.08);
+    border-radius: 6px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+    min-width: 290px;
+    padding: 0.5rem 0;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-4px);
+    transition: opacity 0.15s, visibility 0.15s, transform 0.15s;
+    z-index: 200;
+  }
+  nav.topnav .navdropdown:hover .navdropdown-menu,
+  nav.topnav .navdropdown:focus-within .navdropdown-menu {
+    opacity: 1; visibility: visible; transform: translateY(0);
+  }
+  nav.topnav .navlinks .navdropdown-menu a {
+    display: block;
+    padding: 0.75rem 1.125rem;
+    color: var(--charcoal);
+    text-decoration: none;
+    border: none; border-bottom: none;
+    letter-spacing: 0; text-transform: none;
+    font-weight: 500; font-size: 0.9375rem;
+    transition: background-color 0.15s;
+  }
+  nav.topnav .navlinks .navdropdown-menu a:hover {
+    background-color: var(--cream); border-bottom: none;
+  }
+  nav.topnav .navdropdown-menu .dropdown-label {
+    display: block; font-weight: 700; color: var(--afp-blue);
+    margin-bottom: 0.1875rem; font-size: 0.9375rem;
+    letter-spacing: 0;
+  }
+  nav.topnav .navdropdown-menu .dropdown-desc {
+    display: block; font-size: 0.75rem; color: var(--soft-gray);
+    font-weight: 400; letter-spacing: 0; line-height: 1.4;
+  }
+
+  /* mobile nav */
+  .nav-toggle { display: none; }
+  .nav-toggle-label {
+    display: none; cursor: pointer;
+    width: 28px; height: 22px;
+    position: relative; flex-shrink: 0;
+  }
+  .nav-toggle-label span,
+  .nav-toggle-label span::before,
+  .nav-toggle-label span::after {
+    content: ""; position: absolute; left: 0; width: 100%; height: 2px;
+    background: white; border-radius: 2px;
+    transition: transform 0.25s ease, opacity 0.2s ease, top 0.25s ease;
+  }
+  .nav-toggle-label span { top: 10px; }
+  .nav-toggle-label span::before { top: -8px; }
+  .nav-toggle-label span::after { top: 8px; }
+  .nav-toggle:checked ~ .nav-toggle-label span { background: transparent; }
+  .nav-toggle:checked ~ .nav-toggle-label span::before { top: 0; transform: rotate(45deg); }
+  .nav-toggle:checked ~ .nav-toggle-label span::after { top: 0; transform: rotate(-45deg); }
+  @media (max-width: 860px) {
+    nav.topnav { flex-wrap: wrap; padding: 0.875rem 1.25rem; }
+    nav.topnav .brand { white-space: nowrap; }
+    .nav-toggle-label { display: block; }
+    nav.topnav .navlinks {
+      display: block; flex-basis: 100%; width: 100%; order: 3;
+      max-height: 0; overflow: hidden; transition: max-height 0.3s ease;
+    }
+    .nav-toggle:checked ~ .navlinks { max-height: 100vh; overflow-y: auto; }
+    nav.topnav .navlinks > a {
+      display: block; padding: 0.875rem 0; font-size: 0.8125rem;
+      border-bottom: 1px solid rgba(255,255,255,0.12);
+    }
+    nav.topnav .navlinks > a:first-child { margin-top: 0.75rem; }
+    nav.topnav .navlinks > a:hover,
+    nav.topnav .navlinks > a.active { border-bottom-color: var(--gold); }
+    nav.topnav .navdropdown { display: block; width: 100%; }
+    nav.topnav .navdropdown-toggle {
+      display: block; padding: 0.875rem 0 0.5rem;
+      border-bottom: none; cursor: default; color: var(--gold);
+    }
+    nav.topnav .navdropdown .caret { display: none; }
+    nav.topnav .navdropdown-menu {
+      position: static; opacity: 1; visibility: visible; transform: none;
+      min-width: 0; width: 100%;
+      background: rgba(255,255,255,0.06);
+      border: none; border-radius: 4px; box-shadow: none;
+      margin-bottom: 0.75rem; padding: 0.25rem 0;
+    }
+    nav.topnav .navlinks .navdropdown-menu a {
+      color: white; padding: 0.75rem 1rem;
+    }
+    nav.topnav .navlinks .navdropdown-menu a:hover { background: rgba(255,255,255,0.08); }
+    nav.topnav .navdropdown-menu .dropdown-label { color: white; }
+    nav.topnav .navdropdown-menu .dropdown-desc { color: rgba(255,255,255,0.65); }
+  }
+
+  /* ── FIELD NOTE HERO ── */
+  .fn-photo {
+    width: 100%;
+    background: #d9eef7;
+    line-height: 0;
+    text-align: center;
+  }
+  .fn-photo img {
+    width: 100%;
+    max-width: 860px;
+    max-height: 560px;
+    object-fit: contain;
+    display: inline-block;
+  }
+  .fn-photo-caption {
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+    color: var(--soft-gray);
+    padding: 0.5rem 1.5rem;
+    text-align: right;
+    background: var(--cream);
+    line-height: 1.4;
+    border-bottom: 1px solid #e8e0f0;
+  }
+
+  .fn-hero {
+    background: var(--afp-blue);
+    color: white;
+    padding: 5rem 1.5rem 5.5rem;
+    text-align: center;
+  }
+  .fn-hero .eyebrow {
+    font-size: 0.75rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    opacity: 0.75;
+    margin-bottom: 0.625rem;
+    font-weight: 600;
+    color: var(--gold);
+  }
+  .fn-hero .series-label {
+    font-size: 0.75rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    opacity: 0.65;
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+  }
+  .fn-hero h1 {
+    font-family: var(--serif);
+    font-size: clamp(2.25rem, 6vw, 4rem);
+    font-weight: 600;
+    letter-spacing: -0.025em;
+    margin-bottom: 1rem;
+    line-height: 1.05;
+    font-variation-settings: "opsz" 60;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .fn-hero .deck {
+    font-family: var(--serif);
+    font-size: clamp(1.125rem, 2.5vw, 1.45rem);
+    font-style: italic;
+    opacity: 0.9;
+    font-weight: 400;
+    max-width: 600px;
+    margin: 0 auto 1.75rem;
+    line-height: 1.5;
+    font-variation-settings: "opsz" 24;
+  }
+  .fn-hero .byline {
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    opacity: 0.65;
+    font-weight: 600;
+  }
+  .fn-hero .byline span {
+    display: inline-block;
+    margin: 0 0.5em;
+    opacity: 0.4;
+  }
+
+  /* ── FIELD NOTE BODY ── */
+  .fn-body {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 4.5rem 1.5rem 1rem;
+  }
+
+  /* Section divider */
+  .fn-rule {
+    border: 0;
+    border-top: 1px solid rgba(61, 0, 164, 0.15);
+    margin: 3rem 0;
+  }
+
+  /* Body text */
+  .fn-body p {
+    font-size: 1.0625rem;
+    line-height: 1.85;
+    margin-bottom: 1.5rem;
+    color: var(--charcoal);
+  }
+  .fn-body p:last-child { margin-bottom: 0; }
+  .fn-body p.lede {
+    font-family: var(--serif);
+    font-size: 1.35rem;
+    line-height: 1.55;
+    font-weight: 400;
+    color: var(--afp-blue);
+    font-variation-settings: "opsz" 24;
+    letter-spacing: -0.005em;
+    margin-bottom: 1.75rem;
+  }
+
+  /* Section headers */
+  .fn-body h2 {
+    font-family: var(--serif);
+    font-size: 1.375rem;
+    font-weight: 600;
+    color: var(--nav-blue);
+    letter-spacing: -0.015em;
+    margin: 2.75rem 0 1rem;
+    line-height: 1.2;
+    font-variation-settings: "opsz" 24;
+  }
+
+  /* Pull quote */
+  .fn-pullquote {
+    border-top: 2px solid var(--gold);
+    border-bottom: 2px solid var(--gold);
+    padding: 1.75rem 0;
+    margin: 2.5rem 0;
+    text-align: center;
+  }
+  .fn-pullquote p {
+    font-family: var(--serif);
+    font-size: 1.3rem;
+    font-style: italic;
+    font-weight: 500;
+    color: var(--afp-blue);
+    line-height: 1.45;
+    letter-spacing: -0.01em;
+    font-variation-settings: "opsz" 24;
+    margin: 0 !important;
+  }
+
+  /* Distinction box */
+  .fn-distinction {
+    background: var(--light-purple);
+    border-left: 4px solid var(--afp-blue);
+    border-radius: 0 4px 4px 0;
+    padding: 1.75rem 1.75rem 1.75rem 1.5rem;
+    margin: 2.5rem 0;
+  }
+  .fn-distinction .distinction-title {
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--afp-blue);
+    font-weight: 700;
+    margin-bottom: 1.25rem;
+  }
+  .fn-distinction .distinction-row {
+    margin-bottom: 1rem;
+  }
+  .fn-distinction .distinction-row:last-child { margin-bottom: 0; }
+  .fn-distinction .distinction-term {
+    font-weight: 700;
+    color: var(--nav-blue);
+    font-size: 1rem;
+  }
+  .fn-distinction .distinction-def {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--charcoal);
+    margin-top: 0.25rem;
+  }
+
+  /* ── CLOSING BAND ── */
+  .fn-close-band {
+    background: var(--nav-blue);
+    color: white;
+    padding: 4rem 1.5rem;
+    text-align: center;
+    margin-top: 4rem;
+  }
+  .fn-close-band p {
+    font-family: var(--serif);
+    font-size: clamp(1.25rem, 3vw, 1.75rem);
+    font-style: italic;
+    font-weight: 400;
+    line-height: 1.4;
+    max-width: 600px;
+    margin: 0 auto;
+    font-variation-settings: "opsz" 24;
+    opacity: 0.95;
+  }
+
+  /* ── FOOTNOTES ── */
+  .fn-notes {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 3rem 1.5rem 1rem;
+    border-top: 1px solid rgba(61, 0, 164, 0.12);
+    margin-top: 3rem;
+  }
+  .fn-notes .notes-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--soft-gray);
+    font-weight: 700;
+    margin-bottom: 1.25rem;
+  }
+  .fn-notes p {
+    font-size: 0.875rem;
+    line-height: 1.7;
+    color: var(--soft-gray);
+    margin-bottom: 1rem;
+  }
+  .fn-notes p:last-child { margin-bottom: 0; }
+
+  /* ── BACK TO FIELD NOTES ── */
+  .fn-nav-back {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem 3rem;
+  }
+  .fn-nav-back a {
+    font-size: 0.8125rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: var(--afp-blue);
+    text-decoration: none;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 2px;
+    transition: color 0.2s;
+  }
+  .fn-nav-back a:hover { color: var(--nav-blue); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--cream);
+    padding: 2.5rem 1.5rem;
+    text-align: center;
+    color: var(--soft-gray);
+    font-size: 0.8125rem;
+    border-top: 1px solid rgba(0,0,0,0.05);
+  }
+  footer p { margin-bottom: 0.25rem; }
+  footer .footer-url { color: var(--afp-blue); font-weight: 700; letter-spacing: 0.05em; }
+  footer .attribution { margin-top: 0.5rem; font-style: italic; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 600px) {
+    .fn-hero { padding: 3rem 1.25rem 3.5rem; }
+    .fn-body { padding: 3rem 1.25rem 1rem; }
+    .fn-scene { padding-left: 1.125rem; }
+    .fn-distinction { padding: 1.25rem 1.25rem 1.25rem 1rem; }
+    .fn-notes { padding: 2.5rem 1.25rem 1rem; }
+    .fn-nav-back { padding: 1.5rem 1.25rem 2.5rem; }
+    .fn-close-band { padding: 3rem 1.25rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <a href="index.html" class="brand">Show Me the Receipts</a>
+  <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-hidden="true">
+  <label for="nav-toggle" class="nav-toggle-label" aria-label="Open menu"><span></span></label>
+  <div class="navlinks">
+    <a href="index.html">Home</a>
+    <a href="index.html#make-my-promise">Make My Promise</a>
+    <a href="ai-witness.html">AI as Witness</a>
+    <a href="relationship-report.html">The Relationship Report</a>
+    <a href="glossary.html">Glossary</a>
+    <div class="navdropdown" tabindex="0">
+      <span class="navdropdown-toggle">Resources <span class="caret">&#9662;</span></span>
+      <div class="navdropdown-menu">
+        <a href="downloads/show-me-the-receipts-reference-card.pdf" download>
+          <span class="dropdown-label">Reference Card</span>
+          <span class="dropdown-desc">190 receipts &middot; PDF download</span>
+        </a>
+        <a href="downloads/show-me-the-receipts-trust-audit.pdf" download>
+          <span class="dropdown-label">Trust Audit Worksheet</span>
+          <span class="dropdown-desc">19-page audit &middot; PDF download</span>
+        </a>
+        <a href="relationship-report.html">
+          <span class="dropdown-label">The Relationship Report</span>
+          <span class="dropdown-desc">5 metrics &middot; build it yourself</span>
+        </a>
+        <a href="glossary.html">
+          <span class="dropdown-label">Glossary</span>
+          <span class="dropdown-desc">40 working terms</span>
+        </a>
+        <a href="downloads/relationships-in-fundraising.pdf" download>
+          <span class="dropdown-label">Further Reading</span>
+          <span class="dropdown-desc">Relationships in Fundraising &middot; PDF download</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<header class="fn-hero">
+  <p class="eyebrow">Field Note</p>
+  <p class="series-label">Show Me the Receipts &middot; October 2026</p>
+  <h1>Warmth Opens the Door. It Doesn't Keep It Open.</h1>
+  <p class="deck">Why "fundraising is about relationships" stops one step too early</p>
+  <p class="byline">Glen E. Quiring, CFRE <span>&middot;</span> ShowMeReceipts.org</p>
+</header>
+
+<div class="fn-photo">
+  <img src="watershed.png" alt="Illustrated diagram of a watershed showing precipitation, tributaries, watershed divide, and groundwater" />
+  <p class="fn-photo-caption">Watershed diagram showing precipitation, tributaries, and groundwater &middot; Public Domain</p>
+</div>
+
+<main>
+
+  <article class="fn-body">
+
+    <p class="lede">A watershed is not a place you can point to. It is the entire upstream system — snowpack, hillside, forest floor, tributary — that determines what a river carries. The river itself is just the channel. What flows through it depends on everything above.</p>
+
+    <p>This is the image that clarifies what experienced fundraisers have been saying for decades without quite finishing the thought.</p>
+
+    <hr class="fn-rule">
+
+    <h2>What the research found first</h2>
+
+    <p>The coaching profession has been working this question longer than fundraising has. Researchers studying professional coaching identified something they called the working alliance — the quality of the relationship between coach and client, measured along three dimensions: agreement on goals, agreement on tasks, and the affective bond between them.</p>
+
+    <p>When Gessnitzer and Kauffeld aggregated 27 studies involving more than 3,500 coaching relationships, the finding was unambiguous. The working alliance predicted outcomes with a correlation of r&nbsp;=&nbsp;.41 — a medium-to-large effect that accounts for roughly 17% of the variance in whether coaching actually works. And within the alliance, the affective bond subscale — warmth, safety, attentiveness — was the strongest single predictor of goal attainment. Stronger than shared goals. Stronger than aligned methods.</p>
+
+    <p>In plain terms: how safe and heard the client feels matters more than whether the two parties have agreed on what they are trying to accomplish. The relationship is doing real work. The coaching folklore — that it is about the relationship — is not wrong.</p>
+
+    <p>But here is what the research also shows. A coach with strong rapport who gives poor direction still produces poor outcomes. The alliance creates the conditions for good work. It does not substitute for it. Warmth opens the door. It does not build what's on the other side.</p>
+
+    <div class="fn-pullquote">
+      <p>"Fundraising is about relationships" is a true observation pointing at the wrong mechanism.</p>
+    </div>
+
+    <h2>The same structure in fundraising</h2>
+
+    <p>Fundraisers recognized the warmth phenomenon long before the coaching researchers named it. A donor who feels genuinely heard, warmly received, and respected in the exchange is more likely to give, more likely to respond, and more likely to stay in conversation. The practitioners were right. The relationship matters.</p>
+
+    <p>What the folklore misses is the distinction between the conditions that make a transaction possible and the evidence that makes trust durable. Warmth creates the opening. The record is what keeps it open.</p>
+
+    <p>A donor who feels a strong connection with their fundraiser and later discovers that their gift was misused, their intent was ignored, or the impact they were promised never materialized does not trust the organization more because the relationship felt good. The relationship got them in the room. The institutional record — the accumulated evidence of what this organization does with its promises — is what determines whether they stay.</p>
+
+    <h2>The fundraiser is a channel, not the source</h2>
+
+    <p>This is the move the folklore does not make.</p>
+
+    <p>When we say fundraising is about relationships, we implicitly locate trust in the person — in the fundraiser's warmth, rapport, and relational skill. This is partly true and dangerously incomplete. It is true that relationship quality predicts engagement. It is incomplete because it attributes to the fundraiser something that belongs to the institution.</p>
+
+    <p>Trust is an institutional record of kept promises. The fundraiser carries that record into every conversation, for better or worse. A skilled fundraiser representing an institution with a strong record of keeping its promises is a compelling messenger. The same skilled fundraiser representing an institution that routinely underdelivers is carrying a liability the relationship cannot overcome — at least not indefinitely.</p>
+
+    <p>The folklore conflates the messenger with the message. It mistakes the quality of the channel for the quality of what flows through it.</p>
+
+    <div class="fn-distinction">
+      <p class="distinction-title">The distinction in plain terms</p>
+      <div class="distinction-row">
+        <p class="distinction-term">Relationship quality</p>
+        <p class="distinction-def">Predicts whether the donor engages. It creates the conditions for a productive exchange. It is what gets you in the room and keeps the conversation open. It is the river.</p>
+      </div>
+      <div class="distinction-row">
+        <p class="distinction-term">Institutional record</p>
+        <p class="distinction-def">Predicts whether the donor stays. It is the accumulated evidence of whether this organization does what it says. It is what keeps you in the room across years and giving cycles. It is the watershed.</p>
+      </div>
+    </div>
+
+    <h2>What this means in practice</h2>
+
+    <p>It means the question "how is my relationship with this donor?" is necessary but not sufficient. The more complete question is: what is the institutional record this donor has accumulated, and does it match what we promised them?</p>
+
+    <p>It means that when a major donor lapses, the instinct to diagnose a relationship failure may be accurate — but the relationship that failed may not be the one between the fundraiser and the donor. It may be the relationship between the organization and its own stated commitments.</p>
+
+    <p>It means that the most valuable thing a fundraiser can carry into a donor conversation is not charm or warmth or connection — though all of those matter — but a clear account of what was promised and what was delivered. The receipt.</p>
+
+    <div class="fn-pullquote">
+      <p>The most valuable thing you can carry into a donor conversation is a clear account of what was promised and what was delivered.</p>
+    </div>
+
+  </article>
+
+</main>
+
+<div class="fn-close-band">
+  <p>Fundraising is about relationships — specifically, the relationship between an institution and its own word. The fundraiser is the person who carries that record into conversation, demonstrates it through stewardship, and accounts for it when it falls short. That is what the receipt tracks. That is what trust is made of.</p>
+</div>
+
+<div class="fn-notes">
+  <p class="notes-label">About this field note</p>
+  <p>Glen E. Quiring, CFRE, is the Director of Philanthropy at the Allan Hancock College Foundation and the developer of Show Me the Receipts, a fundraising trust framework. Field Notes are practitioner observations in the SMTR series — short-form pieces written from the floor, not the podium.</p>
+  <p>Research note: The working alliance finding referenced here is from Gessnitzer &amp; Kauffeld (2015), &ldquo;The Working Alliance in Coaching,&rdquo; <em>Human Resource Development Quarterly.</em> Meta-analysis of 27 samples, N&nbsp;=&nbsp;3,563. Overall working alliance&ndash;outcome correlation: r&nbsp;=&nbsp;.41 (medium-to-large by Cohen&rsquo;s benchmarks; explains approximately 17% of variance in outcomes). The affective bond subscale — warmth, safety, attentiveness — was the strongest predictor of goal attainment, stronger than agreement on goals or tasks. This is the research basis for the claim that relationship quality predicts engagement. It does not follow that relationship quality predicts institutional trust.</p>
+</div>
+
+<div class="fn-nav-back">
+  <a href="index.html">&larr; Back to Show Me the Receipts</a>
+</div>
+
+<footer>
+  <p class="footer-url">ShowMeReceipts.org</p>
+  <p class="attribution">&copy; 2026 Glen E. Quiring, CFRE. All rights reserved.</p>
+</footer>
+
+<script>
+  (function () {
+    var navToggle = document.getElementById('nav-toggle');
+    if (navToggle) {
+      document.querySelectorAll('nav.topnav .navlinks a').forEach(function (link) {
+        link.addEventListener('click', function () { navToggle.checked = false; });
+      });
+    }
+  })();
+</script>
+
+</body>
+</html>
